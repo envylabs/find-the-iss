@@ -28,7 +28,7 @@
     <link href="<%= htmlWebpackPlugin.files.favicon %>" rel="shortcut icon">
     <% } %>
 
-    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport">
 
     <% for (item of htmlWebpackPlugin.options.links) { %>
     <% if (typeof item === 'string' || item instanceof String) { item = { href: item, rel: 'stylesheet' } } %>
@@ -63,16 +63,34 @@
         position: fixed;
         top: 32px;
         white-space: pre;
+        z-index: 20;
+      }
+
+      .nv-canvas {
+        left: 0;
+        position: absolute;
+        right: 0;
         z-index: 10;
       }
 
-      .nv-video {
+      .nv-video-wrapper {
         height: 100vh;
         left: 0;
+        overflow: hidden;
+        pointer-events: none;
         position: fixed;
         top: 0;
         width: 100vw;
         z-index: 1;
+      }
+
+      .nv-video {
+        height: 100%;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
       }
     </style>
 

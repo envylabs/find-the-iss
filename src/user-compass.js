@@ -1,5 +1,5 @@
 /**
- * Compass
+ * User Compass
  * Get user’s location and looking direction
  */
 
@@ -7,8 +7,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
 
-const throttleFPS = 100; // throttled to 100FPS;
-const throttleMilliseconds = Math.floor(1000 / throttleFPS);
+const defaultOptions = {
+  FPS: 60,   // lock at 60FPS
+};
 const stats = {};
 
 /* Device orientation */
@@ -28,7 +29,10 @@ const geoLocate = () => {
     .watchPosition(updateCoords, error => console.log(error));
 };
 
-const init = () => {
+const init = (options = {}) => {
+  const mergedOptions = Object.assign(defaultOptions, options);
+  const throttleMilliseconds = 1000 / mergedOptions.FPS;
+
   Observable
     .fromEvent(window, 'deviceorientation')
     .throttleTime(throttleMilliseconds)
