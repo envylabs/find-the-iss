@@ -38,7 +38,6 @@ const lights = {};
 /* Camera */
 
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
-camera.position.y = 1.524;
 camera.rotation.order = 'YXZ'; // prevent wonky rotations
 
 /* Scene */
@@ -127,8 +126,9 @@ const init = (options = {}) => {
 /* Update */
 
 const update = (userCamera) => {
-  camera.rotation.y = -userCamera.yaw * radian;
+  camera.position.y = userCamera.altitude;
   camera.rotation.x = (userCamera.pitch - 90) * radian;
+  camera.rotation.y = -userCamera.yaw * radian;
 
   // camera.lookAt(bodies.northCube.position);
 

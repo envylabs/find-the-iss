@@ -20,6 +20,7 @@ const deviceOrientationHandler = (e) => {
 };
 
 const updateCoords = (position) => {
+  stats.altitude = position.coords.altitude;
   stats.latitude = position.coords.latitude;
   stats.longitude = position.coords.longitude;
 };
