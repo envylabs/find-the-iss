@@ -4,7 +4,7 @@
 
 import UserCamera from './user-camera';
 import UserCompass from './user-compass';
-import Debug from './debug';
+import ISS from './ISS';
 import ThreeD from './three-d';
 
 /* Options */
@@ -31,8 +31,7 @@ const render = () => {
 
   lastFrame = thisFrame - (delta % interval);
 
-  ThreeD.update(UserCompass.latest());
-  Debug.update(UserCompass.latest());
+  ThreeD.update(UserCompass.latest(), ISS.latest());
 
   window.requestAnimationFrame(render);
 };
@@ -42,7 +41,6 @@ const render = () => {
 const build = () => {
   UserCamera.init(options);
   UserCompass.init(options);
-  Debug.init();
   ThreeD.init(options);
 
   window.requestAnimationFrame(render);

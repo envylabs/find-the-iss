@@ -35,6 +35,10 @@ const update = (stats) => {
       pitch: ${stats.pitch}
         yaw: ${stats.yaw}
 ----------------------------------
+          x: ${stats.ISS.x}
+          y: ${stats.ISS.y}
+          z: ${stats.ISS.z}
+----------------------------------
         FPS: ${1000 / (thisFrame - lastFrame)}
 `;
 

@@ -15,19 +15,23 @@ const stats = {};
 /* Device orientation */
 
 const deviceOrientationHandler = (e) => {
-  stats.pitch = e.beta; // tilt (0 = facing ground; 90 = facing horizon; 180 = facing sky)
+  stats.pitch = e.beta - 90; // tilt (0 = facing horizon; -90 = facing ground; 90 = facing sky)
   stats.yaw = e.webkitCompassHeading; // Compass direction (0/360 = North; 180 = South;)
 };
 
 const updateCoords = (position) => {
-  stats.altitude = position.coords.altitude;
+  stats.altitude = position.coords.altitude; // in meters 🎉
   stats.latitude = position.coords.latitude;
   stats.longitude = position.coords.longitude;
 };
 
 const geoLocate = () => {
   window.navigator.geolocation
-    .watchPosition(updateCoords, error => console.log(error));
+    .watchPosition(updateCoords, error => console.log(error), ({
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 30000,
+    }));
 };
 
 const init = (options = {}) => {

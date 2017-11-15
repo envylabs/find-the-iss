@@ -19,6 +19,10 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.stl$/i,
+        use: 'file-loader',
+      },
     ],
   },
   devServer: {
@@ -28,6 +32,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
+    }),
+    new webpack.ProvidePlugin({
+      THREE: 'three',
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'runtime',

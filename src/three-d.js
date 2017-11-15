@@ -1,20 +1,18 @@
 /**
  * 3D
  * Handles the THREE.js components
- * Units are in meters
+ * Units are in km
  */
 
-import {
-  BoxBufferGeometry,
-  Mesh,
-  MeshBasicMaterial,
-  PerspectiveCamera,
-  Scene,
-  WebGLRenderer,
-} from 'three';
+import * as THREE from 'three';
+import STLLoader from 'three/examples/js/loaders/STLLoader.js';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
+
+import geoVector from './utils/geoVector';
+
+import ISSModel from '../models/ISS.stl';
 
 /* Options */
 
@@ -37,59 +35,42 @@ const lights = {};
 
 /* Camera */
 
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100000);
 camera.rotation.order = 'YXZ'; // prevent wonky rotations
 
 /* Scene */
 
 const canvas = document.createElement('canvas');
-const renderer = new WebGLRenderer({
+const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true,
   canvas,
 });
-const scene = new Scene();
+const scene = new THREE.Scene();
+scene.add(camera); // necessary for sticky UI
 
 /* Create Bodies */
 
 const createBodies = () => {
-  bodies.northCube = new Mesh(
-    new BoxBufferGeometry(0.5, 0.5, 0.5),
-    new MeshBasicMaterial({ color: 0x0000ff })
-  );
-  bodies.northCube.position.z = -10;
+  new THREE.STLLoader().load(ISSModel, (geometry) => {
+    const ISS = new THREE.Mesh(
+      geometry,
+      new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+    );
+    ISS.rotation.x = Math.PI / 4;
+    ISS.scale.set(500, 500, 500);
+    scene.add(ISS);
+    bodies.ISS = ISS;
+  });
 
-  bodies.eastCube = new Mesh(
-    new BoxBufferGeometry(0.5, 0.5, 0.5),
-    new MeshBasicMaterial({ color: 0xff8000 })
+  const cone = new THREE.Mesh(
+    new THREE.ConeBufferGeometry(0.25, 1, 16),
+    new THREE.MeshBasicMaterial({ color: 0x00ffff })
   );
-  bodies.eastCube.position.x = 10;
 
-  bodies.westCube = new Mesh(
-    new BoxBufferGeometry(0.5, 0.5, 0.5),
-    new MeshBasicMaterial({ color: 0x00ff00 })
-  );
-  bodies.westCube.position.x = -10;
-
-  bodies.southCube = new Mesh(
-    new BoxBufferGeometry(0.5, 0.5, 0.5),
-    new MeshBasicMaterial({ color: 0x00ffff })
-  );
-  bodies.southCube.position.z = 10;
-
-  bodies.polarisCube = new Mesh(
-    new BoxBufferGeometry(0.5, 0.5, 0.5),
-    new MeshBasicMaterial({ color: 0xffffff })
-  );
-  bodies.polarisCube.position.y = 10;
-
-  bodies.borealisCube = new Mesh(
-    new BoxBufferGeometry(1, 1, 1),
-    new MeshBasicMaterial({ color: 0x404040 })
-  );
-  bodies.borealisCube.position.y = -10;
-
-  scene.add(bodies.northCube, bodies.eastCube, bodies.westCube, bodies.southCube, bodies.polarisCube, bodies.borealisCube);
+  camera.add(cone); // Attach cone to camera
+  cone.position.z = -10; // Slide cone away from camera
+  bodies.cone = cone;
 };
 
 /* Resize renderer */
@@ -115,6 +96,8 @@ const init = (options = {}) => {
 
   createBodies();
 
+  scene.add(new THREE.AxesHelper(100));
+
   Observable.fromEvent(window, 'resize')
     .throttleTime(throttleMilliseconds)
     .subscribe(e => resizeHandler(e));
@@ -125,14 +108,32 @@ const init = (options = {}) => {
 
 /* Update */
 
-const update = (userCamera) => {
-  camera.position.y = userCamera.altitude;
-  camera.rotation.x = (userCamera.pitch - 90) * radian;
-  camera.rotation.y = -userCamera.yaw * radian;
+const update = (user, ISS) => {
+  // TODO: calculate if ISS is visible
+  const ISSCoords = geoVector(user, ISS);
 
-  // camera.lookAt(bodies.northCube.position);
+  // camera.position.y = user.altitude;
+  camera.rotation.x = user.pitch * radian;
+  camera.rotation.y = -user.yaw * radian;
+
+  if (bodies.ISS) {
+    // TODO: calculate ISS position on-screen (x, y) for cone
+    bodies.ISS.position.x = ISSCoords.x;
+    bodies.ISS.position.y = ISSCoords.y;
+    bodies.ISS.position.z = ISSCoords.z;
+    bodies.ISS.rotation.y += 0.005;
+  }
+
+  if (bodies.cone && bodies.ISS) {
+    const to = camera.getWorldDirection(new THREE.Vector3(ISSCoords.x, ISSCoords.y, ISSCoords.z));
+    bodies.cone.rotation.x = to.x;
+    bodies.cone.rotation.y = to.y;
+    bodies.cone.rotation.z = to.z;
+  }
 
   renderer.render(scene, camera);
+
+  return ISSCoords;
 };
 
 export default { init, update };
