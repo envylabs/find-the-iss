@@ -20,7 +20,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.stl$/i,
+        test: /\.(jpe?g|stl)$/i,
         use: 'file-loader',
       },
     ],

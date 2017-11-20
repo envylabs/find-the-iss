@@ -16,7 +16,7 @@ const fetch = () => {
   axios.get('https://api.wheretheiss.at/v1/satellites/25544').then(({ data }) => {
     ISS.latitude = data.latitude;
     ISS.longitude = data.longitude;
-    ISS.altitude = data.altitude; // convert to m (API can’t?)
+    ISS.altitude = data.altitude;
     ISS.visibility = data.visibility;
   });
 };

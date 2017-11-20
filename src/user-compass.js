@@ -7,9 +7,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
 
-const defaultOptions = {
-  FPS: 60,   // lock at 60FPS
-};
 const stats = {};
 
 /* Device orientation */
@@ -23,6 +20,7 @@ const updateCoords = (position) => {
   stats.altitude = position.coords.altitude; // in meters 🎉
   stats.latitude = position.coords.latitude;
   stats.longitude = position.coords.longitude;
+  console.log(stats.latitude, stats.longitude);
 };
 
 const geoLocate = () => {
@@ -35,8 +33,7 @@ const geoLocate = () => {
 };
 
 const init = (options = {}) => {
-  const mergedOptions = Object.assign(defaultOptions, options);
-  const throttleMilliseconds = 1000 / mergedOptions.FPS;
+  const throttleMilliseconds = 1000 / 60; // 60 FPS
 
   Observable
     .fromEvent(window, 'deviceorientation')
