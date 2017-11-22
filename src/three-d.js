@@ -171,7 +171,6 @@ const bodies = { ISSParts: {} };
 
 const camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, meanRadiusOfEarth * 2.5);
 camera.position.set(0, 0.5, 0); // epsilon—shows axes helpers
-camera.rotation.order = 'YXZ'; // prevent wonky rotations
 
 /* Scene */
 
@@ -190,15 +189,12 @@ const createBodies = () => {
   /* Create ISS Grouping */
 
   const ISS = new THREE.Group(); // Just the ISS (no lights)
-  ISS.rotation.order = 'YXZ';
   bodies.ISS = ISS;
 
   /* Add world rotation (The ship stays where it is, and the dark matter engines move the universe around it, etc.) */
 
   const world = new THREE.Group();
   bodies.world = world;
-  world.position.y = -meanRadiusOfEarth;
-  world.rotation.order = 'YXZ';
   // const worldBoxSize = meanRadiusOfEarth * 2.5;
   // const worldBox = new THREE.Mesh(
   //   new THREE.BoxBufferGeometry(worldBoxSize, worldBoxSize, worldBoxSize),
@@ -245,7 +241,6 @@ const createBodies = () => {
   const ISSWithLights = new THREE.Group(); // Allows lights to move with station
   ISSWithLights.add(ISS);
   ISSWithLights.position.x = meanRadiusOfEarth;
-  ISSWithLights.rotation.order = 'YXZ';
   bodies.world.add(ISSWithLights);
   bodies.ISSWithLights = ISSWithLights;
 
@@ -271,22 +266,18 @@ const createBodies = () => {
     new THREE.BoxBufferGeometry(10, 1000, 10),
     new THREE.MeshBasicMaterial({ color: 0x0000ff }),
   );
-  boreas.rotation.order = 'YXZ';
   const eurus = new THREE.Mesh(
     new THREE.BoxBufferGeometry(10, 1000, 10),
     new THREE.MeshBasicMaterial({ color: 0xff8000 }),
   );
-  eurus.rotation.order = 'YXZ';
   const notus = new THREE.Mesh(
     new THREE.BoxBufferGeometry(10, 1000, 10),
     new THREE.MeshBasicMaterial({ color: 0x00ff80 }),
   );
-  notus.rotation.order = 'YXZ';
   const zephyrus = new THREE.Mesh(
     new THREE.BoxBufferGeometry(10, 1000, 10),
     new THREE.MeshBasicMaterial({ color: 0xff00ff }),
   );
-  zephyrus.rotation.order = 'YXZ';
   bodies.boreas = boreas;
   bodies.eurus = eurus;
   bodies.notus = notus;
@@ -367,7 +358,7 @@ const update = (
 
   const thisFrame = window.performance.now();
 
-  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0); // set user camera
+  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'YXZ'); // set user camera
 
   // if (bodies.ISS) {
   //   bodies.ISS.rotation.x += 0.005;
@@ -381,7 +372,7 @@ const update = (
   if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
     firstFrame = window.performance.now();
     const rotation = radiansToNorthPole(user);
-    bodies.world.rotation.set(rotation.x, rotation.y, rotation.z);
+    bodies.world.rotation.set(rotation.x, rotation.y, rotation.z, 'YXZ');
     bodies.world.position.y = -latToRadius(user.latitude);
 
     lastUpdate.user.latitude = user.latitude;
@@ -394,15 +385,16 @@ const update = (
     const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
 
     bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
-    bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z);
+    bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
     bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
-    bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
+    bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
     bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
-    bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
+    bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
     bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
-    bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
+    bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
 
     const userCoords = latLongToCartesian(user);
+    // console.log(boreasCoords);
     bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
   }
 
@@ -432,7 +424,7 @@ const update = (
 
   if (bodies.coneContainer && bodies.ISSWithLights) {
     const orientation = camera.getWorldDirection(lastUpdate.ISS.position);
-    bodies.coneContainer.rotation.set(orientation.x, orientation.y, orientation.z);
+    bodies.coneContainer.rotation.set(orientation.x, orientation.y, orientation.z, 'YXZ');
   }
 
   // const userPointPos = new THREE.Vector3();
