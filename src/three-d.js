@@ -181,7 +181,9 @@ const renderer = new THREE.WebGLRenderer({
   canvas,
 });
 const scene = new THREE.Scene();
-scene.add(camera); // necessary for sticky UI
+const cameraPivot = new THREE.Object3D();
+cameraPivot.add(camera);
+scene.add(cameraPivot);
 
 /* Create Bodies */
 
@@ -201,11 +203,11 @@ const createBodies = () => {
   //   new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }),
   // );
   // world.add(worldBox);
-  // const worldWireframe = new THREE.Mesh(
-  //   new THREE.SphereBufferGeometry(meanRadiusOfEarth * 0.9, 32, 32),
-  //   new THREE.MeshBasicMaterial({ wireframe: true, sides: THREE.DoubleSide }),
-  // );
-  // world.add(worldWireframe);
+  const worldWireframe = new THREE.Mesh(
+    new THREE.SphereBufferGeometry(meanRadiusOfEarth * 0.9, 32, 32),
+    new THREE.MeshBasicMaterial({ wireframe: true, sides: THREE.DoubleSide }),
+  );
+  world.add(worldWireframe);
   scene.add(world);
 
   /* Add horizon */
@@ -372,28 +374,29 @@ const update = (
   if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
     firstFrame = window.performance.now();
     const rotation = radiansToNorthPole(user);
-    bodies.world.rotation.set(rotation.x, rotation.y, rotation.z, 'YXZ');
-    bodies.world.position.y = -latToRadius(user.latitude);
+    // bodies.world.rotation.set(rotation.x, rotation.y, rotation.z, 'YXZ');
+    // bodies.world.position.y = -latToRadius(user.latitude);
 
     lastUpdate.user.latitude = user.latitude;
     lastUpdate.rotation = rotation;
 
     /* Helpers */
-    const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
-    const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
-    const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
-    const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
+    // const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
+    // const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
+    // const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
+    // const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
 
-    bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
-    bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
-    bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
-    bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
-    bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
+    // bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
+    // bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
+    // bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
+    // bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
+    // bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
+    // bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
+    // bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
+    // bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
 
     const userCoords = latLongToCartesian(user);
+    camera.position.set(userCoords.x, userCoords.y, userCoords.z);
     // console.log(boreasCoords);
     bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
   }
