@@ -17,10 +17,11 @@ const deviceOrientationHandler = (e) => {
 };
 
 const updateCoords = (position) => {
-  stats.altitude = position.coords.altitude; // in meters 🎉
+  stats.altitude = position.coords.altitude / 1000; // convert to km
   stats.latitude = position.coords.latitude;
   stats.longitude = position.coords.longitude;
-  console.log(stats.latitude, stats.longitude);
+
+  console.log(stats);
 };
 
 const geoLocate = () => {

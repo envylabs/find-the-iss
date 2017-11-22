@@ -51,7 +51,9 @@
       html,
       body {
         background: black;
+        height: 100%;
         margin: 0;
+        overflow: hidden;
       }
 
       .nv-stats {
@@ -68,7 +70,7 @@
 
       .nv-canvas {
         left: 0;
-        position: absolute;
+        position: fixed;
         right: 0;
         z-index: 10;
       }
@@ -87,7 +89,7 @@
       .nv-video {
         height: 100%;
         left: 50%;
-        position: absolute;
+        position: fixed;
         top: 50%;
         transform: translate(-50%, -50%);
         width: auto;

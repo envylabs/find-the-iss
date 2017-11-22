@@ -3,63 +3,55 @@
  * Converts 2 Earth coordinates to cartesian space
  */
 
-import * as THREE from 'three';
-
 /* Constants */
 
-const largestRadiusOfEarth = 6378.137;
 const meanRadiusOfEarth = 6371.008;
-const flatteningOfEarth = 1 / 0.298257223563;
 const radian = Math.PI / 180;
+const WGS84flattening = 1 / 298.257223563;
+const WGS84radius = 6378.137;
 
 /* Convert to Cartesian (THREE.js orientation) */
 
 const latLongToCartesian = ({ latitude, longitude, altitude = 0 }) => {
-  // http://www.smartjava.org/content/render-open-data-3d-world-globe-threejs
+  // https://www.movable-type.co.uk/scripts/latlong.html
 
-  const phi = latitude * radian;
-  const theta = (longitude - 180) * radian;
-  const orbitalRadius = meanRadiusOfEarth + altitude;
+  const φ = latitude * radian;
+  const λ = longitude * radian;
+  const h = altitude; // convert alt to m
+  const a = WGS84radius;
+  const f = WGS84flattening;
 
-  const x = -orbitalRadius * Math.cos(phi) * Math.cos(theta);
-  const y = orbitalRadius * Math.sin(phi);
-  const z = orbitalRadius * Math.cos(phi) * Math.sin(theta);
+  const sinφ = Math.sin(φ);
+  const cosφ = Math.cos(φ);
+  const sinλ = Math.sin(λ);
+  const cosλ = Math.cos(λ);
 
-  // // https://www.movable-type.co.uk/scripts/latlong.html
-  //
-  // const φ = latitude * radian;
-  // const λ = longitude * radian;
-  // const h = altitude; // height
-  // const a = largestRadiusOfEarth;
-  // const f = flatteningOfEarth;
+  const eSq = (2 * f) - (f * f);                    // 1st eccentricity squared ≡ (a²-b²)/a²
+  const ν = a / Math.sqrt(1 - (eSq * sinφ * sinφ)); // radius of curvature in prime vertical
 
-  // const sinφ = Math.sin(φ);
-  // const cosφ = Math.cos(φ);
-  // const sinλ = Math.sin(λ);
-  // const cosλ = Math.cos(λ);
+  const x = (ν + h) * cosφ * cosλ; // lat/lon (0, 0) is 1; (0, 180) is -1
+  const y = (ν + h) * cosφ * sinλ; // lat/lon (0, 90) is 1; (0, -90) is -1;
+  const z = ((ν * (1 - eSq)) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
 
-  // const eSq = 2*f - f*f;                      // 1st eccentricity squared ≡ (a²-b²)/a²
-  // const ν = a / Math.sqrt(1 - eSq*sinφ*sinφ); // radius of curvature in prime vertical
-
-  // const x2 = (ν + h) * cosφ * cosλ;
-  // const y2 = (ν + h) * cosφ * sinλ;
-  // const z2 = (ν * (1 - eSq) + h) * sinφ;
-
-  // console.log(z, z2);
-
-  return { x, y, z };
+  return { x, y: z, z: -y }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
 };
 
 /* Return necessary axis rotations, in radians (THREE.js orientation) */
 
 const radiansToNorthPole = ({ latitude, longitude }) => {
-  const x = (latitude - 90) * radian;   // x axis, or (0, -90°) to (0, 90°)
-  const y = -longitude * radian;        // y axis, or Earth’s axis
+  const firstTurn = -(longitude + 90) * radian; // Align globe to 0° longitude
+  const secondTurn = (latitude - 90) * radian; // Tilt globe on Z-axis so that lat/lon is on top
 
-  return { x, y, z: 0 };
+  return { x: secondTurn || 0, y: firstTurn || 0, z: 0 };
 };
 
+/* Distance to horizon */
+
+const averageHumanHeight = 1.6; // convert m to km
+const distanceToHorizon = (altitude = 0) => 3.57 * Math.sqrt((altitude * 1000) + averageHumanHeight);
+
 export {
+  distanceToHorizon,
   latLongToCartesian,
   meanRadiusOfEarth,
   radiansToNorthPole,
