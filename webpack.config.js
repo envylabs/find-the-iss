@@ -2,11 +2,11 @@ const webpack = require('webpack');
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+const config = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     app: './app.js',
-    vendor: [],
+    vendor: ['three'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -46,3 +46,5 @@ module.exports = {
     }),
   ],
 };
+
+module.exports = config;

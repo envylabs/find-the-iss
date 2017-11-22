@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "build": "webpack -p",
     "ngrok": "ngrok http --host-header=rewrite 8080",
     "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0"
   },
