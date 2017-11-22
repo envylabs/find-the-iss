@@ -18,15 +18,15 @@ import {
   radiansToNorthPole,
 } from './utils/cartesianHelpers';
 
-import ISSFlatBlue from '../models/ISS_FlatBlue.stl';
-import ISSFlatDkGray from '../models/ISS_FlatDkGray.stl';
-import ISSFlatGray from '../models/ISS_FlatGray.stl';
-import ISSFlatLtGray from '../models/ISS_FlatLtGray.stl';
-import ISSFlatLtGrayMidsection from '../models/ISS_FlatLtGrayMidsection.stl';
-import ISSFlatRed from '../models/ISS_FlatRed.stl';
-import ISSShinyBlue from '../models/ISS_ShinyBlue.stl';
-import ISSShinyGold from '../models/ISS_ShinyGold.stl';
-import ISSShinySilver from '../models/ISS_MetallicSilver.stl';
+import destinyGeometry from '../models/destiny-zvezda-ATV.stl';
+import JEMGeometry from '../models/JEM.stl';
+import Node1RingGeometry from '../models/node1-ring.stl';
+import Node2RingGeometry from '../models/node2-ring.stl';
+import PVAGeometry from '../models/PVA.stl';
+import PVA2Geometry from '../models/PVA2.stl';
+import S0Geometry from '../models/S0.stl';
+import SPMGeometry from '../models/SPM-radiator.stl';
+import ZvezdaRingGeometry from '../models/zvezda-ring.stl';
 
 import px from '../textures/px.jpg';
 import nx from '../textures/nx.jpg';
@@ -39,77 +39,97 @@ import nz from '../textures/nz.jpg';
 
 const ISSScale = 300;
 
-const ISSParts = [
-  {
-    geometry: ISSFlatBlue,
-    material: new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#3c86ff'),
-      side: THREE.DoubleSide, // Necessary to render both sides
-    }),
-  },
-  {
-    geometry: ISSFlatDkGray,
-    material: new THREE.MeshStandardMaterial({
+const ghostMaterial = new THREE.MeshBasicMaterial({
+  color: new THREE.Color('#fff'),
+  opacity: 0.5,
+  side: THREE.DoubleSide,
+  transparent: true,
+});
+
+const ISSGeometries = [
+  { part: 'destiny', geometry: destinyGeometry },
+  { part: 'JEM', geometry: JEMGeometry },
+  { part: 'node1Ring', geometry: Node1RingGeometry },
+  { part: 'node2Ring', geometry: Node2RingGeometry },
+  { part: 'PVA', geometry: PVAGeometry },
+  { part: 'PVA2', geometry: PVA2Geometry },
+  { part: 'S0', geometry: S0Geometry },
+  { part: 'SPM', geometry: SPMGeometry },
+  { part: 'zvezdaRing', geometry: ZvezdaRingGeometry },
+];
+
+const ISSMaterials = {
+  DAY: {
+    destiny: new THREE.MeshStandardMaterial({
       color: new THREE.Color('#fff'),
       side: THREE.DoubleSide,
+      roughness: 0.9,
     }),
-  },
-  {
-    geometry: ISSFlatGray,
-    material: new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#fff'),
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSFlatLtGray,
-    material: new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#fff'),
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSFlatLtGrayMidsection,
-    material: new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#fff'),
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSFlatRed,
-    material: new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#ff4e68'),
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSShinyBlue,
-    material: new THREE.MeshPhongMaterial({
-      color: new THREE.Color('#3c86ff'),
-      reflectivity: 1,
-      shininess: 200,
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSShinyGold,
-    material: new THREE.MeshPhongMaterial({
-      color: new THREE.Color('#bc9739'),
-      reflectivity: 1,
-      shininess: 200,
-      side: THREE.DoubleSide,
-    }),
-  },
-  {
-    geometry: ISSShinySilver,
-    material: new THREE.MeshPhongMaterial({
+    JEM: new THREE.MeshPhongMaterial({
       color: new THREE.Color('#bedee9'),
       reflectivity: 1,
       shininess: 200,
       side: THREE.DoubleSide,
     }),
+    node1Ring: new THREE.MeshStandardMaterial({ color: new THREE.Color('#ff4e68'), side: THREE.DoubleSide }),
+    node2Ring: new THREE.MeshStandardMaterial({ color: new THREE.Color('#fff'), side: THREE.DoubleSide }),
+    PVA: new THREE.MeshStandardMaterial({ color: new THREE.Color('#69767a'), side: THREE.DoubleSide }),
+    PVA2: new THREE.MeshPhongMaterial({
+      color: new THREE.Color('#bc9739'),
+      reflectivity: 1,
+      shininess: 200,
+      side: THREE.DoubleSide,
+    }),
+    S0: new THREE.MeshStandardMaterial({
+      color: new THREE.Color('#fff'),
+      side: THREE.DoubleSide,
+      roughness: 0.9,
+    }),
+    SPM: new THREE.MeshPhongMaterial({
+      color: new THREE.Color('#3c86ff'),
+      reflectivity: 1,
+      shininess: 200,
+      side: THREE.DoubleSide,
+    }),
+    zvezdaRing: new THREE.MeshStandardMaterial({ color: new THREE.Color('#3c86ff'), side: THREE.DoubleSide }),
   },
-];
+  NIGHT: {
+    destiny: new THREE.MeshStandardMaterial({ color: new THREE.Color('#B0B0AF'), side: THREE.DoubleSide }),
+    JEM: new THREE.MeshPhongMaterial({ color: new THREE.Color('#555'), side: THREE.DoubleSide }),
+    S0: new THREE.MeshStandardMaterial({ color: new THREE.Color('#B0B0AF'), side: THREE.DoubleSide }),
+    node1Ring: new THREE.MeshStandardMaterial({ color: new THREE.Color('#ff4e68'), side: THREE.DoubleSide }),
+    node2Ring: new THREE.MeshStandardMaterial({ color: new THREE.Color('#222'), side: THREE.DoubleSide }),
+    PVA: new THREE.MeshStandardMaterial({ color: new THREE.Color('#888'), side: THREE.DoubleSide }),
+    PVA2: new THREE.MeshPhongMaterial({
+      color: new THREE.Color('#bc9739'),
+      reflectivity: 1,
+      shininess: 200,
+      side: THREE.DoubleSide,
+      specular: new THREE.Color('#F4E572'),
+    }),
+    SPM: new THREE.MeshPhongMaterial({
+      color: new THREE.Color('#0C2137'),
+      reflectivity: 1,
+      shininess: 200,
+      side: THREE.DoubleSide,
+      specular: new THREE.Color('#52C9D5'),
+    }),
+    zvezdaRing: new THREE.MeshBasicMaterial({ color: new THREE.Color('#0C2137'), side: THREE.DoubleSide }),
+  },
+  OBSCURED: {
+    destiny: ghostMaterial,
+    JEM: ghostMaterial,
+    node1Ring: ghostMaterial,
+    node2Ring: ghostMaterial,
+    PVA: ghostMaterial,
+    PVA2: ghostMaterial,
+    S0: ghostMaterial,
+    SPM: ghostMaterial,
+    zvezdaRing: ghostMaterial,
+  },
+};
+
+const getISSMaterial = (part, state = 'OBSCURED') => ISSMaterials[state][part];
 
 const skybox = [px, nx, py, ny, pz, nz];
 
@@ -142,11 +162,10 @@ const lights = [
 /* Constants */
 
 const radian = Math.PI / 180;
-const halfTurn = Math.PI / 2;
 
 /* Objects */
 
-const bodies = {};
+const bodies = { ISSParts: {} };
 
 /* Camera */
 
@@ -180,12 +199,12 @@ const createBodies = () => {
   bodies.world = world;
   world.position.y = -meanRadiusOfEarth;
   world.rotation.order = 'YXZ';
-  const worldBoxSize = meanRadiusOfEarth * 2.5;
-  const worldBox = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(worldBoxSize, worldBoxSize, worldBoxSize),
-    new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }),
-  );
-  world.add(worldBox);
+  // const worldBoxSize = meanRadiusOfEarth * 2.5;
+  // const worldBox = new THREE.Mesh(
+  //   new THREE.BoxBufferGeometry(worldBoxSize, worldBoxSize, worldBoxSize),
+  //   new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }),
+  // );
+  // world.add(worldBox);
   // const worldWireframe = new THREE.Mesh(
   //   new THREE.SphereBufferGeometry(meanRadiusOfEarth * 0.9, 32, 32),
   //   new THREE.MeshBasicMaterial({ wireframe: true, sides: THREE.DoubleSide }),
@@ -193,31 +212,32 @@ const createBodies = () => {
   // world.add(worldWireframe);
   scene.add(world);
 
-  /* Add visibility shield */
+  /* Add horizon */
 
   const horizonLine = distanceToHorizon();
-  const visibilityShield = new THREE.Mesh(
+  const horizon = new THREE.Mesh(
     new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32),
-    new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0 }),
+    new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 }),
   );
-  visibilityShield.position.y = -0.251;
-  bodies.visibilityShield = visibilityShield;
-  scene.add(visibilityShield);
+  horizon.position.y = -0.251;
+  bodies.horizon = horizon;
+  scene.add(horizon);
 
   /* Add ISS Parts */
 
-  ISSParts.forEach((part) => {
+  ISSGeometries.forEach((part) => {
     new THREE.STLLoader().load(part.geometry, (geometry) => {
-      const ISSPart = new THREE.Mesh(geometry, part.material);
+      const ISSPart = new THREE.Mesh(geometry, getISSMaterial(part.part));
       ISSPart.scale.set(ISSScale, ISSScale, ISSScale);
       bodies.ISS.add(ISSPart);
+      bodies.ISSParts[part.part] = ISSPart;
     });
   });
 
   /* Add Env Map */
 
   new THREE.CubeTextureLoader().load(skybox, (texture) => {
-    ISSParts.forEach((material) => { material.envMap = texture; });
+    ISSGeometries.forEach((material) => { material.envMap = texture; });
   });
 
   /* Add Lights */
@@ -276,7 +296,7 @@ const createBodies = () => {
   /* Add position helper */
 
   const userPoint = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 16, 16),
+    new THREE.SphereGeometry(10, 16, 16),
     new THREE.MeshBasicMaterial({ color: 0xff0000 }),
   );
   bodies.userPoint = userPoint;
@@ -335,10 +355,10 @@ const init = () => {
 
 const lastUpdate = {
   user: { latitude: 0, longitude: 0, altitude: 0 },
-  ISS: { latitude: 0, longitude: 0, altitude: 0 },
+  ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
+  rotation: { x: 0, y: 0, z: 0 },
 };
 let firstFrame = 0;
-let rotation = { x: 0, y: 0, z: 0 };
 const update = (
   user = { latitude: 0, longitude: 0, altitude: 0 },
   ISS = { latitude: 0, longitude: 0, altitude: 0 },
@@ -355,23 +375,19 @@ const update = (
 
   /* Conditional updates */
 
-  // TODO: calculate if ISS is visible
-
   // TODO: calculate ISS position on-screen (x, y) for cone
 
   // Skip world rotation if user hasn’t moved
   if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
     firstFrame = window.performance.now();
-    rotation = radiansToNorthPole(user);
+    const rotation = radiansToNorthPole(user);
     bodies.world.rotation.set(rotation.x, rotation.y, rotation.z);
     bodies.world.position.y = -latToRadius(user.latitude);
-    const userCoords = latLongToCartesian(user);
-    bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
 
     lastUpdate.user.latitude = user.latitude;
-    lastUpdate.user.longitude = user.longitude;
-    lastUpdate.user.altitude = user.altitude;
+    lastUpdate.rotation = rotation;
 
+    /* Helpers */
     const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
     const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
     const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
@@ -385,34 +401,43 @@ const update = (
     bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
     bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
     bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
+
+    const userCoords = latLongToCartesian(user);
+    bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
   }
 
-  // const easing = Math.min((thisFrame - firstFrame) / 2000, 1);
-  const easing = 1;
-  bodies.world.rotation.set(rotation.x * easing, rotation.y * easing, rotation.z * easing);
-
-  if (user.pitch === 'undefined' || user.yaw === 'undefined') {
-    // If laptop, show it in S
-    const coords = latLongToCartesian({ latitude: user.latitude - 1, longitude: user.longitude });
-    bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-    lastUpdate.ISS.latitude = ISS.latitude;
-    lastUpdate.ISS.longitude = ISS.longitude;
-    lastUpdate.ISS.altitude = ISS.altitude;
-  } else if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
-    // Skip ISS repositioning if no new location
+  // Skip ISS repositioning if no new location
+  if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
     const coords = latLongToCartesian(ISS);
     bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-    lastUpdate.ISS.latitude = ISS.latitude;
-    lastUpdate.ISS.longitude = ISS.longitude;
-    lastUpdate.ISS.altitude = ISS.altitude;
+    const ISSPos = new THREE.Vector3();
+    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
+    lastUpdate.ISS = {
+      ...lastUpdate.ISS,
+      latitude: ISS.latitude, longitude: ISS.longitude,
+      position: ISSPos,
+    };
+
+    // See if ISS is below horizon (or in day/night);
+    const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
+    let state = 'OBSCURED';
+    if (ray.intersectObject(bodies.horizon).length === 0) {
+      state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+    }
+    lastUpdate.ISS.state = state;
+    ISSGeometries.forEach((part) => {
+      bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+    });
   }
 
   if (bodies.coneContainer && bodies.ISSWithLights) {
-    const ISSPos = new THREE.Vector3();
-    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
-    const orientation = camera.getWorldDirection(ISSPos);
+    const orientation = camera.getWorldDirection(lastUpdate.ISS.position);
     bodies.coneContainer.rotation.set(orientation.x, orientation.y, orientation.z);
   }
+
+  // const userPointPos = new THREE.Vector3();
+  // userPointPos.setFromMatrixPosition(bodies.userPoint.matrixWorld);
+  // console.log(userPointPos);
 
   renderer.render(scene, camera);
 };
