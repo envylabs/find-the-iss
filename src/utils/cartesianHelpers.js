@@ -8,7 +8,8 @@
 const meanRadiusOfEarth = 6371.008;
 const radian = Math.PI / 180;
 const WGS84flattening = 1 / 298.257223563;
-const WGS84radius = 6378.137;
+const WGS84semimajor = 6378.137;
+const WGS84semiminor = 6356.7523142;
 
 /* Convert to Cartesian (THREE.js orientation) */
 
@@ -18,7 +19,7 @@ const latLongToCartesian = ({ latitude, longitude, altitude = 0 }) => {
   const φ = latitude * radian;
   const λ = longitude * radian;
   const h = altitude; // convert alt to m
-  const a = WGS84radius;
+  const a = WGS84semimajor;
   const f = WGS84flattening;
 
   const sinφ = Math.sin(φ);
@@ -34,6 +35,21 @@ const latLongToCartesian = ({ latitude, longitude, altitude = 0 }) => {
   const z = ((ν * (1 - eSq)) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
 
   return { x, y: z, z: -y }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
+};
+
+const latToRadius = (latitude) => {
+  // https://en.wikipedia.org/wiki/Earth_radius#Geocentric_radius
+
+  const φ = latitude * radian;
+  const sinφ = Math.sin(φ);
+  const cosφ = Math.cos(φ);
+  const a = WGS84semimajor;
+  const b = WGS84semiminor;
+
+  const numerator = (a ** 2 * cosφ) ** 2 + (b ** 2 * sinφ) ** 2;
+  const denominator = (a * cosφ) ** 2 + (b * sinφ) ** 2;
+
+  return Math.sqrt(numerator / denominator);
 };
 
 /* Return necessary axis rotations, in radians (THREE.js orientation) */
@@ -53,6 +69,7 @@ const distanceToHorizon = (altitude = 0) => 3.57 * Math.sqrt((altitude * 1000) +
 export {
   distanceToHorizon,
   latLongToCartesian,
+  latToRadius,
   meanRadiusOfEarth,
   radiansToNorthPole,
 };

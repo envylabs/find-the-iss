@@ -12,6 +12,7 @@ import 'rxjs/add/operator/throttleTime';
 
 import {
   distanceToHorizon,
+  latToRadius,
   latLongToCartesian,
   meanRadiusOfEarth,
   radiansToNorthPole,
@@ -197,7 +198,7 @@ const createBodies = () => {
   const horizonLine = distanceToHorizon();
   const visibilityShield = new THREE.Mesh(
     new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32),
-    new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0.5 }),
+    new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0 }),
   );
   visibilityShield.position.y = -0.251;
   bodies.visibilityShield = visibilityShield;
@@ -272,6 +273,15 @@ const createBodies = () => {
   bodies.zephyrus = zephyrus;
   bodies.world.add(boreas, eurus, notus, zephyrus);
 
+  /* Add position helper */
+
+  const userPoint = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0xff0000 }),
+  );
+  bodies.userPoint = userPoint;
+  bodies.world.add(userPoint);
+
   /* Add Pointer */
 
   const cone = new THREE.Mesh(
@@ -330,7 +340,7 @@ const lastUpdate = {
 let firstFrame = 0;
 let rotation = { x: 0, y: 0, z: 0 };
 const update = (
-  user = { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
+  user = { latitude: 0, longitude: 0, altitude: 0 },
   ISS = { latitude: 0, longitude: 0, altitude: 0 },
 ) => {
   /* Necessary updates */
@@ -353,9 +363,10 @@ const update = (
   if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
     firstFrame = window.performance.now();
     rotation = radiansToNorthPole(user);
-    // bodies.world.rotation.set(rotation.x, rotation.y, rotation.z);
-    const northPoleCoords = latLongToCartesian({ latitude: 90, longitude: 0 });
-    bodies.world.position.y = -northPoleCoords.y - user.altitude; // Translate world down to user’s eye level
+    bodies.world.rotation.set(rotation.x, rotation.y, rotation.z);
+    bodies.world.position.y = -latToRadius(user.latitude);
+    const userCoords = latLongToCartesian(user);
+    bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
 
     lastUpdate.user.latitude = user.latitude;
     lastUpdate.user.longitude = user.longitude;
@@ -376,14 +387,21 @@ const update = (
     bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z);
   }
 
-  const easing = Math.min((thisFrame - firstFrame) / 2000, 1);
+  // const easing = Math.min((thisFrame - firstFrame) / 2000, 1);
+  const easing = 1;
   bodies.world.rotation.set(rotation.x * easing, rotation.y * easing, rotation.z * easing);
 
-  // Skip ISS repositioning if no new location
-  if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
+  if (user.pitch === 'undefined' || user.yaw === 'undefined') {
+    // If laptop, show it in S
+    const coords = latLongToCartesian({ latitude: user.latitude - 1, longitude: user.longitude });
+    bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
+    lastUpdate.ISS.latitude = ISS.latitude;
+    lastUpdate.ISS.longitude = ISS.longitude;
+    lastUpdate.ISS.altitude = ISS.altitude;
+  } else if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
+    // Skip ISS repositioning if no new location
     const coords = latLongToCartesian(ISS);
     bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-
     lastUpdate.ISS.latitude = ISS.latitude;
     lastUpdate.ISS.longitude = ISS.longitude;
     lastUpdate.ISS.altitude = ISS.altitude;
@@ -391,7 +409,7 @@ const update = (
 
   if (bodies.coneContainer && bodies.ISSWithLights) {
     const ISSPos = new THREE.Vector3();
-    ISSPos.getPositionFromMatrix(bodies.ISSWithLights.matrixWorld);
+    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
     const orientation = camera.getWorldDirection(ISSPos);
     bodies.coneContainer.rotation.set(orientation.x, orientation.y, orientation.z);
   }
@@ -399,14 +417,11 @@ const update = (
   renderer.render(scene, camera);
 };
 
-// console.log(latLongToCartesian({ latitude: 0, longitude: 0, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 90, longitude: 0, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 90, longitude: 0, altitude: 420 }));
-// console.log(latLongToCartesian({ latitude: 0, longitude: -90, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 0, longitude: 180, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 90, longitude: 0, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 90, longitude: 90, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: -90, longitude: 0, altitude: 0 }));
-// console.log(latLongToCartesian({ latitude: 45, longitude: -45, altitude: 0 }));
+// console.log(latLongToCartesian({ latitude: 28.54364, longitude: -81.3768944 }), radiansToNorthPole({ latitude: 28.54364, longitude: -81.3768944 })); // Orlando
+// console.log(latLongToCartesian({ latitude: 39.739236, longitude: -104.990251 }), radiansToNorthPole({ latitude: 39.739236, longitude: -104.990251 })); // Denver
+// console.log(latLongToCartesian({ latitude: 48.856614, longitude: 2.35222 }), radiansToNorthPole({ latitude: 48.856614, longitude: 2.35222 })); // Paris
+// console.log(latLongToCartesian({ latitude: 54.597285, longitude: -5.930120 }), radiansToNorthPole({ latitude: 54.597285, longitude: -5.930120 })); // Belfast
+// console.log(latLongToCartesian({ latitude: -33.924869, longitude: 18.424055 }), radiansToNorthPole({ latitude: -33.924869, longitude: 18.424055 })); // Cape Town
+// console.log(latLongToCartesian({ latitude: -36.848460, longitude: 174.763332 }), radiansToNorthPole({ latitude: -36.848460, longitude: 174.763332 })); // Auckland
 
 export default { init, update };
