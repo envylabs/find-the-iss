@@ -3,8 +3,9 @@
  */
 
 import Stats from 'stats.js';
-import { h, render as PreactRender } from 'preact';
-import { Provider } from 'preact-redux';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import AppState from 'components/reducer';
@@ -14,7 +15,10 @@ import ISS from 'ISS';
 import App from 'components/App';
 import ThreeD from 'three-d';
 
-let store = createStore(AppState);
+let store = createStore(
+  AppState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 /* Constants */
 
@@ -27,6 +31,13 @@ const interval = 1000 / 60;
 // document.body.appendChild(stats.dom);
 
 let lastFrame = window.performance.now();
+let userPosition = UserCompass.latest();
+let ISSPosition = ISS.latest();
+
+const updatePosition = () => {
+  userPosition = UserCompass.latest();
+  ISSPosition = ISS.latest();
+};
 
 const render = () => {
   // stats.begin();
@@ -39,7 +50,8 @@ const render = () => {
   }
 
   lastFrame = thisFrame - (delta % interval);
-  ThreeD.update(UserCompass.latest(), ISS.latest());
+  updatePosition();
+  ThreeD.update(userPosition, ISSPosition);
   // stats.end();
   window.requestAnimationFrame(render);
 };
@@ -51,11 +63,13 @@ const build = () => {
   UserCompass.init();
   ThreeD.init();
 
-  PreactRender(
+  ReactDOM.render(
     <Provider store={store}>
       <App
-        user={UserCompass.latest()}
-        ISS={ISS.latest()}
+        ISSLatitude={ISSPosition.latitude}
+        ISSLongitude={ISSPosition.longitude}
+        userLatitude={userPosition.latitude}
+        userLongitude={userPosition.longitude}
       />
     </Provider>,
     document.getElementById('app-root'),
@@ -65,7 +79,3 @@ const build = () => {
 };
 
 build();
-
-if (module.hot) { // Enable React Dev Tools
-  require('preact/debug')
-}

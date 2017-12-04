@@ -1,14 +1,18 @@
 {
   "presets": [
-    "preact",
-    ["env", {
+    "@babel/preset-react",
+    ["@babel/preset-env", {
       "targets": {
-        "browsers": ["last 1 versions", "> 5%"],
-        "node": "9.0"
+        "browsers": [
+          "Chrome >= 61",
+          "ChromeAndroid >= 61",
+          "iOS >= 11"
+        ],
+        "node": "9.2"
       }
     }]
   ],
   "plugins": [
-    "transform-object-rest-spread"
+    "@babel/proposal-object-rest-spread"
   ]
 }

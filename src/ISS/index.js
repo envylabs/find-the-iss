@@ -13,12 +13,12 @@ const ISS = {
 };
 
 const fetch = async () => {
-  const data = await axios.get('https://api.wheretheiss.at/v1/satellites/25544');
-  ISS.latitude = parseFloat(data.latitude).toFixed(5);
-  ISS.longitude = parseFloat(data.longitude).toFixed(5);
-  ISS.altitude = data.altitude;
-  ISS.visibility = data.visibility;
-  return data;
+  const request = await axios.get('https://api.wheretheiss.at/v1/satellites/25544');
+  ISS.latitude = parseFloat(request.data.latitude).toFixed(5);
+  ISS.longitude = parseFloat(request.data.longitude).toFixed(5);
+  ISS.altitude = request.data.altitude;
+  ISS.visibility = request.data.visibility;
+  return request.data;
 };
 
 const latest = () => ISS;

@@ -7,7 +7,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const config = {
   context: path.resolve(__dirname, '..', 'src'),
   entry: {
-    app: ['babel-polyfill', './app'],
+    app: ['./app'],
     vendor: ['three'],
   },
   output: {
@@ -34,7 +34,7 @@ const config = {
         }),
       },
       {
-        test: /\.(jpe?g|svg|stl)$/i,
+        test: /\.(jpe?g|png|svg|stl)$/i,
         use: 'file-loader',
       },
     ],

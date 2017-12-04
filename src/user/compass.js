@@ -7,7 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
 
-const stats = {};
+const stats = {
+  altitude: 0,
+  latitude: 0,
+  longitude: 0,
+  pitch: 0,
+  yaw: 0,
+};
 
 /* Device orientation */
 

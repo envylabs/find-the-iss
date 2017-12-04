@@ -68,6 +68,8 @@ const distanceToHorizon = (altitude = 0) =>
   3.57 * Math.sqrt((altitude * 1000) + averageHumanHeight);
 
 const haversine = (coords1, coords2) => {
+  if (!coords1 || !coords2) return 0;
+
   const R = meanRadiusOfEarth;
   const φ1 = coords1.latitude * radian;
   const φ2 = coords2.latitude * radian;

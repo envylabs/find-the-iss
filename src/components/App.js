@@ -1,50 +1,54 @@
-import { h, Component } from 'preact';
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { haversine } from '../utils/geodesy';
+import {
+  UPDATE_COORDS,
+  UPDATE_ISS_OVER,
+} from './actions';
+import geocode from 'utils/geocode';
 
 import Tracker from './Tracker';
 import Info from './Info';
 
 import styles from 'styles.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+class App extends React.Component {
+  willReceiveProps(nextProps) {
+    if (nextProps.ISSLongitude === this.props.ISSLongitude) return false;
 
-    this.getISSHorizontal = this.getISSHorizontal.bind(this);
-    this.getISSVertical = this.getISSVertical.bind(this);
-  }
-
-  componentWillUpdate(nextProps) {
-    return nextProps.user.latitude !== this.props.user.latitude
-      || nextProps.user.longitude !== this.props.user.longitude
-      || nextProps.ISS.latitude !== this.props.ISS.latitude
-      || nextProps.ISS.longitude !== this.props.ISS.longitude;
-  }
-
-  getDistance() {
-    return haversine(this.props.user, this.props.ISS);
-  }
-
-  getISSHorizontal() {
-    return (this.props.ISS.longitude / 180 / 3) - 50;
-  }
-
-  getISSVertical() {
-    return Math.sin(this.props.ISS.latitude * Math.PI / 180) * 100;
+    geocode({
+      latitude: nextProps.ISSLatitude,
+      longitude: nextProps.ISSLongitude,
+    }).then(name =>
+      this.props.updateISSOver(name)
+    );
   }
 
   render() {
     return (
       <div className="app">
         <Info />
-        <Tracker
-          horizontal={this.getISSHorizontal()}
-          vertical={this.getISSVertical()}
-        />
+        <Tracker />
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  updateCoords: ({ latitude, longitude }) =>
+    dispatch({
+      type: UPDATE_COORDS,
+      latitude,
+      longitude,
+    }),
+  updateISSOver: (name) =>
+    dispatch({
+      type: UPDATE_ISS_OVER,
+      name,
+    }),
+});
+
+export default connect(
+  state => state,
+  mapDispatchToProps,
+)(App);

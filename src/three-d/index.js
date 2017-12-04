@@ -412,7 +412,6 @@ const update = (
       position: ISSPos,
     };
 
-    // See if ISS is below horizon (or in day/night);
     const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
     let state = 'OBSCURED';
     if (ray.intersectObject(bodies.horizon).length === 0) {

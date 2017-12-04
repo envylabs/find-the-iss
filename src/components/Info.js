@@ -1,20 +1,25 @@
-import { h } from 'preact';
-import { connect } from 'preact-redux';
+import React from 'react';
+import { connect } from 'react-redux';
+
+import {
+  CLOSE_INFO,
+  OPEN_INFO,
+} from './actions';
 
 import Close from './Close';
 import Question from './Question';
 
-const Info = (props, state) => (
+const Info = (props) => (
   <div className="info">
-    <button class="info-open" onClick={props.openInfo}>
+    <button className="info-button info-open" onClick={props.openInfo}>
       <Question />
     </button>
-    {state.isInfoOpen &&
+    {props.isInfoOpen &&
       <div>
-        <button class="info-open" onClick={props.closeInfo}>
-          <Close />
-        </button>
         <div className="info-fullscreen">
+          <button className="info-button" onClick={props.closeInfo}>
+            <Close />
+          </button>
           <h2 className="info-heading">About This Project</h2>
           <div className="info-body">
             <p>
