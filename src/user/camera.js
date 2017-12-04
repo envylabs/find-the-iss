@@ -3,18 +3,10 @@
  * Requests webcam permission, then displays the stream in a <video> element.
  */
 
-const defaultConfig = {
+const config = {
+  audio: false,
   video: {
-    el: document.body,
-    className: 'nv-video',
-    id: 'nv-video',
-    wrapperClassName: 'nv-video-wrapper',
-  },
-  stream: {
-    audio: false,
-    video: {
-      facingMode: 'environment',
-    },
+    facingMode: 'environment',
   },
 };
 
@@ -23,20 +15,20 @@ const defaultConfig = {
 const videoWrapper = document.createElement('div');
 const video = document.createElement('video');
 
-const buildElement = (config) => {
-  videoWrapper.className = config.video.wrapperClassName;
+const buildElement = () => {
+  videoWrapper.className = 'video-container';
 
   video.autoplay = 'auto';
-  video.className = config.video.className;
+  video.className = 'video';
   video.controls = false;
   video.crossOrigin = 'anonymous';
-  video.id = config.video.id;
+  video.id = 'video';
   video.muted = true;
   video.playsInline = true;    // Necessary for mobile
   video.preload = true;
 
   videoWrapper.appendChild(video);
-  config.video.el.appendChild(videoWrapper);
+  document.body.appendChild(videoWrapper);
 };
 
 /* TODO: When video loads, make it fullscreen */
@@ -54,8 +46,8 @@ const resizeVideo = (e) => {
 
 /* Get webcam media stream */
 
-const getMediaStream = (config) => {
-  window.navigator.mediaDevices.getUserMedia(config.stream)
+const getMediaStream = () => {
+  window.navigator.mediaDevices.getUserMedia(config)
     .then((stream) => {
       video.srcObject = stream;
       // video.onloadedmetadata = e => resizeVideo(e);
@@ -64,12 +56,9 @@ const getMediaStream = (config) => {
     .catch(error => console.log(error));
 };
 
-
-const init = (config = {}) => {
-  const mergedConfig = Object.assign(defaultConfig, config);
-
-  buildElement(mergedConfig);
-  getMediaStream(mergedConfig);
+const init = () => {
+  buildElement();
+  getMediaStream();
 };
 
 export default { init };

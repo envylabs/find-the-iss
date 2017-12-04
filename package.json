@@ -1,26 +1,41 @@
 {
   "scripts": {
-    "build": "webpack -p",
+    "build": "npm run test && webpack -p",
     "ngrok": "ngrok http --host-header=rewrite 8080",
-    "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0"
+    "test": "jest",
+    "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0 --config config/webpack.dev.js"
   },
   "dependencies": {
+    "awesome-typescript-loader": "^3.4.0",
     "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-preact": "^1.1.0",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
+    "immutable": "^3.8.2",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.9",
+    "preact": "^8.2.6",
+    "preact-redux": "^2.0.3",
+    "redux": "^3.7.2",
     "rxjs": "^5.5.2",
     "stats.js": "^0.17.0",
     "three": "^0.88.0",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   },
   "devDependencies": {
-    "eslint": "^4.10.0",
+    "eslint": "^4.12.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "eslint-plugin-import": "^2.8.0",
+    "jest": "^21.2.1"
   }
 }

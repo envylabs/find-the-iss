@@ -64,10 +64,27 @@ const radiansToNorthPole = ({ latitude, longitude }) => {
 /* Distance to horizon */
 
 const averageHumanHeight = 1.6; // convert m to km
-const distanceToHorizon = (altitude = 0) => 3.57 * Math.sqrt((altitude * 1000) + averageHumanHeight);
+const distanceToHorizon = (altitude = 0) =>
+  3.57 * Math.sqrt((altitude * 1000) + averageHumanHeight);
+
+const haversine = (coords1, coords2) => {
+  const R = meanRadiusOfEarth;
+  const φ1 = coords1.latitude * radian;
+  const φ2 = coords2.latitude * radian;
+  const Δφ = (coords2.latitude - coords1.latitude) * radian;
+  const Δλ = (coords2.longitude - coords2.longitude) * radian;
+
+  const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+          Math.cos(φ1) * Math.cos(φ2) *
+          Math.sin(Δλ/2) * Math.sin(Δλ/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+  return R * c;
+};
 
 export {
   distanceToHorizon,
+  haversine,
   latLongToCartesian,
   latToRadius,
   meanRadiusOfEarth,

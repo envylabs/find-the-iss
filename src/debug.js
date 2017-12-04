@@ -5,8 +5,8 @@
 
 const defaultConfig = {
   el: document.body,
-  className: 'nv-stats',
-  id: 'nv-stats',
+  className: 'stats',
+  id: 'stats',
 };
 
 /* Add Debug element to DOM */

@@ -1,0 +1,249 @@
+:root {
+  /* Color */
+
+  --black: rgb(0, 0, 0);
+  --yellow: rgb(255, 201, 39);
+  --white: rgb(255, 255, 255);
+
+  /* Font */
+
+  --up10:  4em;
+  --up9:   3.482202em;
+  --up8:   3.013143em;
+  --up7:   2.639016em;
+  --up6:   2.297397em;
+  --up5:   2em;
+  --up4:   1.751101em;
+  --up3:   1.515717em;
+  --up2:   1.319508em;
+  --up1:   1.148698em;
+  --down1: 0.8706em;
+  --down2: 0.7579em;
+  --down3: 0.6599em;
+  --down4: 0.5745em;
+  --down5: 0.5em;
+  --down6: 0.435275em;
+  --down7: 0.378929em;
+  --down8: 0.329877em;
+  --down9: 0.287175em;
+  --down10: 0.25em;
+
+  /* Grid */
+
+  --grid: 32px;
+}
+
+html,
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: "Input Mono Reg", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+/* Core */
+
+button {
+  align-items: center;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  outline: none;
+
+  & svg {
+    pointer-events: none;
+  }
+}
+
+.app {
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 50;
+}
+
+.canvas {
+  left: 0;
+  position: fixed;
+  right: 0;
+  z-index: 10;
+}
+
+.video-container {
+  height: 100vh;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1;
+}
+
+.video {
+  height: 100%;
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+}
+
+/* Close */
+
+.close {
+  background-color: var(--yellow);
+  border-radius: 50%;
+  color: var(--black);
+  height: calc(0.5 * var(--grid));
+  padding: calc(0.5 * var(--grid));
+  width: calc(0.5 * var(--grid));
+
+  & svg {
+    display: block;
+    fill: currentColor;
+    height: calc(0.5 * var(--grid));
+    width: calc(0.5 * var(--grid));
+  }
+}
+
+/* Globe */
+
+.globe {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--yellow);
+  height: 0;
+  overflow: hidden;
+  padding-top: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.globe-map {
+  background-image: url(./assets/map.svg);
+  background-position: center center;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  height: 100%;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  width: 619.60074%;
+}
+
+.globe-marker {
+  align-items: center;
+  box-shadow: 0 0 0 1px var(--white);
+  display: flex;
+  height: 12.5%;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12.5%;
+
+  &::after {
+    background-color: white;
+    border-radius: 50%;
+    content: "";
+    height: 2px;
+    width: 2px;
+  }
+}
+
+/* Info */
+
+.info-fullscreen {
+  background-color: var(--black);
+  bottom: 0;
+  left: 0;
+  padding: calc(0.5 * var(--grid));
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.info-open {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--yellow);
+  height: calc(1.25 * var(--grid));
+  padding: calc(0.45 * var(--grid));
+  position: absolute;
+  right: calc(0.5 * var(--grid));
+  top: calc(0.5 * var(--grid));
+  width: calc(1.25 * var(--grid));
+  z-index: 100;
+
+  & svg {
+    display: block;
+    fill: var(--white);
+    height: auto;
+    width: 100%;
+  }
+}
+
+/* Tracker */
+
+.tracker {
+  bottom: var(--grid);
+  box-shadow: inset 1px -1px var(--white);
+  display: flex;
+  left: var(--grid);
+  padding-right: var(--grid);
+  position: fixed;
+  right: var(--grid);
+  z-index: 100;
+}
+
+.tracker-distance {
+  font-size: var(--down1);
+}
+
+.tracker-fullscreen {
+  background-color: var(--black);
+  bottom: 0;
+  left: 0;
+  padding: var(--grid);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 80;
+}
+
+.tracker-heading {
+  color: var(--yellow);
+  font-size: var(--down1);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.tracker-location {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 16px;
+  padding-left: calc(0.5 * var(--grid));
+}
+
+.tracker-map {
+  height: calc(2 * var(--grid));
+  outline: none;
+  padding: calc(0.25 * var(--grid));
+  width: calc(2 * var(--grid));
+}
+
+.tracker-toggle {
+  align-items: center;
+  box-shadow: inset -1px 1px var(--white);
+  display: flex;
+  justify-content: center;
+}

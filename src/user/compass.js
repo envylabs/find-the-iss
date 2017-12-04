@@ -18,22 +18,20 @@ const deviceOrientationHandler = (e) => {
 
 const updateCoords = (position) => {
   stats.altitude = position.coords.altitude / 1000; // convert to km
-  stats.latitude = position.coords.latitude;
-  stats.longitude = position.coords.longitude;
-
-  console.log(stats);
+  stats.latitude = parseFloat(position.coords.latitude).toFixed(5);
+  stats.longitude = parseFloat(position.coords.longitude).toFixed(5);
 };
 
 const geoLocate = () => {
   window.navigator.geolocation
     .watchPosition(updateCoords, error => console.log(error), ({
       enableHighAccuracy: true,
-      timeout: 5000,
       maximumAge: 30000,
+      timeout: 5000,
     }));
 };
 
-const init = (options = {}) => {
+const init = () => {
   const throttleMilliseconds = 1000 / 60; // 60 FPS
 
   Observable
