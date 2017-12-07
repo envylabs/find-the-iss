@@ -4,11 +4,11 @@ const Globe = props => (
   <div className="globe">
     <div
       className="globe-map"
-      style={{ transform: `translateX(${props.horizontal}%)` }}
+      style={{ transform: `translateX(${props.x}%)` }}
     />
     <div
       className="globe-marker"
-      style={{ transform: `transform:translateY(${props.vertical}%)` }}
+      style={{ transform: `transform:translateY(${props.y}%)` }}
     />
   </div>
 );

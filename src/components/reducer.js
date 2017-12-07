@@ -4,24 +4,23 @@ import {
   OPEN_INFO,
   OPEN_TRACKER,
   UPDATE_ISS_COORDS,
+  UPDATE_ISS_DISTANCE,
   UPDATE_ISS_OVER,
+  UPDATE_MAP_TRANSLATION,
   UPDATE_USER_COORDS,
-} from './actions';
+} from './actionTypes';
 
-import { haversine } from 'utils/geodesy';
-import geocode from 'utils/geocode';
-
-const initialState = {
+export const initialState = {
   isInfoOpen: false,
-  ISSDistance: '0 km',
+  ISSDistance: 0,
   ISSOver: '???',
+  ISSPos: { latitude: 0, longitude: 0 },
   isTrackerOpen: false,
+  mapTranslation: { x: 0, y: 0 },
+  userPos: { latitude: 0, longitude: 0 },
 };
 
-const getDistance = (coords1, coords2) =>
-  `${haversine(coords1, coords2)} km`;
-
-export default function reducer(state = initialState, action) {
+export function rootReducer(state = initialState, action) {
   switch (action.type) {
     case CLOSE_INFO:
       return { ...state, isInfoOpen: false };
@@ -31,32 +30,36 @@ export default function reducer(state = initialState, action) {
       return { ...state, isInfoOpen: true };
     case OPEN_TRACKER:
       return { ...state, isTrackerOpen: true };
-    case UPDATE_ISS_COORDS:
-      const newISSDistance = getDistance(
-        { latitude: state.userLatitude, longitude: state.userLongitude },
-        { latitude: action.latitude, longitude: action.longitude },
-      );
+    case UPDATE_MAP_TRANSLATION:
       return {
         ...state,
-        ISSDistance: newISSDifference,
-        ISSLatitude: action.latitude,
-        ISSLongitude: action.longitude,
+        mapTranslation: action.translation,
+      };
+    case UPDATE_ISS_COORDS:
+      return {
+        ...state,
+        ISSPos: {
+          latitude: action.latitude,
+          longitude: action.longitude,
+        },
+      };
+    case UPDATE_ISS_DISTANCE:
+      return {
+        ...state,
+        distance: action.distance,
       };
     case UPDATE_ISS_OVER:
       return {
         ...state,
-        ISSOver: action.name,
+        ISSOver: action.over,
       };
     case UPDATE_USER_COORDS:
-      const newUserDistance = getDistance(
-        { latitude: state.ISSLatitude, longitude: state.ISSLongitude },
-        { latitude: action.latitude, longitude: action.longitude },
-      );
       return {
         ...state,
-        ISSDistance: newUserDistance,
-        userLatitude: action.latitude,
-        userLongitude: action.longitude,
+        userPos: {
+          latitude: action.latitude,
+          longitude: action.longitude,
+        },
       };
     default:
       return state;

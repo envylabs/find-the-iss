@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  CLOSE_INFO,
-  OPEN_INFO,
+  closeInfo,
+  openInfo,
 } from './actions';
 
 import Close from './Close';
@@ -49,8 +49,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeInfo: () => dispatch({ type: CLOSE_INFO }),
-  openInfo: () => dispatch({ type: OPEN_INFO }),
+  closeInfo: () => closeInfo(),
+  openInfo: () => openInfo(),
 });
 
 export default connect(

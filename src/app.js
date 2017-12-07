@@ -6,19 +6,32 @@ import Stats from 'stats.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-import AppState from 'components/reducer';
+import { initialState, rootReducer } from 'components/reducer';
+import { rootSaga } from 'components/sagas';
 import UserCamera from 'user/camera';
 import UserCompass from 'user/compass';
 import ISS from 'ISS';
 import App from 'components/App';
 import ThreeD from 'three-d';
 
-let store = createStore(
-  AppState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  rootReducer,
+  initialState,
+  compose(
+    applyMiddleware(sagaMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
+  ),
 );
+
+sagaMiddleware.run(rootSaga);
 
 /* Constants */
 
@@ -37,6 +50,8 @@ let ISSPosition = ISS.latest();
 const updatePosition = () => {
   userPosition = UserCompass.latest();
   ISSPosition = ISS.latest();
+  window.userPosition = userPosition;
+  window.ISSPosition = ISSPosition;
 };
 
 const render = () => {
@@ -65,12 +80,7 @@ const build = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <App
-        ISSLatitude={ISSPosition.latitude}
-        ISSLongitude={ISSPosition.longitude}
-        userLatitude={userPosition.latitude}
-        userLongitude={userPosition.longitude}
-      />
+      <App />
     </Provider>,
     document.getElementById('app-root'),
   )

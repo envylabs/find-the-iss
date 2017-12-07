@@ -2,10 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
-  UPDATE_COORDS,
-  UPDATE_ISS_OVER,
+  updateUserCoords,
+  updateISSCoords,
 } from './actions';
-import geocode from 'utils/geocode';
 
 import Tracker from './Tracker';
 import Info from './Info';
@@ -13,15 +12,24 @@ import Info from './Info';
 import styles from 'styles.css';
 
 class App extends React.Component {
-  willReceiveProps(nextProps) {
-    if (nextProps.ISSLongitude === this.props.ISSLongitude) return false;
+  componentDidMount() {
+    if (typeof window === 'undefined') return false;
 
-    geocode({
-      latitude: nextProps.ISSLatitude,
-      longitude: nextProps.ISSLongitude,
-    }).then(name =>
-      this.props.updateISSOver(name)
-    );
+    this.update = setInterval(() => {
+      this.props.updateISSCoords({
+        latitude: window.ISSPosition.latitude,
+        longitude: window.ISSPosition.longitude,
+      });
+
+      this.props.updateUserCoords({
+        latitude: window.userPosition.latitude,
+        longitude: window.userPosition.longitude,
+      });
+    }, 5000);
+  }
+
+  componentWillUnmount() {
+    this.update = null;
   }
 
   render() {
@@ -35,17 +43,8 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  updateCoords: ({ latitude, longitude }) =>
-    dispatch({
-      type: UPDATE_COORDS,
-      latitude,
-      longitude,
-    }),
-  updateISSOver: (name) =>
-    dispatch({
-      type: UPDATE_ISS_OVER,
-      name,
-    }),
+  updateISSCoords,
+  updateUserCoords,
 });
 
 export default connect(

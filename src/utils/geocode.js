@@ -11,5 +11,7 @@ export default async function geocode({ latitude, longitude }) {
   } else if (response.data.features[0].properties.ocean) {
     return response.data.features[0].properties.ocean;
   }
-  return '???';
+  const NorS = latitude >= 0 ? 'N' : 'S';
+  const EorW = longitude >= 0 ? 'E' : 'W';
+  return `${latitude} ${NorS}, ${longitude} ${EorW}`;
 }

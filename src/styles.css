@@ -127,7 +127,7 @@ button {
 }
 
 .globe-map {
-  background-image: url(./assets/map.svg);
+  background-image: url(./assets/map.png);
   background-position: center center;
   background-repeat: repeat-x;
   background-size: auto 100%;
@@ -156,8 +156,8 @@ button {
     background-color: white;
     border-radius: 50%;
     content: "";
-    height: 4px;
-    width: 4px;
+    height: 6px;
+    width: 6px;
   }
 }
 
