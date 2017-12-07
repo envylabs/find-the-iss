@@ -10,21 +10,10 @@ import {
   UPDATE_USER_COORDS,
 } from './actionTypes';
 
-export const closeInfo = () => ({
-  type: CLOSE_INFO,
-});
-
-export const closeTracker = () => ({
-  type: CLOSE_TRACKER,
-});
-
-export const openInfo = () => ({
-  type: OPEN_INFO,
-});
-
-export const openTracker = () => ({
-  type: OPEN_TRACKER,
-});
+export const closeInfo = () => ({ type: CLOSE_INFO });
+export const closeTracker = () => ({ type: CLOSE_TRACKER });
+export const openInfo = () => ({ type: OPEN_INFO });
+export const openTracker = () => ({ type: OPEN_TRACKER });
 
 export const updateISSCoords = ({ latitude, longitude }) => ({
   type: UPDATE_ISS_COORDS,
@@ -34,7 +23,7 @@ export const updateISSCoords = ({ latitude, longitude }) => ({
 
 export const updateISSDistance = distance => ({
   type: UPDATE_ISS_DISTANCE,
-  distance,
+  distance: parseFloat(distance).toFixed(1),
 });
 
 export const updateISSOver = over => ({
@@ -42,15 +31,13 @@ export const updateISSOver = over => ({
   over,
 });
 
-export const updateMapTranslation = ({ latitude, longitude }) => {
-  const x = (longitude / 180 / 3) - 50;
-  const y = Math.sin(latitude * Math.PI / 180) * 100;
-
-  return {
-    type: UPDATE_MAP_TRANSLATION,
-    translation: { x, y },
-  };
-};
+export const updateMapTranslation = ({ latitude, longitude }) => ({
+  type: UPDATE_MAP_TRANSLATION,
+  translation: {
+    x: -(longitude / 180) * 50 / 3 - 50,
+    y: Math.sin(latitude / 180 * Math.PI) * -50,
+  },
+});
 
 export const updateUserCoords = ({ latitude, longitude }) => ({
   type: UPDATE_USER_COORDS,

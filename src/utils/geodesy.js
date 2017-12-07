@@ -74,7 +74,7 @@ const haversine = (coords1, coords2) => {
   const φ1 = coords1.latitude * radian;
   const φ2 = coords2.latitude * radian;
   const Δφ = (coords2.latitude - coords1.latitude) * radian;
-  const Δλ = (coords2.longitude - coords2.longitude) * radian;
+  const Δλ = (coords2.longitude - coords1.longitude) * radian;
 
   const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
           Math.cos(φ1) * Math.cos(φ2) *

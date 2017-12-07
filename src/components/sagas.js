@@ -1,19 +1,15 @@
-import {
-  all,
-  call,
-  put,
-  select,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all, call, put, select, takeLatest, throttle } from 'redux-saga/effects';
 
 import {
   UPDATE_ISS_COORDS,
   UPDATE_USER_COORDS,
 } from 'components/actionTypes';
 import {
+  updateISSCoords,
   updateISSDistance,
   updateISSOver,
   updateMapTranslation,
+  updateUserCoords,
 } from 'components/actions';
 import { haversine } from 'utils/geodesy';
 import geocode from 'utils/geocode';
@@ -28,33 +24,38 @@ export const selectUserPosition = state => ({
   longitude: state.userPos.longitude,
 });
 
-function* updateISSData() {
-  const userPos = yield select(selectUserPosition);
-  const ISSPos = yield select(selectISSPosition);
-  yield put(updateISSDistance(haversine(userPos, ISSPos)));
+function* updateISSData(action) {
+  const ISSPos = { latitude: action.latitude, longitude: action.longitude };
+  yield put(updateISSCoords(ISSPos));
   yield put(updateMapTranslation(ISSPos));
-  const over = yield call(geocode, [ISSPos.latitude, ISSPos.longitude]);
-  yield put(updateISSOver(over));
-}
 
-function* updateUserData() {
-  const ISSPos = yield select(selectISSPosition);
   const userPos = yield select(selectUserPosition);
   const distance = haversine(userPos, ISSPos);
   yield put(updateISSDistance(distance));
+  try {
+    const over = yield call(geocode, ISSPos);
+    yield put(updateISSOver(over));
+  } catch(e) {
+    console.log('😵 Couldn’t reach Mapzen');
+  }
 }
 
-function* watchISSPosition() {
-  yield takeLatest(UPDATE_ISS_COORDS, updateISSData);
+function* updateUserData(action) {
+  const userPos = { latitude: action.latitude, longitude: action.longitude };
+  yield put(updateUserCoords(userPos));
 }
 
 function* watchUserPosition() {
-  yield takeLatest(UPDATE_USER_COORDS, updateUserData);
+  yield throttle(5000, UPDATE_USER_COORDS, updateUserData);
+}
+
+function* watchISSPosition() {
+  yield throttle(5000, UPDATE_ISS_COORDS, updateISSData);
 }
 
 export function* rootSaga() {
   yield all([
-    watchISSPosition,
-    watchUserPosition,
+    watchUserPosition(),
+    watchISSPosition(),
   ]);
 }

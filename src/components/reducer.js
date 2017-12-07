@@ -16,7 +16,7 @@ export const initialState = {
   ISSOver: '???',
   ISSPos: { latitude: 0, longitude: 0 },
   isTrackerOpen: false,
-  mapTranslation: { x: 0, y: 0 },
+  mapTranslation: { x: -50, y: 0 },
   userPos: { latitude: 0, longitude: 0 },
 };
 
@@ -44,15 +44,9 @@ export function rootReducer(state = initialState, action) {
         },
       };
     case UPDATE_ISS_DISTANCE:
-      return {
-        ...state,
-        distance: action.distance,
-      };
+      return { ...state, ISSDistance: action.distance };
     case UPDATE_ISS_OVER:
-      return {
-        ...state,
-        ISSOver: action.over,
-      };
+      return { ...state, ISSOver: action.over };
     case UPDATE_USER_COORDS:
       return {
         ...state,

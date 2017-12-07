@@ -117,12 +117,20 @@ button {
 /* Globe */
 
 .globe {
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px var(--yellow);
   height: 0;
-  overflow: hidden;
   padding-top: 100%;
   position: relative;
+  width: 100%;
+}
+
+.globe-crop {
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--yellow);
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
   width: 100%;
 }
 
@@ -140,16 +148,27 @@ button {
   width: 619.60074%;
 }
 
+.globe-trace {
+  background-image: radial-gradient(circle at 1px 1px,white 2px, transparent 2px);
+  background-repeat: repeat-y;
+  background-size: 4px 8px;
+  height: 50%;
+  left: 50%;
+  margin-left: -1px;
+  position: absolute;
+  top: 0;
+  transform-origin: 50% 0;
+  transition: transform 5s;
+  width: 2px;
+  z-index: 10;
+}
+
 .globe-marker {
   align-items: center;
   box-shadow: 0 0 0 2px var(--white);
   display: flex;
   height: 12.5%;
   justify-content: center;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
   width: 12.5%;
 
   &::after {
@@ -158,6 +177,35 @@ button {
     content: "";
     height: 6px;
     width: 6px;
+  }
+}
+
+.globe-markercontainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 5s;
+  width: 100%;
+}
+
+.globe--small {
+  & .globe-map {
+    background-image: url(./assets/map-solid.png);
+  }
+
+  & .globe-marker {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 12px;
+    width: 12px;
+
+    &::after {
+      height: 4px;
+      width: 4px;
+    }
   }
 }
 

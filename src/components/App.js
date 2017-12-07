@@ -12,24 +12,30 @@ import Info from './Info';
 import styles from 'styles.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.update = this.update.bind(this);
+  }
+
   componentDidMount() {
     if (typeof window === 'undefined') return false;
+    this.updateCycle = setInterval(this.update, 5000);
+  }
 
-    this.update = setInterval(() => {
-      this.props.updateISSCoords({
-        latitude: window.ISSPosition.latitude,
-        longitude: window.ISSPosition.longitude,
-      });
+  update() {
+    this.props.dispatch(updateUserCoords({
+      latitude: window.userPosition.latitude,
+      longitude: window.userPosition.longitude,
+    }));
 
-      this.props.updateUserCoords({
-        latitude: window.userPosition.latitude,
-        longitude: window.userPosition.longitude,
-      });
-    }, 5000);
+    this.props.dispatch(updateISSCoords({
+      latitude: window.ISSPosition.latitude,
+      longitude: window.ISSPosition.longitude,
+    }));
   }
 
   componentWillUnmount() {
-    this.update = null;
+    this.updateCycle = null;
   }
 
   render() {
@@ -42,12 +48,7 @@ class App extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateISSCoords,
-  updateUserCoords,
-});
-
 export default connect(
-  state => state,
-  mapDispatchToProps,
+  state => ({ state }),
+  dispatch => ({ dispatch }),
 )(App);

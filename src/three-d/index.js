@@ -250,13 +250,13 @@ const createBodies = () => {
 
   /* Add Helpers */
 
-  const nullIsland = new THREE.Mesh(
-    new THREE.SphereGeometry(100, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xffffff }),
-  );
-  bodies.world.add(nullIsland);
-  const nullIslandCoords = latLongToCartesian({ latitude: 0, longitude: 0 });
-  nullIsland.position.set(nullIslandCoords.x, nullIslandCoords.y, nullIslandCoords.z);
+  // const nullIsland = new THREE.Mesh(
+  //   new THREE.SphereGeometry(100, 16, 16),
+  //   new THREE.MeshBasicMaterial({ color: 0xffffff }),
+  // );
+  // bodies.world.add(nullIsland);
+  // const nullIslandCoords = latLongToCartesian({ latitude: 0, longitude: 0 });
+  // nullIsland.position.set(nullIslandCoords.x, nullIslandCoords.y, nullIslandCoords.z);
 
   // /* Add N/S/E/W markers */
   // const boreas = new THREE.Mesh(
@@ -283,12 +283,12 @@ const createBodies = () => {
 
   /* Add position helper */
 
-  const userPoint = new THREE.Mesh(
-    new THREE.SphereGeometry(10, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-  );
-  bodies.userPoint = userPoint;
-  bodies.world.add(userPoint);
+  // const userPoint = new THREE.Mesh(
+  //   new THREE.SphereGeometry(10, 16, 16),
+  //   new THREE.MeshBasicMaterial({ color: 0xff0000 }),
+  // );
+  // bodies.userPoint = userPoint;
+  // bodies.world.add(userPoint);
 
   /* Add Pointer */
 

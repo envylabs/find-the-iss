@@ -1,23 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-  closeInfo,
-  openInfo,
-} from './actions';
+import { closeInfo, openInfo } from 'components/actions';
+import Close from 'components/Close';
+import Question from 'components/Question';
 
-import Close from './Close';
-import Question from './Question';
-
-const Info = (props) => (
+const Info = ({ dispatch, ...props }) => (
   <div className="info">
-    <button className="info-button info-open" onClick={props.openInfo}>
+    <button className="info-button info-open" onClick={() => dispatch(openInfo())}>
       <Question />
     </button>
     {props.isInfoOpen &&
       <div>
         <div className="info-fullscreen">
-          <button className="info-button" onClick={props.closeInfo}>
+          <button className="info-button" onClick={() => dispatch(closeInfo())}>
             <Close />
           </button>
           <h2 className="info-heading">About This Project</h2>
@@ -44,16 +40,7 @@ const Info = (props) => (
   </div>
 );
 
-const mapStateToProps = state => ({
-  isInfoOpen: state.isInfoOpen,
-});
-
-const mapDispatchToProps = dispatch => ({
-  closeInfo: () => closeInfo(),
-  openInfo: () => openInfo(),
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  state => ({ isInfoOpen: state.isInfoOpen }),
+  dispatch => ({ dispatch }),
 )(Info);

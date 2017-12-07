@@ -1,32 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-  closeTracker,
-  openTracker,
-} from './actions';
-
-import { haversine } from 'utils/geodesy';
-import geocode from 'utils/geocode';
-
-import Close from './Close';
-import Globe from './Globe';
+import { closeTracker, openTracker } from 'components/actions';
+import Close from 'components/Close';
+import Globe from 'components/Globe';
 import ISS from 'assets/ISS.png';
 
-const Tracker = props => (
+const Tracker = ({ dispatch, ...props }) => (
   <div>
     <div className="tracker">
       <div className="tracker-toggle">
         {!props.isTrackerOpen &&
-          <button className="tracker-button" onClick={props.openTracker}>
-            <Globe
-              x={props.mapTranslation.x}
-              y={props.mapTranslation.y}
-            />
+          <button className="tracker-button" onClick={() => dispatch(openTracker())}>
+            <Globe small />
           </button>
         }
         {props.isTrackerOpen &&
-          <button className="tracker-button" onClick={props.closeTracker}>
+          <button className="tracker-button" onClick={() => dispatch(closeTracker())}>
             <Close width="32" />
           </button>
         }
@@ -48,10 +38,7 @@ const Tracker = props => (
           className="tracker-iss"
           src={ISS}
         />
-        <Globe
-          x={props.mapTranslation.x}
-          y={props.mapTranslation.y}
-        />
+        <Globe />
       </div>
     }
   </div>
@@ -61,15 +48,9 @@ const mapStateToProps = state => ({
   ISSDistance: state.ISSDistance,
   ISSOver: state.ISSOver,
   isTrackerOpen: state.isTrackerOpen,
-  mapTranslation: state.mapTranslation,
-});
-
-const mapDispatchToProps = dispatch => ({
-  closeTracker: () => closeTracker(),
-  openTracker: () => openTracker(),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  dispatch => ({ dispatch }),
 )(Tracker);
