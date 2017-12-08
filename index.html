@@ -18,7 +18,7 @@
       
     
 
-    <title>AR test</title>
+    <title>Where’s the International Space Station?</title>
 
     
 
@@ -27,60 +27,16 @@
     
 
     
-
-    <style>
-      html,
-      body {
-        background: black;
-        height: 100%;
-        margin: 0;
-        overflow: hidden;
-      }
-
-      .nv-stats {
-        background-color: rgba(255, 255, 255, 0.6);
-        font-family: Menlo, monospace;
-        font-size: 11px;
-        left: 32px;
-        padding: 11px;
-        position: fixed;
-        top: 32px;
-        white-space: pre;
-        z-index: 20;
-      }
-
-      .nv-canvas {
-        left: 0;
-        position: fixed;
-        right: 0;
-        z-index: 10;
-      }
-
-      .nv-video-wrapper {
-        height: 100vh;
-        left: 0;
-        overflow: hidden;
-        pointer-events: none;
-        position: fixed;
-        top: 0;
-        width: 100vw;
-        z-index: 1;
-      }
-
-      .nv-video {
-        height: 100%;
-        left: 50%;
-        position: fixed;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: auto;
-      }
-    </style>
-
-  </head>
+    
+    <link href="styles.css" rel="stylesheet">
+    
+    
+  <meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#fff"><meta name="application-name"><link rel="apple-touch-icon" sizes="57x57" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-icon-180x180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title"><link rel="icon" type="image/png" sizes="32x32" href="icons-54e8adfb62919f1a69904a8ae2ceb373/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="icons-54e8adfb62919f1a69904a8ae2ceb373/favicon-16x16.png"><link rel="shortcut icon" href="icons-54e8adfb62919f1a69904a8ae2ceb373/favicon.ico"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-320x460.png"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-640x920.png"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-640x1096.png"><link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-750x1294.png"><link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-1182x2208.png"><link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-1242x2148.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-748x1024.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-768x1004.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-1496x2048.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="icons-54e8adfb62919f1a69904a8ae2ceb373/apple-touch-startup-image-1536x2008.png"></head>
   <body>
     
 
+    
+    <div id="app-root"></div>
     
     
 
@@ -107,5 +63,6 @@
     
 
     
+    <link href="//cloud.typenetwork.com/projects/2025/fontface.css/" rel="stylesheet" type="text/css">
   </body>
 </html>
