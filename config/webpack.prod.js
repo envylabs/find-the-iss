@@ -6,7 +6,23 @@ const common = require('./webpack.common.js');
 
 module.exports = merge.smart(common, {
   output: {
-    filename: '[name].js',
+    filename: '[name].[chunkhash].js',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: { plugins: () => require('postcss-cssnext')() },
+            },
+          ],
+        }),
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({

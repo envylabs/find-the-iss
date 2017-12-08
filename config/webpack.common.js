@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
@@ -22,18 +21,6 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/i,
-        use: ExtractTextPlugin.extract({
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: { plugins: () => require('postcss-cssnext')() },
-            },
-          ],
-        }),
-      },
-      {
         test: /\.(jpe?g|png|svg|stl)$/i,
         use: 'file-loader',
       },
@@ -43,7 +30,6 @@ const config = {
     contentBase: path.resolve(__dirname, '..', 'src'),
   },
   plugins: [
-    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity,
