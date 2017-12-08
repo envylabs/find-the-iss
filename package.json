@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "npm run test && webpack -p",
+    "build": "webpack -p --config config/webpack.prod.js",
     "ngrok": "ngrok http --host-header=rewrite 8080",
     "test": "jest",
     "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0 --config config/webpack.dev.js"

@@ -180,6 +180,16 @@ button {
   }
 }
 
+.globe-iss {
+  height: auto;
+  left: 50%;
+  position: absolute;
+  top: var(--grid);
+  transform: translate(-50%, -128px);
+  width: 25vw;
+  z-index: 10;
+}
+
 .globe-markercontainer {
   align-items: center;
   display: flex;
@@ -309,15 +319,6 @@ button {
   z-index: 80;
 }
 
-.tracker-iss {
-  height: auto;
-  left: 50%;
-  position: absolute;
-  top: var(--grid);
-  transform: translateX(-50%);
-  width: 25vw;
-  z-index: 10;
-}
 
 .tracker-heading {
   color: var(--yellow);

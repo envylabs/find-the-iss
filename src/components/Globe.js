@@ -4,10 +4,17 @@ import { connect } from 'react-redux';
 const Globe = ({ small, x = -50, y }) => (
   <div className={`globe${small ? ' globe--small' : ''}`}>
     {small ||
+      <div>
+      <img
+        alt="International Space Station"
+        className="globe-iss"
+        src={ISS}
+      />
       <div
         className="globe-trace"
-        style={{ transform: `scaleY(${1 + y/50})` }}
+        style={{ height: `${y + 87.5}%`, transform: `translateY(-128px)` }}
       />
+      </div>
     }
     <div className="globe-crop">
       <div

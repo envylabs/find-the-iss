@@ -33,11 +33,6 @@ const Tracker = ({ dispatch, ...props }) => (
     </div>
     {props.isTrackerOpen &&
       <div className="tracker-fullscreen">
-        <img
-          alt="International Space Station"
-          className="tracker-iss"
-          src={ISS}
-        />
         <Globe />
       </div>
     }
