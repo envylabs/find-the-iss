@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { closeTracker, openTracker } from 'components/actions';
 import Close from 'components/Close';
 import Globe from 'components/Globe';
-import ISS from 'assets/ISS.png';
 
 const Tracker = ({ dispatch, ...props }) => (
   <div>

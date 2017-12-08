@@ -44,8 +44,15 @@ usual `localhost`.
 
 # Deployment
 
-This site uses the `gh-pages` branch…
+To build the site:
+
+```
+yarn build
+```
+
+All files will be exported to `/dist`. From there, this site uses the
+`gh-pages` branch…
 
 …
 
-¯\_(ツ)_/¯
+¯\\_(ツ)_/¯

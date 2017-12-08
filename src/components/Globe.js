@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import ISS from 'assets/ISS.png';
+
 const Globe = ({ small, x = -50, y }) => (
   <div className={`globe${small ? ' globe--small' : ''}`}>
     {small ||
@@ -12,7 +14,7 @@ const Globe = ({ small, x = -50, y }) => (
       />
       <div
         className="globe-trace"
-        style={{ height: `${y + 87.5}%`, transform: `translateY(-128px)` }}
+        style={{ height: `calc(${y + 50}% + 96px)` }}
       />
       </div>
     }

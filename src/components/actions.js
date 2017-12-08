@@ -26,10 +26,13 @@ export const updateISSDistance = distance => ({
   distance: parseFloat(distance).toFixed(1),
 });
 
-export const updateISSOver = over => ({
-  type: UPDATE_ISS_OVER,
-  over,
-});
+export const updateISSOver = (over) => {
+  console.log(over);
+  return {
+    type: UPDATE_ISS_OVER,
+    over,
+  };
+};
 
 export const updateMapTranslation = ({ latitude, longitude }) => ({
   type: UPDATE_MAP_TRANSLATION,

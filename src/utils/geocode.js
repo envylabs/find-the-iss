@@ -13,6 +13,8 @@ export default function geocode({ latitude, longitude }) {
         return response.data.features[0].country;
       } else if (response.data.features[0].properties.ocean) {
         return response.data.features[0].properties.ocean;
+      } else if (response.data.features[0].properties.name) {
+        return response.data.features[0].properties.name;
       }
       const NorS = latitude >= 0 ? 'N' : 'S';
       const EorW = longitude >= 0 ? 'E' : 'W';
