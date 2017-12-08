@@ -11,8 +11,6 @@ export default function geocode({ latitude, longitude }) {
         return `${response.data.features[0].region}, ${response.data.features[0].country_a}`;
       } else if (response.data.features[0].properties.country) {
         return response.data.features[0].country;
-      } else if (response.data.features[0].properties.ocean) {
-        return response.data.features[0].properties.ocean;
       } else if (response.data.features[0].properties.name) {
         return response.data.features[0].properties.name;
       }
