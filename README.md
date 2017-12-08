@@ -7,7 +7,7 @@ signing up for a free API key. Once you have your API key, run:
 ngrok authtoken [my-auth-token]
 ```
 
-To finish setup, using [Yarn](https://yarnpkg.com/), run:
+You only have to run this once. To finish setup, using [Yarn](https://yarnpkg.com/), run:
 
 ```
 yarn
@@ -30,3 +30,11 @@ yarn start
 In your ngrok tab, you’ll see a URL that looks like `https://[hash].ngrok.io`.
 That’s the URL you can load up from your desktop or phone, rather than the
 usual `localhost`.
+
+# Deployment
+
+This site uses the `gh-pages` branch…
+
+…
+
+¯\_(ツ)_/¯
