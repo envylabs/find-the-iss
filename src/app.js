@@ -2,7 +2,7 @@
  * Find the ISS AR app
  */
 
-import Stats from 'stats.js';
+// import Stats from 'stats.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -28,7 +28,7 @@ const store = createStore(
   compose(
     applyMiddleware(sagaMiddleware),
     window.devToolsExtension ? window.devToolsExtension() : f => f,
-  ),
+  )
 );
 
 sagaMiddleware.run(rootSaga);
@@ -78,12 +78,7 @@ const build = () => {
   UserCompass.init();
   ThreeD.init();
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById('app-root'),
-  )
+  ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('app-root'));
 
   window.requestAnimationFrame(render);
 };

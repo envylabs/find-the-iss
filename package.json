@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "webpack -p --config config/webpack.prod.js",
+    "build": "webpack --config config/webpack.prod.js",
     "ngrok": "ngrok http --host-header=rewrite 8080",
     "test": "jest",
     "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0 --config config/webpack.dev.js"
@@ -12,7 +12,11 @@
     "@babel/preset-react": "^7.0.0-beta.34",
     "awesome-typescript-loader": "^3.4.0",
     "axios": "^0.17.1",
+    "babel-core": "^6.26.0",
     "babel-loader": "8.0.0-beta.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "favicons-webpack-plugin": "^0.0.7",
@@ -28,7 +32,7 @@
     "rxjs": "^5.5.2",
     "stats.js": "^0.17.0",
     "three": "^0.88.0",
-    "webpack": "^3.8.1",
+    "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.4",
     "webpack-merge": "^4.1.1"
   },

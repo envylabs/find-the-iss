@@ -358,7 +358,7 @@ const update = (
 
   const thisFrame = window.performance.now();
 
-  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'YXZ'); // set user camera
+  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'ZYX'); // set user camera
 
   // if (bodies.ISS) {
   //   bodies.ISS.rotation.x += 0.005;
@@ -397,7 +397,7 @@ const update = (
     // bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
 
     // console.log(boreasCoords);
-    bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
+    // bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
   }
 
   // Skip ISS repositioning if no new location

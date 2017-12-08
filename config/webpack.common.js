@@ -11,7 +11,7 @@ const config = {
     vendor: ['three'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '..', 'dist'),
     filename: '[name].js',
   },
   module: {
@@ -64,10 +64,7 @@ const config = {
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
-    modules: [
-      'node_modules',
-      path.resolve(__dirname, '..', 'src'),
-    ],
+    modules: ['node_modules', path.resolve(__dirname, '..', 'src')],
   },
 };
 
