@@ -1,3 +1,14 @@
+# Find the ISS
+
+WebAR proof-of concept lovingly made by Envy Labs.
+
+🚀 https://envylabs.github.io/find-the-iss/
+
+### Requirements
+
+- iOS 11 Safari
+- Chrome for Android (unless it’s really old)
+
 # Setup
 
 This requires [ngrok](https://ngrok.com/) (`brew cask install ngrok`) and
