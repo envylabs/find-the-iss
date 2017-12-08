@@ -1728,10 +1728,13 @@ const updateISSDistance = distance => ({
 
 exports.updateISSDistance = updateISSDistance;
 
-const updateISSOver = over => ({
-  type: _actionTypes.UPDATE_ISS_OVER,
-  over
-});
+const updateISSOver = over => {
+  console.log(over);
+  return {
+    type: _actionTypes.UPDATE_ISS_OVER,
+    over
+  };
+};
 
 exports.updateISSOver = updateISSOver;
 
@@ -7966,6 +7969,8 @@ function geocode({
       return response.data.features[0].country;
     } else if (response.data.features[0].properties.ocean) {
       return response.data.features[0].properties.ocean;
+    } else if (response.data.features[0].properties.name) {
+      return response.data.features[0].properties.name;
     }
 
     const NorS = latitude >= 0 ? 'N' : 'S';
@@ -10445,8 +10450,6 @@ var _Close = _interopRequireDefault(__webpack_require__(55));
 
 var _Globe = _interopRequireDefault(__webpack_require__(150));
 
-var _ISS = _interopRequireDefault(__webpack_require__(151));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
@@ -10514,6 +10517,8 @@ var _react = _interopRequireDefault(__webpack_require__(2));
 
 var _reactRedux = __webpack_require__(7);
 
+var _ISS = _interopRequireDefault(__webpack_require__(151));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const Globe = ({
@@ -10525,12 +10530,11 @@ const Globe = ({
 }, small || _react.default.createElement("div", null, _react.default.createElement("img", {
   alt: "International Space Station",
   className: "globe-iss",
-  src: ISS
+  src: _ISS.default
 }), _react.default.createElement("div", {
   className: "globe-trace",
   style: {
-    height: `${y + 87.5}%`,
-    transform: `translateY(-128px)`
+    height: `calc(${y + 50}% + 96px)`
   }
 })), _react.default.createElement("div", {
   className: "globe-crop"

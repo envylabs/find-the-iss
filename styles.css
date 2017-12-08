@@ -125,7 +125,28 @@ button svg {
   height: 0;
   padding-top: 100%;
   position: relative;
+  width: 100%
+}
+
+.globe::after {
+
+  border-radius: 50%;
+
+  box-shadow: inset 0 0 0 4px var(--black);
+
+  content: "";
+
+  height: 100%;
+
+  left: 0;
+
+  position: absolute;
+
+  top: 0;
+
   width: 100%;
+
+  z-index: 10;
 }
 
 .globe-crop {
@@ -137,6 +158,7 @@ button svg {
   position: absolute;
   top: 0;
   width: 100%;
+  z-index: 10;
 }
 
 .globe-map {
@@ -154,27 +176,37 @@ button svg {
 }
 
 .globe-trace {
+  animation-name: draw;
+  animation-duration: 5s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
   background-image: radial-gradient(circle at 1px 1px,white 2px, transparent 2px);
   background-repeat: repeat-y;
   background-size: 4px 8px;
-  height: 50%;
+  height: calc(50% + 96px);
   left: 50%;
   margin-left: -1px;
   position: absolute;
-  top: 0;
+  top: -96px;
   transform-origin: 50% 0;
-  transition: transform 5s;
+  transition: height 5s;
   width: 2px;
   z-index: 10;
+}
+
+@keyframes draw {
+  from {
+    transform-origin: 50% 0;
+    transform: scaleY(0);
+  }
 }
 
 .globe-marker {
   align-items: center;
   box-shadow: 0 0 0 2px var(--white);
   display: flex;
-  height: 12.5%;
+  height: 32px;
   justify-content: center;
-  width: 12.5%
+  width: 32px
 }
 
 .globe-marker::after {
@@ -194,7 +226,7 @@ button svg {
   height: auto;
   left: 50%;
   position: absolute;
-  top: var(--grid);
+  top: 0;
   transform: translate(-50%, -128px);
   width: 25vw;
   z-index: 10;
@@ -212,9 +244,16 @@ button svg {
   width: 100%;
 }
 
+.globe--small::after {
+
+  box-shadow: inset 0 0 0 1px var(--black);
+}
+
 .globe--small .globe-map {
 
   background-image: url(ef0a543ab3f59253d88e496f0ab8929a.png);
+
+  box-shadow: 0 0 0 2px var(--yellow), inset 0 0 0 2px var(--black);
 }
 
 .globe--small .globe-marker {
