@@ -7967,8 +7967,6 @@ function geocode({
       return `${response.data.features[0].region}, ${response.data.features[0].country_a}`;
     } else if (response.data.features[0].properties.country) {
       return response.data.features[0].country;
-    } else if (response.data.features[0].properties.ocean) {
-      return response.data.features[0].properties.ocean;
     } else if (response.data.features[0].properties.name) {
       return response.data.features[0].properties.name;
     }
@@ -10615,7 +10613,23 @@ const Info = (_ref) => {
     className: "info-heading"
   }, "About This Project"), _react.default.createElement("div", {
     className: "info-body"
-  }, _react.default.createElement("p", null, "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit tempus porttitor."), _react.default.createElement("p", null, "Cras justo odio, dapibus ac facilisis in, egestas eget quam. Nullam id dolor id nibh ultricies vehicula ut id elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur blandit tempus porttitor."), _react.default.createElement("p", null, "Built by Envy Labs with help from...")))));
+  }, _react.default.createElement("p", null, "Find the ISS is a WebAR experiment that relies on the open-source", " ", _react.default.createElement("a", {
+    href: "http://wheretheiss.at/",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "Where The ISS At?"), " ", "API to track the ISS. The WebAR concepts are custom-built using", " ", _react.default.createElement("a", {
+    href: "https://github.com/mrdoob/three.js/",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "Three.js"), " ", "and WebRTC, but concepts were pulled from", " ", _react.default.createElement("a", {
+    href: "https://github.com/jeromeetienne/ar.js",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "AR.js"), "."), _react.default.createElement("p", null, "Made by", " ", _react.default.createElement("a", {
+    href: "https://envylabs.com",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "Envy Labs"), "."), _react.default.createElement("p", null, "Browsers supported:"), _react.default.createElement("ul", null, _react.default.createElement("li", null, "iOS 11"), _react.default.createElement("li", null, "Chrome Android"))))));
 };
 
 var _default = (0, _reactRedux.connect)(state => ({
