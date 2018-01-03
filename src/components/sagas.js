@@ -35,8 +35,8 @@ function* updateISSData(action) {
   try {
     const over = yield call(geocode, ISSPos);
     yield put(updateISSOver(over));
-  } catch(e) {
-    console.log('😵 Couldn’t reach Mapzen');
+  } catch (e) {
+    console.log('😵 Couldn’t reach Geonames');
   }
 }
 
