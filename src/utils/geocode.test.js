@@ -14,7 +14,7 @@ test('Geocode Bangkok', async () => {
 });
 test('Geocode Pacific Ocean', async () => {
   const data = await geocode({ latitude: 28.538335, longitude: -81.379236 });
-  expect(data).toBe('Null');
+  expect(data).toBe('Pacific Ocean');
 });
 test('Geocode Null Island', async () => {
   const data = await geocode({ latitude: 0, longitude: 0 });

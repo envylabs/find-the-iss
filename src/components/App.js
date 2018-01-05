@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {
-  updateUserCoords,
-  updateISSCoords,
-} from './actions';
+import { updateUserCoords, updateISSCoords } from './actions';
 
-import Tracker from './Tracker';
 import Info from './Info';
+import Start from './Start';
+import Tracker from './Tracker';
 
 import styles from 'styles.css';
 
@@ -23,15 +21,19 @@ class App extends React.Component {
   }
 
   update() {
-    this.props.dispatch(updateUserCoords({
-      latitude: window.userPosition.latitude,
-      longitude: window.userPosition.longitude,
-    }));
+    this.props.dispatch(
+      updateUserCoords({
+        latitude: window.userPosition.latitude,
+        longitude: window.userPosition.longitude
+      })
+    );
 
-    this.props.dispatch(updateISSCoords({
-      latitude: window.ISSPosition.latitude,
-      longitude: window.ISSPosition.longitude,
-    }));
+    this.props.dispatch(
+      updateISSCoords({
+        latitude: window.ISSPosition.latitude,
+        longitude: window.ISSPosition.longitude
+      })
+    );
   }
 
   componentWillUnmount() {
@@ -41,6 +43,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
+        <Start />
         <Info />
         <Tracker />
       </div>
@@ -48,7 +51,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(
-  state => ({ state }),
-  dispatch => ({ dispatch }),
-)(App);
+export default connect(state => ({ state }), dispatch => ({ dispatch }))(App);

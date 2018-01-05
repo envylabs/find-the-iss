@@ -1,4 +1,5 @@
 export const CLOSE_INFO = 'CLOSE_INFO';
+export const CLOSE_START = 'CLOSE_START';
 export const CLOSE_TRACKER = 'CLOSE_TRACKER';
 export const OPEN_INFO = 'OPEN_INFO';
 export const OPEN_TRACKER = 'OPEN_TRACKER';

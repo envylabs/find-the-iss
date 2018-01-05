@@ -2,6 +2,7 @@
   /* Color */
 
   --black: rgb(0, 0, 0);
+  --opaqueBlack: rgba(0, 0, 0, 0.8);
   --yellow: rgb(255, 201, 39);
   --white: rgb(255, 255, 255);
 
@@ -45,6 +46,26 @@ body {
   margin: 0;
   overflow: hidden;
 }
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 800ms ease-in;
+}
+
+
 /* Core */
 
 button {
@@ -53,6 +74,7 @@ button {
   background-color: transparent;
   border: none;
   display: flex;
+  font-family: inherit;
   justify-content: center;
   outline: none;
   padding: 0;
@@ -318,6 +340,93 @@ button {
     fill: var(--white);
     height: auto;
     width: 100%;
+  }
+}
+
+/* Start */
+
+.start-body {
+  & a {
+    color: var(--yellow);
+  }
+}
+
+.start-button {
+  background-color: var(--yellow);
+  font-size: var(--up1);
+  margin-top: var(--grid);
+  padding: calc(0.5 * var(--grid));
+  position: relative;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.start-fullscreen {
+  background-color: var(--opaqueBlack);
+  bottom: 0;
+  left: 0;
+  padding-bottom: calc(1.5 * var(--grid));
+  padding-left: calc( 1.5 * var(--grid));
+  padding-right: calc(1.5 * var(--grid));
+  padding-top: var(--grid);
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 101;
+}
+
+.start-inner {
+  align-items: center;
+  background-image: linear-gradient(white, white), linear-gradient(white, white);
+  background-position: left top, right top;
+  background-repeat: no-repeat;
+  background-size: 33% 1px, 33% 1px;
+  border-bottom: 1px solid var(--white);
+  border-left: 1px solid var(--white);
+  border-right: 1px solid var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 65%;
+  margin-top: calc(2 * var(--grid));
+  padding-bottom: calc(0.5 * var(--grid));
+  padding-left: calc(0.5 * var(--grid));
+  padding-right: calc(0.5 * var(--grid));
+  padding-top: calc(1.5 * var(--grid));
+  position: relative;
+  & p {
+    font-size: var(--down1);
+    line-height: 18px;
+  }
+}
+
+.start-iss {
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%) translateY(-50%);
+  width: 20%;
+}
+
+.start-globe {
+  animation-duration: 3s;
+  animation-name: slideDown;
+}
+
+.start-heading {
+  color: var(--yellow);
+  font-size: var(--up2);
+  margin-bottom: var(--grid);
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+@keyframes slideDown {
+  from {
+    top: inherit;
+  }
+
+  to {
+    top: 65%;
   }
 }
 
