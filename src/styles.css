@@ -2,7 +2,7 @@
   /* Color */
 
   --black: rgb(0, 0, 0);
-  --opaqueBlack: rgba(0, 0, 0, 0.8);
+  --opaqueBlack: rgba(0, 0, 0, 0.9);
   --yellow: rgb(255, 201, 39);
   --white: rgb(255, 255, 255);
 
@@ -46,25 +46,6 @@ body {
   margin: 0;
   overflow: hidden;
 }
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 800ms ease-in;
-}
-
 
 /* Core */
 
@@ -278,6 +259,21 @@ button {
   }
 }
 
+.globe--start {
+  animation: 1.5s 0.5s backwards slideDown;
+  height: 0;
+  padding-top: 90%;
+  position: absolute;
+  top: 69%;
+  width: 90%;
+
+  & .globe-map {
+    animation: 1.75s 0.5s backwards spin;
+    transform: translateX(-50%);
+  }
+}
+
+
 /* Info */
 
 .info-body {
@@ -346,6 +342,9 @@ button {
 /* Start */
 
 .start-body {
+  animation: 1.5s 1.25s backwards slideUpAndIn;
+  display: flex;
+  flex-direction: column;
   & a {
     color: var(--yellow);
   }
@@ -375,6 +374,14 @@ button {
   z-index: 101;
 }
 
+.start-heading {
+  align-self: center;
+  color: var(--yellow);
+  font-size: var(--up2);
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
 .start-inner {
   align-items: center;
   background-image: linear-gradient(white, white), linear-gradient(white, white);
@@ -388,6 +395,7 @@ button {
   flex-direction: column;
   height: 65%;
   margin-top: calc(2 * var(--grid));
+  overflow: hidden;
   padding-bottom: calc(0.5 * var(--grid));
   padding-left: calc(0.5 * var(--grid));
   padding-right: calc(0.5 * var(--grid));
@@ -402,31 +410,27 @@ button {
 .start-iss {
   left: 50%;
   position: absolute;
-  top: 0;
-  transform: translateX(-50%) translateY(-50%);
+  top: calc(3 * var(--grid));
+  transform: translate(-50%, -50%);
   width: 20%;
-}
-
-.start-globe {
-  animation-duration: 3s;
-  animation-name: slideDown;
-}
-
-.start-heading {
-  color: var(--yellow);
-  font-size: var(--up2);
-  margin-bottom: var(--grid);
-  margin-top: 0;
-  text-transform: uppercase;
 }
 
 @keyframes slideDown {
   from {
-    top: inherit;
+    transform: translateY(-85%)
   }
+}
 
-  to {
-    top: 65%;
+@keyframes slideUpAndIn {
+  from {
+    opacity: 0.01;
+    transform: translateY(8%);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translateX(-40%);
   }
 }
 
