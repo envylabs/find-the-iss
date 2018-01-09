@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { closeInfo, openInfo } from 'components/actions';
 import Close from 'components/Close';
 import Question from 'components/Question';
+import Stars from 'components/Stars';
 
 const Info = ({ dispatch, ...props }) => (
   <div className="info">
@@ -13,6 +14,7 @@ const Info = ({ dispatch, ...props }) => (
     {props.isInfoOpen && (
       <div>
         <div className="info-fullscreen">
+          <Stars />
           <button className="info-button" onClick={() => dispatch(closeInfo())}>
             <Close />
           </button>
