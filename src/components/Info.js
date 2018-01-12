@@ -16,8 +16,11 @@ const Info = ({ dispatch, ...props }) => (
           <button className="info-button" onClick={() => dispatch(closeInfo())}>
             <Close />
           </button>
-          <h2 className="info-heading">About This Project</h2>
-          <div className="info-body">
+          <div className="info-content">
+            <img src="./assets/ISS.png" alt="About This Project" className="info-image" />
+            <h2 className="info-heading">
+              <span>About This Project</span>
+            </h2>
             <p>
               Find the ISS is a WebAR experiment that relies on the open-source{' '}
               <a href="http://wheretheiss.at/" target="_blank" rel="noopener noreferrer">

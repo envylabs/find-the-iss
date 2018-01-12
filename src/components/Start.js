@@ -29,9 +29,11 @@ const Start = ({ dispatch, ...props }) => (
         transform: props.isStartOpen ? '' : 'translateY(-10%)'
       }}
     >
-      <StartGlobe small={true} />
+      <div className="start-globe">
+        <StartGlobe small={true} />
+      </div>
       <div className="start-body">
-        <h2 className="start-heading">Find the ISS</h2>
+        <h1>Find the ISS</h1>
         <p>
           A WebAR experiment that relies on the open source{' '}
           <a href="http://wheretheiss.at/" target="_blank" rel="noopener noreferrer">
@@ -52,17 +54,19 @@ const Start = ({ dispatch, ...props }) => (
         </ul>
       </div>
     </div>
-    <button
-      className="start-button"
-      onClick={() => dispatch(closeStart())}
-      style={{
-        opacity: props.isStartOpen ? '1' : '0',
-        transition: 'opacity 250ms linear, transform 500ms linear',
-        transform: props.isStartOpen ? '' : 'translateY(50%)'
-      }}
-    >
-      Launch App
-    </button>
+    <div>
+      <button
+        className="start-button"
+        onClick={() => dispatch(closeStart())}
+        style={{
+          opacity: props.isStartOpen ? '1' : '0',
+          transition: 'opacity 250ms linear, transform 500ms linear',
+          transform: props.isStartOpen ? '' : 'translateY(50%)'
+        }}
+      >
+        Launch App
+      </button>
+    </div>
   </div>
 );
 
