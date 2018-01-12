@@ -4,21 +4,22 @@ import { connect } from 'react-redux';
 import { closeTracker, openTracker } from 'components/actions';
 import Close from 'components/Close';
 import Globe from 'components/Globe';
+import Stars from 'components/Stars';
 
 const Tracker = ({ dispatch, ...props }) => (
   <div>
     <div className="tracker">
       <div className="tracker-toggle">
-        {!props.isTrackerOpen &&
+        {!props.isTrackerOpen && (
           <button className="tracker-button" onClick={() => dispatch(openTracker())}>
             <Globe small />
           </button>
-        }
-        {props.isTrackerOpen &&
+        )}
+        {props.isTrackerOpen && (
           <button className="tracker-button" onClick={() => dispatch(closeTracker())}>
             <Close width="32" />
           </button>
-        }
+        )}
       </div>
       <div className="tracker-location">
         <h2 className="tracker-heading">
@@ -30,21 +31,19 @@ const Tracker = ({ dispatch, ...props }) => (
         </div>
       </div>
     </div>
-    {props.isTrackerOpen &&
+    {props.isTrackerOpen && (
       <div className="tracker-fullscreen">
+        <Stars />
         <Globe />
       </div>
-    }
+    )}
   </div>
 );
 
 const mapStateToProps = state => ({
   ISSDistance: state.ISSDistance,
   ISSOver: state.ISSOver,
-  isTrackerOpen: state.isTrackerOpen,
+  isTrackerOpen: state.isTrackerOpen
 });
 
-export default connect(
-  mapStateToProps,
-  dispatch => ({ dispatch }),
-)(Tracker);
+export default connect(mapStateToProps, dispatch => ({ dispatch }))(Tracker);
