@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import StartGlobe from 'components/StartGlobe';
 import { closeStart } from 'components/actions';
 
+import ISS from '../assets/ISS.png';
+
 const Start = ({ dispatch, ...props }) => (
   <div
     className="start-fullscreen"
@@ -14,7 +16,7 @@ const Start = ({ dispatch, ...props }) => (
   >
     <img
       className="start-iss"
-      src="./assets/ISS.png"
+      src={ISS}
       style={{
         opacity: props.isStartOpen ? '1' : '0',
         transition: 'opacity 250ms linear, transform 500ms linear',

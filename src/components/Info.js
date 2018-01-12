@@ -5,6 +5,7 @@ import { closeInfo, openInfo } from 'components/actions';
 import Close from 'components/Close';
 import Question from 'components/Question';
 import Stars from 'components/Stars';
+import ISS from '../assets/ISS.png';
 
 const Info = ({ dispatch, ...props }) => (
   <div className="info">
@@ -19,7 +20,7 @@ const Info = ({ dispatch, ...props }) => (
             <Close />
           </button>
           <div className="info-content">
-            <img src="./assets/ISS.png" alt="About This Project" className="info-image" />
+            <img src={ISS} alt="About This Project" className="info-image" />
             <h2 className="info-heading">
               <span>About This Project</span>
             </h2>
