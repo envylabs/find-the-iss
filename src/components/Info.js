@@ -1,16 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { closeInfo, openInfo } from "components/actions";
-import Close from "components/Close";
-import Question from "components/Question";
+import { closeInfo, openInfo } from 'components/actions';
+import Close from 'components/Close';
+import Question from 'components/Question';
 
 const Info = ({ dispatch, ...props }) => (
   <div className="info">
-    <button
-      className="info-button info-open"
-      onClick={() => dispatch(openInfo())}
-    >
+    <button className="info-button info-open" onClick={() => dispatch(openInfo())}>
       <Question />
     </button>
     {props.isInfoOpen && (
@@ -19,41 +16,28 @@ const Info = ({ dispatch, ...props }) => (
           <button className="info-button" onClick={() => dispatch(closeInfo())}>
             <Close />
           </button>
-          <h2 className="info-heading">About This Project</h2>
-          <div className="info-body">
+          <div className="info-content">
+            <img src="./assets/ISS.png" alt="About This Project" className="info-image" />
+            <h2 className="info-heading">
+              <span>About This Project</span>
+            </h2>
             <p>
-              Find the ISS is a WebAR experiment that relies on the open-source{" "}
-              <a
-                href="http://wheretheiss.at/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              Find the ISS is a WebAR experiment that relies on the open-source{' '}
+              <a href="http://wheretheiss.at/" target="_blank" rel="noopener noreferrer">
                 Where The ISS At?
-              </a>{" "}
-              API to track the ISS. The WebAR concepts are custom-built using{" "}
-              <a
-                href="https://github.com/mrdoob/three.js/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              </a>{' '}
+              API to track the ISS. The WebAR concepts are custom-built using{' '}
+              <a href="https://github.com/mrdoob/three.js/" target="_blank" rel="noopener noreferrer">
                 Three.js
-              </a>{" "}
-              and WebRTC, but concepts were pulled from{" "}
-              <a
-                href="https://github.com/jeromeetienne/ar.js"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              </a>{' '}
+              and WebRTC, but concepts were pulled from{' '}
+              <a href="https://github.com/jeromeetienne/ar.js" target="_blank" rel="noopener noreferrer">
                 AR.js
               </a>.
             </p>
             <p>
-              Made by{" "}
-              <a
-                href="https://envylabs.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              Made by{' '}
+              <a href="https://envylabs.com" target="_blank" rel="noopener noreferrer">
                 Envy Labs
               </a>.
             </p>
@@ -69,7 +53,4 @@ const Info = ({ dispatch, ...props }) => (
   </div>
 );
 
-export default connect(
-  state => ({ isInfoOpen: state.isInfoOpen }),
-  dispatch => ({ dispatch })
-)(Info);
+export default connect(state => ({ isInfoOpen: state.isInfoOpen }), dispatch => ({ dispatch }))(Info);

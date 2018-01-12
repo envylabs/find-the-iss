@@ -21,12 +21,12 @@ const Tracker = ({ dispatch, ...props }) => (
         }
       </div>
       <div className="tracker-location">
-        <div className="tracker-heading">
-          Current Location
-        </div>
+        <h2 className="tracker-heading">
+          <span>Current Location</span>
+        </h2>
         <div className="tracker-readout">
-          <div className="tracker-region">{props.ISSOver}</div>
-          <div className="tracker-distance">{`${props.ISSDistance} km`}</div>
+          <span className="tracker-region">{props.ISSOver}</span>&nbsp;
+          <span className="tracker-distance">// {`${props.ISSDistance} km`}</span>
         </div>
       </div>
     </div>

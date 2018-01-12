@@ -1,5 +1,6 @@
 import {
   CLOSE_INFO,
+  CLOSE_START,
   CLOSE_TRACKER,
   OPEN_INFO,
   OPEN_TRACKER,
@@ -7,7 +8,7 @@ import {
   UPDATE_ISS_DISTANCE,
   UPDATE_ISS_OVER,
   UPDATE_MAP_TRANSLATION,
-  UPDATE_USER_COORDS,
+  UPDATE_USER_COORDS
 } from './actionTypes';
 
 export const initialState = {
@@ -15,15 +16,18 @@ export const initialState = {
   ISSDistance: 0,
   ISSOver: '???',
   ISSPos: { latitude: 0, longitude: 0 },
+  isStartOpen: true,
   isTrackerOpen: false,
   mapTranslation: { x: -50, y: 0 },
-  userPos: { latitude: 0, longitude: 0 },
+  userPos: { latitude: 0, longitude: 0 }
 };
 
 export function rootReducer(state = initialState, action) {
   switch (action.type) {
     case CLOSE_INFO:
       return { ...state, isInfoOpen: false };
+    case CLOSE_START:
+      return { ...state, isStartOpen: false };
     case CLOSE_TRACKER:
       return { ...state, isTrackerOpen: false };
     case OPEN_INFO:
@@ -33,15 +37,15 @@ export function rootReducer(state = initialState, action) {
     case UPDATE_MAP_TRANSLATION:
       return {
         ...state,
-        mapTranslation: action.translation,
+        mapTranslation: action.translation
       };
     case UPDATE_ISS_COORDS:
       return {
         ...state,
         ISSPos: {
           latitude: action.latitude,
-          longitude: action.longitude,
-        },
+          longitude: action.longitude
+        }
       };
     case UPDATE_ISS_DISTANCE:
       return { ...state, ISSDistance: action.distance };
@@ -52,8 +56,8 @@ export function rootReducer(state = initialState, action) {
         ...state,
         userPos: {
           latitude: action.latitude,
-          longitude: action.longitude,
-        },
+          longitude: action.longitude
+        }
       };
     default:
       return state;
