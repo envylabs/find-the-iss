@@ -11,7 +11,8 @@ export default class Stars extends React.Component {
   }
 
   componentDidMount() {
-    this.ctx = this.canvas.getContext('2d');
+    this.context = this.canvas.getContext('2d');
+    this.context.fillStyle = '#fff';
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
 
@@ -24,15 +25,11 @@ export default class Stars extends React.Component {
   }
 
   draw() {
-    this.context = this.canvas.getContext('2d');
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.context.globalCompositeOperation = 'lighter';
 
     for (var i = 0, x = this.stars.length; i < x; i++) {
       var s = this.stars[i];
 
-      this.context.fillStyle = '#fff';
       this.context.beginPath();
       this.context.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
       this.context.fill();
@@ -47,7 +44,7 @@ export default class Stars extends React.Component {
 
     this.stars = [];
 
-    for (var i = 0; i < this.canvas.width; i++) {
+    for (var i = 0; i < this.canvas.width / 2; i++) {
       this.stars.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
