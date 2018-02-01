@@ -16,25 +16,41 @@ const WGS84semiminor = 6356.7523142;
 const latLongToCartesian = ({ latitude, longitude, altitude = 0 }) => {
   // https://www.movable-type.co.uk/scripts/latlong.html
 
-  const φ = latitude * radian;
-  const λ = longitude * radian;
-  const h = altitude; // convert alt to m
-  const a = WGS84semimajor;
-  const f = WGS84flattening;
+  // const φ = latitude * radian;
+  // const λ = longitude * radian;
+  // const h = altitude + meanRadiusOfEarth; // convert alt to m
+  // const a = WGS84semimajor;
+  // const f = WGS84flattening;
 
-  const sinφ = Math.sin(φ);
-  const cosφ = Math.cos(φ);
-  const sinλ = Math.sin(λ);
-  const cosλ = Math.cos(λ);
+  // const sinφ = Math.sin(φ);
+  // const cosφ = Math.cos(φ);
+  // const sinλ = Math.sin(λ);
+  // const cosλ = Math.cos(λ);
 
-  const eSq = (2 * f) - (f * f);                    // 1st eccentricity squared ≡ (a²-b²)/a²
-  const ν = a / Math.sqrt(1 - (eSq * sinφ * sinφ)); // radius of curvature in prime vertical
+  // const eSq = (2 * f) - (f * f);                    // 1st eccentricity squared ≡ (a²-b²)/a²
+  // const ν = a / Math.sqrt(1 - (eSq * sinφ * sinφ)); // radius of curvature in prime vertical
 
-  const x = (ν + h) * cosφ * cosλ; // lat/lon (0, 0) is 1; (0, 180) is -1
-  const y = (ν + h) * cosφ * sinλ; // lat/lon (0, 90) is 1; (0, -90) is -1;
-  const z = ((ν * (1 - eSq)) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
+  // const x = (ν + h) * cosφ * cosλ; // lat/lon (0, 0) is 1; (0, 180) is -1
+  // const y = (ν + h) * cosφ * sinλ; // lat/lon (0, 90) is 1; (0, -90) is -1;
+  // const z = ((ν * (1 - eSq)) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
 
-  return { x, y: z, z: -y }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
+  // return { x, y: z, z: -y }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
+
+  var cosLat = Math.cos(latitude * Math.PI / 180.0);
+  var sinLat = Math.sin(latitude * Math.PI / 180.0);
+  var cosLon = Math.cos(longitude * Math.PI / 180.0);
+  var sinLon = Math.sin(longitude * Math.PI / 180.0);
+  var rad = meanRadiusOfEarth;
+  var f = 1.0 / 298.257224;
+  var C = 1.0 / Math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat);
+  var S = (1.0 - f) * (1.0 - f) * C;
+  var h = altitude;
+
+  var x = (rad * C + h) * cosLat * cosLon;
+  var y = (rad * C + h) * cosLat * sinLon;
+  var z = (rad * S + h) * sinLat;
+
+  return {x, y, z};
 };
 
 const latToRadius = (latitude) => {

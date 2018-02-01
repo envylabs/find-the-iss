@@ -37,7 +37,7 @@ import nz from 'textures/nz.jpg';
 
 /* Settings */
 
-const ISSScale = 300;
+const ISSScale = 5;
 
 const ghostMaterial = new THREE.MeshBasicMaterial({
   color: new THREE.Color('#fff'),
@@ -178,7 +178,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   meanRadiusOfEarth * 2.5,
 );
-camera.position.set(0, 0.5, 0); // epsilon—shows axes helpers
+// camera.position.set(0, 0.5, 0); // epsilon—shows axes helpers
 
 /* Scene */
 
@@ -199,22 +199,22 @@ const createBodies = () => {
   const ISS = new THREE.Group(); // Just the ISS (no lights)
   bodies.ISS = ISS;
 
-  /* Add world rotation (The ship stays where it is, and the dark matter engines move the universe around it, etc.) */
-
-  const world = new THREE.Group();
-  bodies.world = world;
-  scene.add(world);
-
   /* Add horizon */
 
-  const horizonLine = distanceToHorizon();
-  const horizon = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32),
-    new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 }),
-  );
-  horizon.position.y = -0.251;
-  bodies.horizon = horizon;
-  scene.add(horizon);
+  // const horizonLine = distanceToHorizon();
+  // const horizon = new THREE.Mesh(
+  //   new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32),
+  //   new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 }),
+  // );
+  // horizon.position.y = -0.251;
+  // bodies.horizon = horizon;
+  // scene.add(horizon);
+
+  /* Add earth sphere */
+  var geometry = new THREE.SphereGeometry(meanRadiusOfEarth, 50, 50);
+  var material = new THREE.MeshNormalMaterial();
+  var earth = new THREE.Mesh(geometry, material);
+  scene.add(earth);
 
   /* Add ISS Parts */
 
@@ -237,8 +237,8 @@ const createBodies = () => {
 
   const ISSWithLights = new THREE.Group(); // Allows lights to move with station
   ISSWithLights.add(ISS);
-  ISSWithLights.position.x = meanRadiusOfEarth;
-  bodies.world.add(ISSWithLights);
+  // ISSWithLights.position.x = meanRadiusOfEarth;
+  scene.add(ISSWithLights);
   bodies.ISSWithLights = ISSWithLights;
 
   lights.forEach(({ light, position = null }) => {
@@ -344,84 +344,80 @@ const init = () => {
 
 /* Update */
 
-const lastUpdate = {
-  ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
-  rotation: { x: 0, y: 0, z: 0 },
-  user: { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
-};
-let firstFrame = 0;
+// const lastUpdate = {
+//   ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
+//   rotation: { x: 0, y: 0, z: 0 },
+//   user: { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
+// };
 const update = (
   user = { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
   ISS = { latitude: 0, longitude: 0, altitude: 0 },
 ) => {
-  /* Necessary updates */
+  // ISS.latitude = 28.4286111111;
+  // ISS.longitude = -81.3086111111;
+  ISS.latitude = 28.5728722;
+  ISS.longitude = -80.6489808;
+  ISS.altitude = 405;
 
   const thisFrame = window.performance.now();
+  const userCoords = latLongToCartesian(user);
+  const coords = latLongToCartesian(ISS);
 
-  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'ZYX'); // set user camera
+  // Rotate the camera
+  camera.rotation.set(0, -user.yaw * radian, 0); // set user camera
 
-  // if (bodies.ISS) {
-  //   bodies.ISS.rotation.x += 0.005;
+  // var userMoved = false;
+  // var issMoved = false;
+
+  // If the user moved, move the camera
+  // if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
+    // userMoved = true;
+    // console.log("User coords: " + userCoords.x + ", " + userCoords.y + ", " + userCoords.z);
+    camera.position.set(userCoords.x, userCoords.y, userCoords.z);
+
+    // lastUpdate.user.latitude = user.latitude;
+    // lastUpdate.user.longitude = user.longitude;
   // }
 
-  /* Conditional updates */
-
-  // TODO: calculate ISS position on-screen (x, y) for cone
-
-  // Skip world rotation if user hasn’t moved
-  if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
-    firstFrame = window.performance.now();
-    const userCoords = latLongToCartesian(user);
-    const rotation = radiansToNorthPole(user);
-
-    bodies.world.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-    bodies.world.position.y = -latToRadius(user.latitude);
-    bodies.coneGimball.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-
-    lastUpdate.user.latitude = user.latitude;
-    lastUpdate.user.longitude = user.longitude;
-
-    // /* Helpers */
-    // const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
-    // const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
-    // const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
-    // const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
-
-    // bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
-    // bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
-    // bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
-    // bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
-    // bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-
-    // console.log(boreasCoords);
-    // bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
-  }
-
-  // Skip ISS repositioning if no new location
-  if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
-    const coords = latLongToCartesian(ISS);
+  // If the ISS moved, set its new location and calculate its visibility
+  // if (lastUpdate.ISS.longitude !== ISS.longitude || lastUpdate.ISS.latitude !== ISS.latitude) {
+    // issMoved = true;
+    // console.log("ISS coords: " + coords.x + ", " + coords.y + ", " + coords.z);
     bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-    const ISSPos = new THREE.Vector3();
-    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
-    lastUpdate.ISS = {
-      ...lastUpdate.ISS,
-      latitude: ISS.latitude, longitude: ISS.longitude,
-      position: ISSPos,
-    };
+    // const ISSPos = new THREE.Vector3();
+    // ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
+    // lastUpdate.ISS = {
+    //   ...lastUpdate.ISS,
+    //   latitude: ISS.latitude, longitude: ISS.longitude,
+    //   // position: ISSPos,
+    // };
 
-    const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
-    let state = 'OBSCURED';
-    if (ray.intersectObject(bodies.horizon).length === 0) {
-      state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+    // const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
+    // let state = 'OBSCURED';
+    // if (ray.intersectObject(bodies.horizon).length === 0) {
+    //   state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+    // }
+    // lastUpdate.ISS.state = state;
+    // ISSGeometries.forEach((part) => {
+    //   bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+    // });
+  // }
+
+  // If the user or ISS moved, rotate the cone to point toward the ISS
+  // if (userMoved || issMoved) {
+    const x = coords.x - userCoords.x;
+    const y = coords.y - userCoords.y;
+    const z = coords.z - userCoords.z;
+    var rotx = Math.atan2(y, z);
+    var roty = 0;
+    if (z >= 0) {
+      roty = -Math.atan2(x * Math.cos(rotx), z);
+    } else {
+      roty = Math.atan2(x * Math.cos(rotx), -z);
     }
-    lastUpdate.ISS.state = state;
-    ISSGeometries.forEach((part) => {
-      bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
-    });
-  }
+    // console.log("Cone rotation: " + rotx + ", " + roty);
+    bodies.coneGimball.rotation.set(rotx, roty, 0);
+  // }
 
   if (bodies.coneContainer && bodies.ISSWithLights) {
     bodies.coneContainer.rotation.set(
