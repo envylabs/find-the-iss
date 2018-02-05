@@ -349,6 +349,7 @@ h2 {
   background-color: var(--black);
   bottom: 0;
   left: 0;
+  overflow: auto;
   padding-bottom: var(--grid);
   padding-left: var(--grid);
   padding-right: var(--grid);
@@ -394,7 +395,7 @@ h2 {
 .start-button {
   background-color: var(--yellow);
   font-size: var(--up1);
-  margin: var(--grid) 0;
+  margin: var(--grid) 0 calc(2 * var(--grid));
   padding: calc(0.5 * var(--grid));
   position: relative;
   text-transform: uppercase;

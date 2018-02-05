@@ -40,7 +40,7 @@ export const updateMapTranslation = ({ latitude, longitude }) => ({
   type: UPDATE_MAP_TRANSLATION,
   translation: {
     x: -(longitude / 180) * 50 / 3 - 50,
-    y: Math.sin(latitude / 180 * Math.PI) * -50
+    y: Math.sin(latitude / 180 * Math.PI) * -37
   }
 });
 
