@@ -12,7 +12,6 @@ export default class Stars extends React.Component {
 
   componentDidMount() {
     this.context = this.canvas.getContext('2d');
-    this.context.fillStyle = '#fff';
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
 
@@ -25,7 +24,9 @@ export default class Stars extends React.Component {
   }
 
   draw() {
+    this.context = this.canvas.getContext('2d');
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = '#fff';
 
     for (var i = 0, x = this.stars.length; i < x; i++) {
       var s = this.stars[i];

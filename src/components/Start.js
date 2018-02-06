@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StartGlobe from 'components/StartGlobe';
+import Stars from 'components/Stars';
 import { closeStart } from 'components/actions';
 
 import ISS from '../assets/ISS.png';
@@ -14,6 +15,7 @@ const Start = ({ dispatch, ...props }) => (
       visibility: props.isStartOpen ? 'visible' : 'hidden'
     }}
   >
+    <Stars />
     <img
       className="start-iss"
       src={ISS}
