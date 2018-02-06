@@ -777,7 +777,7 @@ var cloneableGenerator = function cloneableGenerator(generatorFunc) {
 "use strict";
 
 
-var bind = __webpack_require__(69);
+var bind = __webpack_require__(70);
 var isBuffer = __webpack_require__(147);
 
 /*global toString:true*/
@@ -1193,7 +1193,7 @@ module.exports = g;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(115);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
@@ -1234,7 +1234,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["w"] = throttle;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return asEffect; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sagaHelpers__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sagaHelpers__ = __webpack_require__(66);
 
 
 
@@ -1561,7 +1561,7 @@ var util = __webpack_require__(15);
 util.inherits = __webpack_require__(10);
 /*</replacement>*/
 
-var Readable = __webpack_require__(78);
+var Readable = __webpack_require__(79);
 var Writable = __webpack_require__(44);
 
 util.inherits(Duplex, Readable);
@@ -1652,7 +1652,7 @@ function forEach(xs, f) {
 /* harmony export (immutable) */ __webpack_exports__["f"] = stdChannel;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buffers__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scheduler__ = __webpack_require__(63);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -1892,7 +1892,7 @@ if (typeof Object.create === 'function') {
 Object.defineProperty(exports, "__esModule", { value: true });
 var root_1 = __webpack_require__(12);
 var toSubscriber_1 = __webpack_require__(188);
-var observable_1 = __webpack_require__(88);
+var observable_1 = __webpack_require__(89);
 var pipe_1 = __webpack_require__(191);
 /**
  * A representation of any set of values over any amount of time. This is the most basic building block
@@ -2285,7 +2285,6 @@ const updateISSDistance = distance => ({
 exports.updateISSDistance = updateISSDistance;
 
 const updateISSOver = over => {
-  console.log(over);
   return {
     type: _actionTypes.UPDATE_ISS_OVER,
     over
@@ -2301,7 +2300,7 @@ const updateMapTranslation = ({
   type: _actionTypes.UPDATE_MAP_TRANSLATION,
   translation: {
     x: -(longitude / 180) * 50 / 3 - 50,
-    y: Math.sin(latitude / 180 * Math.PI) * -50
+    y: Math.sin(latitude / 180 * Math.PI) * -37
   }
 });
 
@@ -2789,7 +2788,7 @@ var buffers = {
 
   XMLNode = __webpack_require__(1);
 
-  XMLAttribute = __webpack_require__(74);
+  XMLAttribute = __webpack_require__(75);
 
   module.exports = XMLElement = (function(superClass) {
     extend(XMLElement, superClass);
@@ -3892,8 +3891,8 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var isFunction_1 = __webpack_require__(46);
 var Subscription_1 = __webpack_require__(47);
-var Observer_1 = __webpack_require__(86);
-var rxSubscriber_1 = __webpack_require__(87);
+var Observer_1 = __webpack_require__(87);
+var rxSubscriber_1 = __webpack_require__(88);
 /**
  * Implements the {@link Observer} interface and extends the
  * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -4372,10 +4371,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(70);
+    adapter = __webpack_require__(71);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(70);
+    adapter = __webpack_require__(71);
   }
   return adapter;
 }
@@ -4560,7 +4559,7 @@ module.exports = defaults;
 
   XMLDTDNotation = __webpack_require__(26);
 
-  XMLWriterBase = __webpack_require__(76);
+  XMLWriterBase = __webpack_require__(77);
 
   module.exports = XMLStringWriter = (function(superClass) {
     extend(XMLStringWriter, superClass);
@@ -4883,7 +4882,7 @@ module.exports = defaults;
 
 var base64 = __webpack_require__(173)
 var ieee754 = __webpack_require__(174)
-var isArray = __webpack_require__(77)
+var isArray = __webpack_require__(78)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -6667,12 +6666,12 @@ function isnan (val) {
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(78);
+exports = module.exports = __webpack_require__(79);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(44);
 exports.Duplex = __webpack_require__(8);
-exports.Transform = __webpack_require__(82);
+exports.Transform = __webpack_require__(83);
 exports.PassThrough = __webpack_require__(180);
 
 
@@ -6758,7 +6757,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(79);
+var Stream = __webpack_require__(80);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -6772,7 +6771,7 @@ function _isUint8Array(obj) {
 }
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__(80);
+var destroyImpl = __webpack_require__(81);
 
 util.inherits(Writable, Stream);
 
@@ -7345,7 +7344,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(81).setImmediate, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(82).setImmediate, __webpack_require__(4)))
 
 /***/ }),
 /* 45 */
@@ -7646,9 +7645,9 @@ exports.isFunction = isFunction;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var isArray_1 = __webpack_require__(189);
-var isObject_1 = __webpack_require__(84);
+var isObject_1 = __webpack_require__(85);
 var isFunction_1 = __webpack_require__(46);
-var tryCatch_1 = __webpack_require__(85);
+var tryCatch_1 = __webpack_require__(86);
 var errorObject_1 = __webpack_require__(48);
 var UnsubscriptionError_1 = __webpack_require__(190);
 /**
@@ -7850,8 +7849,111 @@ exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 49 */,
-/* 50 */
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(0));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Stars extends _react.default.Component {
+  constructor(props) {
+    super(props);
+    this.handleResize = this.handleResize.bind(this);
+    this.draw = this.draw.bind(this);
+    this.tick = this.tick.bind(this);
+    this.update = this.update.bind(this);
+  }
+
+  componentDidMount() {
+    this.context = this.canvas.getContext('2d');
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
+    this.tick();
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.loop);
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  draw() {
+    this.context = this.canvas.getContext('2d');
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.fillStyle = '#fff';
+
+    for (var i = 0, x = this.stars.length; i < x; i++) {
+      var s = this.stars[i];
+      this.context.beginPath();
+      this.context.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+      this.context.fill();
+    }
+  }
+
+  handleResize() {
+    this.width = window.innerWidth * window.devicePixelRatio;
+    this.height = window.innerHeight * window.devicePixelRatio;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.stars = [];
+
+    for (var i = 0; i < this.canvas.width / 2; i++) {
+      this.stars.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        radius: Math.random(),
+        vx: Math.floor(Math.random() * 10) - 5,
+        vy: Math.floor(Math.random() * 10) - 5
+      });
+    }
+  }
+
+  tick() {
+    this.draw();
+    this.update();
+    this.loop = requestAnimationFrame(this.tick);
+  }
+
+  update() {
+    for (var i = 0, x = this.stars.length; i < x; i++) {
+      var s = this.stars[i];
+      s.x += s.vx / 60;
+      s.y += s.vy / 60;
+      if (s.x < 0 || s.x > this.canvas.width) s.x = -s.x;
+      if (s.y < 0 || s.y > this.canvas.height) s.y = -s.y;
+    }
+  }
+
+  render() {
+    return _react.default.createElement("canvas", {
+      ref: canvas => {
+        this.canvas = canvas;
+      },
+      style: {
+        display: 'block',
+        left: 0,
+        position: 'absolute',
+        top: 0,
+        width: '100%'
+      }
+    });
+  }
+
+}
+
+exports.default = Stars;
+
+/***/ }),
+/* 50 */,
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7948,7 +8050,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7971,7 +8073,7 @@ if (false) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -8005,13 +8107,13 @@ if (false) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return subscriptionShape; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return storeShape; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prop_types__);
 
 
@@ -8029,7 +8131,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 });
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8041,7 +8143,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Subscription__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(54);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8333,17 +8435,17 @@ selectorFactory) {
 }
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(59);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["b"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -8369,7 +8471,7 @@ if (false) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8628,7 +8730,7 @@ var ActionTypes = {
 }
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8642,7 +8744,7 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8670,7 +8772,7 @@ function warning(message) {
 }
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8709,14 +8811,14 @@ function compose() {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = wrapMapToPropsConstant;
 /* unused harmony export getDependsOnOwnProps */
 /* harmony export (immutable) */ __webpack_exports__["b"] = wrapMapToPropsFunc;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(62);
 
 
 function wrapMapToPropsConstant(getConstant) {
@@ -8786,7 +8888,7 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
 }
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8803,7 +8905,7 @@ function verifyPlainObject(value, displayName, methodName) {
 }
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8874,13 +8976,13 @@ function flush() {
 }
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = runSaga;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__proc__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__proc__ = __webpack_require__(65);
 
 
 
@@ -8939,7 +9041,7 @@ function runSaga(storeInterface, saga) {
 }
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8948,7 +9050,7 @@ function runSaga(storeInterface, saga) {
 /* unused harmony export TASK_CANCEL */
 /* harmony export (immutable) */ __webpack_exports__["b"] = proc;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scheduler__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scheduler__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__io__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__channel__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__buffers__ = __webpack_require__(17);
@@ -9715,7 +9817,7 @@ function proc(iterator) {
 }
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9746,7 +9848,7 @@ var throttle = /*#__PURE__*/Object(__WEBPACK_IMPORTED_MODULE_3__utils__["n" /* d
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9776,7 +9878,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9807,31 +9909,38 @@ const latLongToCartesian = ({
   altitude = 0
 }) => {
   // https://www.movable-type.co.uk/scripts/latlong.html
-  const φ = latitude * radian;
-  const λ = longitude * radian;
-  const h = altitude; // convert alt to m
-
-  const a = WGS84semimajor;
-  const f = WGS84flattening;
-  const sinφ = Math.sin(φ);
-  const cosφ = Math.cos(φ);
-  const sinλ = Math.sin(λ);
-  const cosλ = Math.cos(λ);
-  const eSq = 2 * f - f * f; // 1st eccentricity squared ≡ (a²-b²)/a²
-
-  const ν = a / Math.sqrt(1 - eSq * sinφ * sinφ); // radius of curvature in prime vertical
-
-  const x = (ν + h) * cosφ * cosλ; // lat/lon (0, 0) is 1; (0, 180) is -1
-
-  const y = (ν + h) * cosφ * sinλ; // lat/lon (0, 90) is 1; (0, -90) is -1;
-
-  const z = (ν * (1 - eSq) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
-
+  // const φ = latitude * radian;
+  // const λ = longitude * radian;
+  // const h = altitude + meanRadiusOfEarth; // convert alt to m
+  // const a = WGS84semimajor;
+  // const f = WGS84flattening;
+  // const sinφ = Math.sin(φ);
+  // const cosφ = Math.cos(φ);
+  // const sinλ = Math.sin(λ);
+  // const cosλ = Math.cos(λ);
+  // const eSq = (2 * f) - (f * f);                    // 1st eccentricity squared ≡ (a²-b²)/a²
+  // const ν = a / Math.sqrt(1 - (eSq * sinφ * sinφ)); // radius of curvature in prime vertical
+  // const x = (ν + h) * cosφ * cosλ; // lat/lon (0, 0) is 1; (0, 180) is -1
+  // const y = (ν + h) * cosφ * sinλ; // lat/lon (0, 90) is 1; (0, -90) is -1;
+  // const z = ((ν * (1 - eSq)) + h) * sinφ; // lat/lon (90, 0) is 1; (-90, 0) is -1
+  // return { x, y: z, z: -y }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
+  var cosLat = Math.cos(latitude * Math.PI / 180.0);
+  var sinLat = Math.sin(latitude * Math.PI / 180.0);
+  var cosLon = Math.cos(longitude * Math.PI / 180.0);
+  var sinLon = Math.sin(longitude * Math.PI / 180.0);
+  var rad = meanRadiusOfEarth;
+  var f = 1.0 / 298.257224;
+  var C = 1.0 / Math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat);
+  var S = (1.0 - f) * (1.0 - f) * C;
+  var h = altitude;
+  var x = (rad * C + h) * cosLat * cosLon;
+  var y = (rad * C + h) * cosLat * sinLon;
+  var z = (rad * S + h) * sinLat;
   return {
-    x,
+    x: -x,
     y: z,
-    z: -y
-  }; // Swap Y and Z for THREE.js; invert Z axis for right-handed system
+    z: y
+  };
 };
 
 exports.latLongToCartesian = latLongToCartesian;
@@ -9891,13 +10000,13 @@ const haversine = (coords1, coords2) => {
 exports.haversine = haversine;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(146);
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9915,7 +10024,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9926,7 +10035,7 @@ var settle = __webpack_require__(150);
 var buildURL = __webpack_require__(152);
 var parseHeaders = __webpack_require__(153);
 var isURLSameOrigin = __webpack_require__(154);
-var createError = __webpack_require__(71);
+var createError = __webpack_require__(72);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(155);
 
 module.exports = function xhrAdapter(config) {
@@ -10102,7 +10211,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10127,7 +10236,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10139,7 +10248,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10165,7 +10274,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -10202,7 +10311,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -10371,7 +10480,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.6
@@ -10467,7 +10576,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -10478,7 +10587,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10513,7 +10622,7 @@ var processNextTick = __webpack_require__(31);
 module.exports = Readable;
 
 /*<replacement>*/
-var isArray = __webpack_require__(77);
+var isArray = __webpack_require__(78);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -10531,7 +10640,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__(79);
+var Stream = __webpack_require__(80);
 /*</replacement>*/
 
 // TODO(bmeurer): Change this back to const once hole checks are
@@ -10563,7 +10672,7 @@ if (debugUtil && debugUtil.debuglog) {
 /*</replacement>*/
 
 var BufferList = __webpack_require__(177);
-var destroyImpl = __webpack_require__(80);
+var destroyImpl = __webpack_require__(81);
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -11492,14 +11601,14 @@ function indexOf(xs, x) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(14)))
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(30).EventEmitter;
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11577,7 +11686,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -11636,7 +11745,7 @@ exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11856,7 +11965,7 @@ function done(stream, er, data) {
 }
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 // Generated by CoffeeScript 1.12.7
@@ -11896,7 +12005,7 @@ function done(stream, er, data) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11909,7 +12018,7 @@ exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11935,7 +12044,7 @@ exports.tryCatch = tryCatch;
 //# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11950,7 +12059,7 @@ exports.empty = {
 //# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11967,7 +12076,7 @@ exports.$$rxSubscriber = exports.rxSubscriber;
 //# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12000,7 +12109,7 @@ exports.$$observable = exports.observable;
 //# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12012,7 +12121,7 @@ Observable_1.Observable.fromEvent = fromEvent_1.fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12024,7 +12133,7 @@ Observable_1.Observable.prototype.throttleTime = throttleTime_1.throttleTime;
 //# sourceMappingURL=throttleTime.js.map
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12078,7 +12187,7 @@ exports.async = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
 //# sourceMappingURL=async.js.map
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12233,7 +12342,7 @@ var ThrottleSubscriber = /** @class */ (function (_super) {
 //# sourceMappingURL=throttle.js.map
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12261,108 +12370,6 @@ var _default = Close;
 exports.default = _default;
 
 /***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(0));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-class Stars extends _react.default.Component {
-  constructor(props) {
-    super(props);
-    this.handleResize = this.handleResize.bind(this);
-    this.draw = this.draw.bind(this);
-    this.tick = this.tick.bind(this);
-    this.update = this.update.bind(this);
-  }
-
-  componentDidMount() {
-    this.context = this.canvas.getContext('2d');
-    this.context.fillStyle = '#fff';
-    this.handleResize();
-    window.addEventListener('resize', this.handleResize);
-    this.tick();
-  }
-
-  componentWillUnmount() {
-    cancelAnimationFrame(this.loop);
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  draw() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    for (var i = 0, x = this.stars.length; i < x; i++) {
-      var s = this.stars[i];
-      this.context.beginPath();
-      this.context.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
-      this.context.fill();
-    }
-  }
-
-  handleResize() {
-    this.width = window.innerWidth * window.devicePixelRatio;
-    this.height = window.innerHeight * window.devicePixelRatio;
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-    this.stars = [];
-
-    for (var i = 0; i < this.canvas.width / 2; i++) {
-      this.stars.push({
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
-        radius: Math.random(),
-        vx: Math.floor(Math.random() * 10) - 5,
-        vy: Math.floor(Math.random() * 10) - 5
-      });
-    }
-  }
-
-  tick() {
-    this.draw();
-    this.update();
-    this.loop = requestAnimationFrame(this.tick);
-  }
-
-  update() {
-    for (var i = 0, x = this.stars.length; i < x; i++) {
-      var s = this.stars[i];
-      s.x += s.vx / 60;
-      s.y += s.vy / 60;
-      if (s.x < 0 || s.x > this.canvas.width) s.x = -s.x;
-      if (s.y < 0 || s.y > this.canvas.height) s.y = -s.y;
-    }
-  }
-
-  render() {
-    return _react.default.createElement("canvas", {
-      ref: canvas => {
-        this.canvas = canvas;
-      },
-      style: {
-        display: 'block',
-        left: 0,
-        position: 'absolute',
-        top: 0,
-        width: '100%'
-      }
-    });
-  }
-
-}
-
-exports.default = Stars;
-
-/***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12382,7 +12389,7 @@ var _reactDom = _interopRequireDefault(__webpack_require__(98));
 
 var _reactRedux = __webpack_require__(6);
 
-var _redux = __webpack_require__(55);
+var _redux = __webpack_require__(56);
 
 var _reduxSaga = _interopRequireDefault(__webpack_require__(137));
 
@@ -12481,7 +12488,7 @@ build();
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(50),n=__webpack_require__(51),p=__webpack_require__(16),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(51),n=__webpack_require__(52),p=__webpack_require__(16),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -12557,7 +12564,7 @@ if (true) {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(100),B=__webpack_require__(50),C=__webpack_require__(16),ba=__webpack_require__(101),da=__webpack_require__(102),ea=__webpack_require__(103),fa=__webpack_require__(104),ia=__webpack_require__(107),D=__webpack_require__(51);
+var aa=__webpack_require__(0),l=__webpack_require__(100),B=__webpack_require__(51),C=__webpack_require__(16),ba=__webpack_require__(101),da=__webpack_require__(102),ea=__webpack_require__(103),fa=__webpack_require__(104),ia=__webpack_require__(107),D=__webpack_require__(52);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -13145,9 +13152,9 @@ module.exports = focusNode;
 /* harmony export (immutable) */ __webpack_exports__["a"] = createProvider;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warning__ = __webpack_require__(35);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -13600,7 +13607,7 @@ var Subscription = function () {
 
 "use strict";
 /* unused harmony export createConnect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_shallowEqual__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mapDispatchToProps__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mapStateToProps__ = __webpack_require__(133);
@@ -13755,8 +13762,8 @@ function shallowEqual(objA, objB) {
 /* unused harmony export whenMapDispatchToPropsIsFunction */
 /* unused harmony export whenMapDispatchToPropsIsMissing */
 /* unused harmony export whenMapDispatchToPropsIsObject */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(61);
 
 
 
@@ -13783,7 +13790,7 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(122);
 
@@ -13850,7 +13857,7 @@ var freeGlobal = typeof global == 'object' && global && global.Object === Object
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(58);
 
 
 /** Used for built-in method references. */
@@ -14106,9 +14113,9 @@ function symbolObservablePonyfill(root) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(59);
 
 
 
@@ -14300,7 +14307,7 @@ function bindActionCreators(actionCreators, dispatch) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(60);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -14357,7 +14364,7 @@ function applyMiddleware() {
 "use strict";
 /* unused harmony export whenMapStateToPropsIsFunction */
 /* unused harmony export whenMapStateToPropsIsMissing */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(61);
 
 
 function whenMapStateToPropsIsFunction(mapStateToProps) {
@@ -14381,7 +14388,7 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
 /* unused harmony export wrapMergePropsFunc */
 /* unused harmony export whenMergePropsIsFunction */
 /* unused harmony export whenMergePropsIsOmitted */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(62);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -14572,7 +14579,7 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__internal_middleware__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_runSaga__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_runSaga__ = __webpack_require__(64);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "runSaga", function() { return __WEBPACK_IMPORTED_MODULE_1__internal_runSaga__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_channel__ = __webpack_require__(9);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "END", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_channel__["a"]; });
@@ -14580,7 +14587,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "channel", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_channel__["b"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__internal_buffers__ = __webpack_require__(17);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "buffers", function() { return __WEBPACK_IMPORTED_MODULE_3__internal_buffers__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_sagaHelpers__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__internal_sagaHelpers__ = __webpack_require__(66);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeEvery", function() { return __WEBPACK_IMPORTED_MODULE_4__internal_sagaHelpers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "takeLatest", function() { return __WEBPACK_IMPORTED_MODULE_4__internal_sagaHelpers__["c"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "throttle", function() { return __WEBPACK_IMPORTED_MODULE_4__internal_sagaHelpers__["e"]; });
@@ -14589,7 +14596,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CANCEL", function() { return __WEBPACK_IMPORTED_MODULE_5__internal_utils__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__internal_io__ = __webpack_require__(7);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "detach", function() { return __WEBPACK_IMPORTED_MODULE_6__internal_io__["i"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__effects__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__effects__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__utils__ = __webpack_require__(142);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "effects", function() { return __WEBPACK_IMPORTED_MODULE_7__effects__; });
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return __WEBPACK_IMPORTED_MODULE_8__utils__; });
@@ -14616,7 +14623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["a"] = sagaMiddlewareFactory;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__channel__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__runSaga__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__runSaga__ = __webpack_require__(64);
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 
@@ -14861,7 +14868,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "cloneableGenerator", function() { return __WEBPACK_IMPORTED_MODULE_0__internal_utils__["i"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__internal_io__ = __webpack_require__(7);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "asEffect", function() { return __WEBPACK_IMPORTED_MODULE_1__internal_io__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_proc__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__internal_proc__ = __webpack_require__(65);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "CHANNEL_END", function() { return __WEBPACK_IMPORTED_MODULE_2__internal_proc__["a"]; });
 
 
@@ -14981,13 +14988,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.rootSaga = rootSaga;
 exports.selectUserPosition = exports.selectISSPosition = void 0;
 
-var _effects = __webpack_require__(66);
+var _effects = __webpack_require__(67);
 
 var _actionTypes = __webpack_require__(38);
 
 var _actions = __webpack_require__(13);
 
-var _geodesy = __webpack_require__(67);
+var _geodesy = __webpack_require__(68);
 
 var _geocode = _interopRequireDefault(__webpack_require__(145));
 
@@ -15058,7 +15065,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = geocode;
 
-var _axios = _interopRequireDefault(__webpack_require__(68));
+var _axios = _interopRequireDefault(__webpack_require__(69));
 
 var _xml2jsEs6Promise = _interopRequireDefault(__webpack_require__(164));
 
@@ -15099,7 +15106,7 @@ function geocode({
 
 
 var utils = __webpack_require__(3);
-var bind = __webpack_require__(69);
+var bind = __webpack_require__(70);
 var Axios = __webpack_require__(148);
 var defaults = __webpack_require__(39);
 
@@ -15134,9 +15141,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(73);
+axios.Cancel = __webpack_require__(74);
 axios.CancelToken = __webpack_require__(162);
-axios.isCancel = __webpack_require__(72);
+axios.isCancel = __webpack_require__(73);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -15289,7 +15296,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(71);
+var createError = __webpack_require__(72);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -15724,7 +15731,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(159);
-var isCancel = __webpack_require__(72);
+var isCancel = __webpack_require__(73);
 var defaults = __webpack_require__(39);
 var isAbsoluteURL = __webpack_require__(160);
 var combineURLs = __webpack_require__(161);
@@ -15884,7 +15891,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(73);
+var Cancel = __webpack_require__(74);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -16011,7 +16018,7 @@ module.exports = function(input, options) {
 
   parser = __webpack_require__(171);
 
-  processors = __webpack_require__(83);
+  processors = __webpack_require__(84);
 
   exports.defaults = defaults.defaults;
 
@@ -16243,7 +16250,7 @@ module.exports = function(input, options) {
 
   XMLNode = __webpack_require__(1);
 
-  XMLStringifier = __webpack_require__(75);
+  XMLStringifier = __webpack_require__(76);
 
   XMLStringWriter = __webpack_require__(41);
 
@@ -16318,9 +16325,9 @@ module.exports = function(input, options) {
 
   XMLDTDNotation = __webpack_require__(26);
 
-  XMLAttribute = __webpack_require__(74);
+  XMLAttribute = __webpack_require__(75);
 
-  XMLStringifier = __webpack_require__(75);
+  XMLStringifier = __webpack_require__(76);
 
   XMLStringWriter = __webpack_require__(41);
 
@@ -16725,7 +16732,7 @@ module.exports = function(input, options) {
 
   XMLDTDNotation = __webpack_require__(26);
 
-  XMLWriterBase = __webpack_require__(76);
+  XMLWriterBase = __webpack_require__(77);
 
   module.exports = XMLStreamWriter = (function(superClass) {
     extend(XMLStreamWriter, superClass);
@@ -16994,9 +17001,9 @@ module.exports = function(input, options) {
 
   bom = __webpack_require__(185);
 
-  processors = __webpack_require__(83);
+  processors = __webpack_require__(84);
 
-  setImmediate = __webpack_require__(81).setImmediate;
+  setImmediate = __webpack_require__(82).setImmediate;
 
   defaults = __webpack_require__(40).defaults;
 
@@ -19642,7 +19649,7 @@ function config (name) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__(82);
+var Transform = __webpack_require__(83);
 
 /*<replacement>*/
 var util = __webpack_require__(15);
@@ -19792,9 +19799,9 @@ exports.default = void 0;
 
 var _Observable = __webpack_require__(11);
 
-__webpack_require__(89);
-
 __webpack_require__(90);
+
+__webpack_require__(91);
 
 /**
  * User Compass
@@ -19854,8 +19861,8 @@ exports.default = _default;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Subscriber_1 = __webpack_require__(33);
-var rxSubscriber_1 = __webpack_require__(87);
-var Observer_1 = __webpack_require__(86);
+var rxSubscriber_1 = __webpack_require__(88);
+var Observer_1 = __webpack_require__(87);
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
         if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -19994,7 +20001,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Observable_1 = __webpack_require__(11);
-var tryCatch_1 = __webpack_require__(85);
+var tryCatch_1 = __webpack_require__(86);
 var isFunction_1 = __webpack_require__(46);
 var errorObject_1 = __webpack_require__(48);
 var Subscription_1 = __webpack_require__(47);
@@ -20212,8 +20219,8 @@ exports.FromEventObservable = FromEventObservable;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var async_1 = __webpack_require__(91);
-var throttle_1 = __webpack_require__(92);
+var async_1 = __webpack_require__(92);
+var throttle_1 = __webpack_require__(93);
 var throttleTime_1 = __webpack_require__(206);
 /**
  * Emits a value from the source Observable, then ignores subsequent source
@@ -20645,11 +20652,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var root_1 = __webpack_require__(12);
 var isArrayLike_1 = __webpack_require__(202);
 var isPromise_1 = __webpack_require__(203);
-var isObject_1 = __webpack_require__(84);
+var isObject_1 = __webpack_require__(85);
 var Observable_1 = __webpack_require__(11);
 var iterator_1 = __webpack_require__(204);
 var InnerSubscriber_1 = __webpack_require__(205);
-var observable_1 = __webpack_require__(88);
+var observable_1 = __webpack_require__(89);
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
     if (destination.closed) {
@@ -20856,8 +20863,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Subscriber_1 = __webpack_require__(33);
-var async_1 = __webpack_require__(91);
-var throttle_1 = __webpack_require__(92);
+var async_1 = __webpack_require__(92);
+var throttle_1 = __webpack_require__(93);
 /**
  * Emits a value from the source Observable, then ignores subsequent source
  * values for `duration` milliseconds, then repeats this process.
@@ -20979,7 +20986,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _axios = _interopRequireDefault(__webpack_require__(68));
+var _axios = _interopRequireDefault(__webpack_require__(69));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20995,6 +21002,11 @@ const ISS = {
 };
 
 const fetch = () => {
+  // ISS.latitude = 28.4286111111;
+  // ISS.longitude = -81.3086111111;
+  // ISS.latitude = 28.5728722;
+  // ISS.longitude = -80.6489808;
+  // ISS.altitude = 405;
   _axios.default.get('https://api.wheretheiss.at/v1/satellites/25544').then(request => {
     ISS.latitude = parseFloat(request.data.latitude).toFixed(5);
     ISS.longitude = parseFloat(request.data.longitude).toFixed(5);
@@ -21102,11 +21114,11 @@ var _reactRedux = __webpack_require__(6);
 
 var _actions = __webpack_require__(13);
 
-var _Close = _interopRequireDefault(__webpack_require__(93));
+var _Close = _interopRequireDefault(__webpack_require__(94));
 
 var _Question = _interopRequireDefault(__webpack_require__(210));
 
-var _Stars = _interopRequireDefault(__webpack_require__(94));
+var _Stars = _interopRequireDefault(__webpack_require__(49));
 
 var _ISS = _interopRequireDefault(__webpack_require__(34));
 
@@ -21209,6 +21221,8 @@ var _reactRedux = __webpack_require__(6);
 
 var _StartGlobe = _interopRequireDefault(__webpack_require__(212));
 
+var _Stars = _interopRequireDefault(__webpack_require__(49));
+
 var _actions = __webpack_require__(13);
 
 var _ISS = _interopRequireDefault(__webpack_require__(34));
@@ -21230,7 +21244,7 @@ const Start = (_ref) => {
       transition: 'opacity 500ms 250ms linear, visibility 0ms 500ms',
       visibility: props.isStartOpen ? 'visible' : 'hidden'
     }
-  }, _react.default.createElement("img", {
+  }, _react.default.createElement(_Stars.default, null), _react.default.createElement("img", {
     className: "start-iss",
     src: _ISS.default,
     style: {
@@ -21329,11 +21343,11 @@ var _reactRedux = __webpack_require__(6);
 
 var _actions = __webpack_require__(13);
 
-var _Close = _interopRequireDefault(__webpack_require__(93));
+var _Close = _interopRequireDefault(__webpack_require__(94));
 
 var _Globe = _interopRequireDefault(__webpack_require__(214));
 
-var _Stars = _interopRequireDefault(__webpack_require__(94));
+var _Stars = _interopRequireDefault(__webpack_require__(49));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21466,17 +21480,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var THREE = _interopRequireWildcard(__webpack_require__(49));
+var THREE = _interopRequireWildcard(__webpack_require__(50));
 
 var STLLoader = _interopRequireWildcard(__webpack_require__(217));
 
 var _Observable = __webpack_require__(11);
 
-__webpack_require__(89);
-
 __webpack_require__(90);
 
-var _geodesy = __webpack_require__(67);
+__webpack_require__(91);
+
+var _geodesy = __webpack_require__(68);
 
 var _destinyZvezdaATV = _interopRequireDefault(__webpack_require__(218));
 
@@ -21512,10 +21526,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+/**
+ * 3D
+ * Handles the THREE.js components
+ * Units are in km
+ */
 
 /* Settings */
-const ISSScale = 300;
+const ISSScale = 100;
+const ballScale = 1;
+const coneScale = 0.1;
 const ghostMaterial = new THREE.MeshBasicMaterial({
   color: new THREE.Color('#fff'),
   opacity: 0.5,
@@ -21723,21 +21743,6 @@ const lights = [{
     z: 18
   }
 }];
-/* Constants */
-
-const radian = Math.PI / 180;
-const maxX = (0, _geodesy.latLongToCartesian)({
-  latitude: 0,
-  longitude: 0
-}).x;
-const maxY = (0, _geodesy.latLongToCartesian)({
-  latitude: 90,
-  longitude: 0
-}).y;
-const maxZ = (0, _geodesy.latLongToCartesian)({
-  latitude: 0,
-  longitude: -90
-}).z;
 /* Objects */
 
 const bodies = {
@@ -21745,8 +21750,12 @@ const bodies = {
 };
 /* Camera */
 
-const camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, _geodesy.meanRadiusOfEarth * 2.5);
-camera.position.set(0, 0.5, 0); // epsilon—shows axes helpers
+const camera = new THREE.PerspectiveCamera(85, window.innerWidth / window.innerHeight, 0.1, _geodesy.meanRadiusOfEarth * 2.5); // const camera2 = new THREE.PerspectiveCamera(
+//   85,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   meanRadiusOfEarth * 5,
+// );
 
 /* Scene */
 
@@ -21756,8 +21765,9 @@ const renderer = new THREE.WebGLRenderer({
   alpha: true,
   antialias: true
 });
-const scene = new THREE.Scene();
-scene.add(camera); // necessary for sticky UI
+const scene = new THREE.Scene(); // scene.add(camera2);
+// camera2.position.z = -meanRadiusOfEarth * 2;
+// camera2.lookAt(0, 0, 0);
 
 /* Create Bodies */
 
@@ -21766,21 +21776,6 @@ const createBodies = () => {
   const ISS = new THREE.Group(); // Just the ISS (no lights)
 
   bodies.ISS = ISS;
-  /* Add world rotation (The ship stays where it is, and the dark matter engines move the universe around it, etc.) */
-
-  const world = new THREE.Group();
-  bodies.world = world;
-  scene.add(world);
-  /* Add horizon */
-
-  const horizonLine = (0, _geodesy.distanceToHorizon)();
-  const horizon = new THREE.Mesh(new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32), new THREE.MeshStandardMaterial({
-    transparent: true,
-    opacity: 0
-  }));
-  horizon.position.y = -0.251;
-  bodies.horizon = horizon;
-  scene.add(horizon);
   /* Add ISS Parts */
 
   ISSGeometries.forEach(part => {
@@ -21803,8 +21798,7 @@ const createBodies = () => {
   const ISSWithLights = new THREE.Group(); // Allows lights to move with station
 
   ISSWithLights.add(ISS);
-  ISSWithLights.position.x = _geodesy.meanRadiusOfEarth;
-  bodies.world.add(ISSWithLights);
+  scene.add(ISSWithLights);
   bodies.ISSWithLights = ISSWithLights;
   lights.forEach(({
     light,
@@ -21816,60 +21810,45 @@ const createBodies = () => {
       light.position.set(position.x * ISSScale, position.y * ISSScale, position.z * ISSScale);
     }
   });
-  /* Add Helpers */
-  // const nullIsland = new THREE.Mesh(
-  //   new THREE.SphereGeometry(100, 16, 16),
-  //   new THREE.MeshBasicMaterial({ color: 0xffffff }),
-  // );
-  // bodies.world.add(nullIsland);
-  // const nullIslandCoords = latLongToCartesian({ latitude: 0, longitude: 0 });
-  // nullIsland.position.set(nullIslandCoords.x, nullIslandCoords.y, nullIslandCoords.z);
-  // /* Add N/S/E/W markers */
-  // const boreas = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-  // );
-  // const eurus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0xff8000 }),
-  // );
-  // const notus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0x00ff80 }),
-  // );
-  // const zephyrus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0xff00ff }),
-  // );
-  // bodies.boreas = boreas;
-  // bodies.eurus = eurus;
-  // bodies.notus = notus;
-  // bodies.zephyrus = zephyrus;
-  // bodies.world.add(boreas, eurus, notus, zephyrus);
+  /* Add earth sphere */
 
-  /* Add position helper */
-  // const userPoint = new THREE.Mesh(
-  //   new THREE.SphereGeometry(10, 16, 16),
-  //   new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-  // );
-  // bodies.userPoint = userPoint;
-  // bodies.world.add(userPoint);
+  const earth = new THREE.Mesh(new THREE.SphereGeometry(_geodesy.meanRadiusOfEarth, 50, 50), new THREE.MeshStandardMaterial({
+    color: 0x000027,
+    transparent: true,
+    opacity: 0.25
+  }));
+  scene.add(earth);
+  bodies.earth = earth;
+  /* Add User container */
 
+  const user = new THREE.Group();
+  const cameraRotationAxis = new THREE.Group();
+  const cameraTiltAxis = new THREE.Group();
+  user.add(cameraRotationAxis);
+  cameraRotationAxis.add(cameraTiltAxis);
+  cameraTiltAxis.add(camera);
+  camera.rotation.x = 90 * Math.PI / 180.0;
+  camera.rotation.z = 180 * Math.PI / 180.0;
+  scene.add(user);
+  bodies.user = user;
+  bodies.cameraRotationAxis = cameraRotationAxis;
+  bodies.cameraTiltAxis = cameraTiltAxis;
   /* Add Pointer */
 
+  const conePosition = new THREE.Group();
+  const coneGimball = new THREE.Group();
   const cone = new THREE.Mesh(new THREE.ConeBufferGeometry(0.25, 1, 16), new THREE.MeshStandardMaterial({
     color: 0xffc927
   }));
-  cone.rotation.x = -Math.PI / 2;
-  const coneGimball = new THREE.Group();
+  conePosition.scale.set(ballScale, ballScale, ballScale);
+  cone.scale.set(coneScale, coneScale, coneScale);
   coneGimball.add(cone);
-  const coneContainer = new THREE.Group();
-  coneContainer.add(coneGimball);
-  camera.add(coneContainer);
-  coneContainer.position.z = -10;
-  bodies.cone = cone;
+  cone.rotation.x = 90 * Math.PI / 180.0;
+  camera.add(conePosition);
+  conePosition.position.z = -1;
+  scene.add(coneGimball);
+  bodies.conePosition = conePosition;
   bodies.coneGimball = coneGimball;
-  bodies.coneContainer = coneContainer;
 };
 /* Resize renderer */
 
@@ -21891,7 +21870,6 @@ const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
   createBodies();
-  scene.add(new THREE.AxesHelper(100));
   scene.updateMatrixWorld();
 
   _Observable.Observable.fromEvent(window, 'resize').throttleTime(throttleMilliseconds).subscribe(() => resizeHandler());
@@ -21903,17 +21881,12 @@ const init = () => {
 /* Update */
 
 
-const lastUpdate = {
+var lastUpdate = {
   ISS: {
     latitude: 0,
     longitude: 0,
     altitude: 0,
     state: 'OBSCURED'
-  },
-  rotation: {
-    x: 0,
-    y: 0,
-    z: 0
   },
   user: {
     latitude: 0,
@@ -21923,7 +21896,8 @@ const lastUpdate = {
     yaw: 0
   }
 };
-let firstFrame = 0;
+var worldPosition = new THREE.Vector3();
+var worldDirection = new THREE.Vector3();
 
 const update = (user = {
   latitude: 0,
@@ -21936,78 +21910,65 @@ const update = (user = {
   longitude: 0,
   altitude: 0
 }) => {
-  /* Necessary updates */
-  const thisFrame = window.performance.now();
-  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'ZYX'); // set user camera
-  // if (bodies.ISS) {
-  //   bodies.ISS.rotation.x += 0.005;
-  // }
+  const userCoords = (0, _geodesy.latLongToCartesian)(user);
+  const coords = (0, _geodesy.latLongToCartesian)(ISS);
+  const ISSMoved = ISS.latitude !== lastUpdate.ISS.latitude || ISS.longitude !== lastUpdate.ISS.longitude;
+  const userMoved = user.latitude !== lastUpdate.user.latitude || user.longitude !== lastUpdate.user.longitude;
+  const userTurned = user.pitch !== lastUpdate.user.pitch || user.yaw !== lastUpdate.user.yaw; // Move ISS to its correct location in world coords, rotate so its facing is correct
 
-  /* Conditional updates */
-  // TODO: calculate ISS position on-screen (x, y) for cone
-  // Skip world rotation if user hasn’t moved
-
-  if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
-    firstFrame = window.performance.now();
-    const userCoords = (0, _geodesy.latLongToCartesian)(user);
-    const rotation = (0, _geodesy.radiansToNorthPole)(user);
-    bodies.world.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-    bodies.world.position.y = -(0, _geodesy.latToRadius)(user.latitude);
-    bodies.coneGimball.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-    lastUpdate.user.latitude = user.latitude;
-    lastUpdate.user.longitude = user.longitude; // /* Helpers */
-    // const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
-    // const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
-    // const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
-    // const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
-    // bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
-    // bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
-    // bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
-    // bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
-    // bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // console.log(boreasCoords);
-    // bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
-  } // Skip ISS repositioning if no new location
-
-
-  if (lastUpdate.ISS.longitude !== ISS.longitude && bodies.ISSWithLights) {
-    const coords = (0, _geodesy.latLongToCartesian)(ISS);
+  if (ISSMoved) {
     bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-    const ISSPos = new THREE.Vector3();
-    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
-    lastUpdate.ISS = _extends({}, lastUpdate.ISS, {
-      latitude: ISS.latitude,
-      longitude: ISS.longitude,
-      position: ISSPos
-    });
-    const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
-    let state = 'OBSCURED';
+    bodies.ISSWithLights.lookAt(0, 0, 0);
+  } // Move the user to his correct location in world coords
 
-    if (ray.intersectObject(bodies.horizon).length === 0) {
-      state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
-    }
 
-    lastUpdate.ISS.state = state;
-    ISSGeometries.forEach(part => {
-      bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
-    });
+  if (userMoved) {
+    bodies.user.position.set(userCoords.x, userCoords.y, userCoords.z);
+    bodies.user.lookAt(0, 0, 0);
+  } // Rotate the camera based on compass heading and device tilt
+
+
+  if (userTurned) {
+    bodies.cameraRotationAxis.rotation.z = user.yaw * Math.PI / 180.0;
+    bodies.cameraTiltAxis.rotation.x = -user.pitch * Math.PI / 180.0;
+  } // Rotate cone so it points at ISS
+
+
+  scene.updateMatrixWorld();
+  worldPosition.setFromMatrixPosition(bodies.conePosition.matrixWorld);
+
+  if (ISSMoved || userMoved || userTurned) {
+    bodies.coneGimball.position.set(worldPosition.x, worldPosition.y, worldPosition.z);
+    bodies.coneGimball.lookAt(coords.x, coords.y, coords.z);
+  } // Determine ISS visibility
+
+
+  var state = 'OBSCURED';
+  bodies.coneGimball.getWorldDirection(worldDirection);
+  const ray = new THREE.Raycaster(worldPosition, worldDirection);
+
+  if (ray.intersectObject(bodies.earth).length === 0) {
+    state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
   }
 
-  if (bodies.coneContainer && bodies.ISSWithLights) {
-    bodies.coneContainer.rotation.set(-camera.rotation.x, -camera.rotation.y, -camera.rotation.z);
+  if (state !== lastUpdate.ISS.state) {
+    console.log(state);
+    ISSGeometries.forEach(part => {
+      if (bodies.ISSParts[part.part]) {
+        bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+      }
+    });
   }
 
   renderer.render(scene, camera);
-}; // console.log(latLongToCartesian({ latitude: 28.54364, longitude: -81.3768944 }), radiansToNorthPole({ latitude: 28.54364, longitude: -81.3768944 })); // Orlando
-// console.log(latLongToCartesian({ latitude: 39.739236, longitude: -104.990251 }), radiansToNorthPole({ latitude: 39.739236, longitude: -104.990251 })); // Denver
-// console.log(latLongToCartesian({ latitude: 48.856614, longitude: 2.35222 }), radiansToNorthPole({ latitude: 48.856614, longitude: 2.35222 })); // Paris
-// console.log(latLongToCartesian({ latitude: 54.597285, longitude: -5.930120 }), radiansToNorthPole({ latitude: 54.597285, longitude: -5.930120 })); // Belfast
-// console.log(latLongToCartesian({ latitude: -33.924869, longitude: 18.424055 }), radiansToNorthPole({ latitude: -33.924869, longitude: 18.424055 })); // Cape Town
-// console.log(latLongToCartesian({ latitude: -36.848460, longitude: 174.763332 }), radiansToNorthPole({ latitude: -36.848460, longitude: 174.763332 })); // Auckland
-
+  lastUpdate.user.latitude = user.latitude;
+  lastUpdate.user.longitude = user.longitude;
+  lastUpdate.user.pitch = user.pitch;
+  lastUpdate.user.yaw = user.yaw;
+  lastUpdate.ISS.latitude = ISS.latitude;
+  lastUpdate.ISS.longitude = ISS.longitude;
+  lastUpdate.ISS.state = state;
+};
 
 var _default = {
   init,
@@ -22343,7 +22304,7 @@ THREE.STLLoader.prototype = {
 
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)))
 
 /***/ }),
 /* 218 */
