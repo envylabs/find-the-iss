@@ -234,9 +234,10 @@ const createBodies = () => {
   /* Add earth sphere */
   const earth = new THREE.Mesh(
     new THREE.SphereGeometry(meanRadiusOfEarth, 50, 50),
-    new THREE.MeshStandardMaterial({ color: 0x000027, transparent: true, opacity: 0.1 })
+    new THREE.MeshStandardMaterial({ color: 0x000027, transparent: true, opacity: 0.25 })
   );
-  // scene.add(earth);
+  scene.add(earth);
+  bodies.earth = earth;
 
   /* Add User container */
   const user = new THREE.Group();
@@ -303,48 +304,74 @@ const init = () => {
 
 /* Update */
 
-// const lastUpdate = {
-//   ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
-//   rotation: { x: 0, y: 0, z: 0 },
-//   user: { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
-// };
+var lastUpdate = {
+  ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
+  user: { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
+};
 var worldPosition = new THREE.Vector3();
+var worldDirection = new THREE.Vector3();
 const update = (
   user = { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
   ISS = { latitude: 0, longitude: 0, altitude: 0 },
 ) => {
-  // ISS.latitude = 28.4286111111;
-  // ISS.longitude = -81.3086111111;
-  // ISS.latitude = 28.5728722;
-  // ISS.longitude = -80.6489808;
-  // ISS.latitude = 90;
-  // ISS.longitude = 0;
-  // ISS.altitude = 405;
-  // user.latitude = 28.5728722;
-  // user.longitude = -80.6489808;
-  // user.altitude = 405;
-
   const userCoords = latLongToCartesian(user);
   const coords = latLongToCartesian(ISS);
 
+  const ISSMoved = ISS.latitude !== lastUpdate.ISS.latitude || ISS.longitude !== lastUpdate.ISS.longitude;
+  const userMoved = user.latitude !== lastUpdate.user.latitude || user.longitude !== lastUpdate.user.longitude;
+  const userTurned = user.pitch !== lastUpdate.user.pitch || user.yaw !== lastUpdate.user.yaw;
+
   // Move ISS to its correct location in world coords, rotate so its facing is correct
-  bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-  bodies.ISSWithLights.lookAt(0, 0, 0);
+  if (ISSMoved) {
+    bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
+    bodies.ISSWithLights.lookAt(0, 0, 0);
+  }
 
   // Move the user to his correct location in world coords
-  bodies.user.position.set(userCoords.x, userCoords.y, userCoords.z);
-  bodies.user.lookAt(0, 0, 0);
+  if (userMoved) {
+    bodies.user.position.set(userCoords.x, userCoords.y, userCoords.z);
+    bodies.user.lookAt(0, 0, 0);
+  }
 
   // Rotate the camera based on compass heading and device tilt
-  bodies.cameraRotationAxis.rotation.z = user.yaw * Math.PI / 180.0;
-  bodies.cameraTiltAxis.rotation.x = -user.pitch * Math.PI / 180.0;
+  if (userTurned) {
+    bodies.cameraRotationAxis.rotation.z = user.yaw * Math.PI / 180.0;
+    bodies.cameraTiltAxis.rotation.x = -user.pitch * Math.PI / 180.0;
+  }
 
   // Rotate cone so it points at ISS
+  scene.updateMatrixWorld();
   worldPosition.setFromMatrixPosition(bodies.conePosition.matrixWorld);
-  bodies.coneGimball.position.set(worldPosition.x, worldPosition.y, worldPosition.z);
-  bodies.coneGimball.lookAt(coords.x, coords.y, coords.z);
+  if (ISSMoved || userMoved || userTurned) {
+    bodies.coneGimball.position.set(worldPosition.x, worldPosition.y, worldPosition.z);
+    bodies.coneGimball.lookAt(coords.x, coords.y, coords.z);
+  }
+
+  // Determine ISS visibility
+  var state = 'OBSCURED';
+  bodies.coneGimball.getWorldDirection(worldDirection);
+  const ray = new THREE.Raycaster(worldPosition, worldDirection);
+  if (ray.intersectObject(bodies.earth).length === 0) {
+    state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+  }
+  if (state !== lastUpdate.ISS.state) {
+    console.log(state);
+    ISSGeometries.forEach((part) => {
+      if (bodies.ISSParts[part.part]) {
+        bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+      }
+    });
+  }
 
   renderer.render(scene, camera);
+
+  lastUpdate.user.latitude = user.latitude;
+  lastUpdate.user.longitude = user.longitude;
+  lastUpdate.user.pitch = user.pitch;
+  lastUpdate.user.yaw = user.yaw;
+  lastUpdate.ISS.latitude = ISS.latitude;
+  lastUpdate.ISS.longitude = ISS.longitude;
+  lastUpdate.ISS.state = state;
 };
 
 export default { init, update };
