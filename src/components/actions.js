@@ -29,7 +29,6 @@ export const updateISSDistance = distance => ({
 });
 
 export const updateISSOver = over => {
-  console.log(over);
   return {
     type: UPDATE_ISS_OVER,
     over

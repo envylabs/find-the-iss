@@ -13,7 +13,6 @@ import 'rxjs/add/operator/throttleTime';
 import {
   distanceToHorizon,
   latLongToCartesian,
-  latToRadius,
   meanRadiusOfEarth,
   radiansToNorthPole,
 } from 'utils/geodesy';
@@ -37,7 +36,9 @@ import nz from 'textures/nz.jpg';
 
 /* Settings */
 
-const ISSScale = 300;
+const ISSScale = 100;
+const ballScale = 1;
+const coneScale = 0.1;
 
 const ghostMaterial = new THREE.MeshBasicMaterial({
   color: new THREE.Color('#fff'),
@@ -159,13 +160,6 @@ const lights = [
   },
 ];
 
-/* Constants */
-
-const radian = Math.PI / 180;
-const maxX = latLongToCartesian({ latitude: 0, longitude: 0 }).x;
-const maxY = latLongToCartesian({ latitude: 90, longitude: 0 }).y;
-const maxZ = latLongToCartesian({ latitude: 0, longitude: -90 }).z;
-
 /* Objects */
 
 const bodies = { ISSParts: {} };
@@ -178,7 +172,12 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   meanRadiusOfEarth * 2.5,
 );
-camera.position.set(0, 0.5, 0); // epsilon—shows axes helpers
+// const camera2 = new THREE.PerspectiveCamera(
+//   85,
+//   window.innerWidth / window.innerHeight,
+//   0.1,
+//   meanRadiusOfEarth * 5,
+// );
 
 /* Scene */
 
@@ -189,7 +188,9 @@ const renderer = new THREE.WebGLRenderer({
   antialias: true,
 });
 const scene = new THREE.Scene();
-scene.add(camera); // necessary for sticky UI
+// scene.add(camera2);
+// camera2.position.z = -meanRadiusOfEarth * 2;
+// camera2.lookAt(0, 0, 0);
 
 /* Create Bodies */
 
@@ -198,23 +199,6 @@ const createBodies = () => {
 
   const ISS = new THREE.Group(); // Just the ISS (no lights)
   bodies.ISS = ISS;
-
-  /* Add world rotation (The ship stays where it is, and the dark matter engines move the universe around it, etc.) */
-
-  const world = new THREE.Group();
-  bodies.world = world;
-  scene.add(world);
-
-  /* Add horizon */
-
-  const horizonLine = distanceToHorizon();
-  const horizon = new THREE.Mesh(
-    new THREE.CylinderBufferGeometry(horizonLine, horizonLine, 0.5, 32),
-    new THREE.MeshStandardMaterial({ transparent: true, opacity: 0 }),
-  );
-  horizon.position.y = -0.251;
-  bodies.horizon = horizon;
-  scene.add(horizon);
 
   /* Add ISS Parts */
 
@@ -237,8 +221,7 @@ const createBodies = () => {
 
   const ISSWithLights = new THREE.Group(); // Allows lights to move with station
   ISSWithLights.add(ISS);
-  ISSWithLights.position.x = meanRadiusOfEarth;
-  bodies.world.add(ISSWithLights);
+  scene.add(ISSWithLights);
   bodies.ISSWithLights = ISSWithLights;
 
   lights.forEach(({ light, position = null }) => {
@@ -248,66 +231,44 @@ const createBodies = () => {
     }
   });
 
-  /* Add Helpers */
+  /* Add earth sphere */
+  const earth = new THREE.Mesh(
+    new THREE.SphereGeometry(meanRadiusOfEarth, 50, 50),
+    new THREE.MeshStandardMaterial({ color: 0x000027, transparent: true, opacity: 0.25 })
+  );
+  scene.add(earth);
+  bodies.earth = earth;
 
-  // const nullIsland = new THREE.Mesh(
-  //   new THREE.SphereGeometry(100, 16, 16),
-  //   new THREE.MeshBasicMaterial({ color: 0xffffff }),
-  // );
-  // bodies.world.add(nullIsland);
-  // const nullIslandCoords = latLongToCartesian({ latitude: 0, longitude: 0 });
-  // nullIsland.position.set(nullIslandCoords.x, nullIslandCoords.y, nullIslandCoords.z);
-
-  // /* Add N/S/E/W markers */
-  // const boreas = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0x0000ff }),
-  // );
-  // const eurus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0xff8000 }),
-  // );
-  // const notus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0x00ff80 }),
-  // );
-  // const zephyrus = new THREE.Mesh(
-  //   new THREE.BoxBufferGeometry(10, 1000, 10),
-  //   new THREE.MeshBasicMaterial({ color: 0xff00ff }),
-  // );
-  // bodies.boreas = boreas;
-  // bodies.eurus = eurus;
-  // bodies.notus = notus;
-  // bodies.zephyrus = zephyrus;
-  // bodies.world.add(boreas, eurus, notus, zephyrus);
-
-  /* Add position helper */
-
-  // const userPoint = new THREE.Mesh(
-  //   new THREE.SphereGeometry(10, 16, 16),
-  //   new THREE.MeshBasicMaterial({ color: 0xff0000 }),
-  // );
-  // bodies.userPoint = userPoint;
-  // bodies.world.add(userPoint);
+  /* Add User container */
+  const user = new THREE.Group();
+  const cameraRotationAxis = new THREE.Group();
+  const cameraTiltAxis = new THREE.Group();
+  user.add(cameraRotationAxis);
+  cameraRotationAxis.add(cameraTiltAxis);
+  cameraTiltAxis.add(camera);
+  camera.rotation.x = 90 * Math.PI / 180.0;
+  camera.rotation.z = 180 * Math.PI / 180.0;
+  scene.add(user);
+  bodies.user = user;
+  bodies.cameraRotationAxis = cameraRotationAxis;
+  bodies.cameraTiltAxis = cameraTiltAxis;
 
   /* Add Pointer */
-
+  const conePosition = new THREE.Group();
+  const coneGimball = new THREE.Group();
   const cone = new THREE.Mesh(
     new THREE.ConeBufferGeometry(0.25, 1, 16),
     new THREE.MeshStandardMaterial({ color: 0xffc927 }),
   );
-  cone.rotation.x = -Math.PI / 2;
-
-  const coneGimball = new THREE.Group();
+  conePosition.scale.set(ballScale, ballScale, ballScale);
+  cone.scale.set(coneScale, coneScale, coneScale);
   coneGimball.add(cone);
-  const coneContainer = new THREE.Group();
-  coneContainer.add(coneGimball);
-  camera.add(coneContainer);
-  coneContainer.position.z = -10;
-
-  bodies.cone = cone;
+  cone.rotation.x = 90 * Math.PI / 180.0;
+  camera.add(conePosition);
+  conePosition.position.z = -1;
+  scene.add(coneGimball);
+  bodies.conePosition = conePosition;
   bodies.coneGimball = coneGimball;
-  bodies.coneContainer = coneContainer;
 };
 
 /* Resize renderer */
@@ -331,7 +292,6 @@ const init = () => {
 
   createBodies();
 
-  scene.add(new THREE.AxesHelper(100));
   scene.updateMatrixWorld();
 
   Observable.fromEvent(window, 'resize')
@@ -344,101 +304,74 @@ const init = () => {
 
 /* Update */
 
-const lastUpdate = {
+var lastUpdate = {
   ISS: { latitude: 0, longitude: 0, altitude: 0, state: 'OBSCURED' },
-  rotation: { x: 0, y: 0, z: 0 },
   user: { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
 };
-let firstFrame = 0;
+var worldPosition = new THREE.Vector3();
+var worldDirection = new THREE.Vector3();
 const update = (
   user = { latitude: 0, longitude: 0, altitude: 0, pitch: 0, yaw: 0 },
   ISS = { latitude: 0, longitude: 0, altitude: 0 },
 ) => {
-  /* Necessary updates */
+  const userCoords = latLongToCartesian(user);
+  const coords = latLongToCartesian(ISS);
 
-  const thisFrame = window.performance.now();
+  const ISSMoved = ISS.latitude !== lastUpdate.ISS.latitude || ISS.longitude !== lastUpdate.ISS.longitude;
+  const userMoved = user.latitude !== lastUpdate.user.latitude || user.longitude !== lastUpdate.user.longitude;
+  const userTurned = user.pitch !== lastUpdate.user.pitch || user.yaw !== lastUpdate.user.yaw;
 
-  camera.rotation.set(user.pitch * radian, -user.yaw * radian, 0, 'ZYX'); // set user camera
-
-  // if (bodies.ISS) {
-  //   bodies.ISS.rotation.x += 0.005;
-  // }
-
-  /* Conditional updates */
-
-  // TODO: calculate ISS position on-screen (x, y) for cone
-
-  // Skip world rotation if user hasn’t moved
-  if (lastUpdate.user.longitude !== user.longitude || lastUpdate.user.latitude !== user.latitude) {
-    firstFrame = window.performance.now();
-    const userCoords = latLongToCartesian(user);
-    const rotation = radiansToNorthPole(user);
-
-    bodies.world.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-    bodies.world.position.y = -latToRadius(user.latitude);
-    bodies.coneGimball.rotation.set(rotation.x, rotation.y, 0, 'YXZ');
-
-    lastUpdate.user.latitude = user.latitude;
-    lastUpdate.user.longitude = user.longitude;
-
-    // /* Helpers */
-    // const boreasCoords = latLongToCartesian({ latitude: user.latitude + 0.1, longitude: user.longitude });
-    // const notusCoords = latLongToCartesian({ latitude: user.latitude - 0.1, longitude: user.longitude });
-    // const eurusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude + 0.1 });
-    // const zephyrusCoords = latLongToCartesian({ latitude: user.latitude, longitude: user.longitude - 0.1 });
-
-    // bodies.boreas.position.set(boreasCoords.x, boreasCoords.y, boreasCoords.z);
-    // bodies.boreas.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.notus.position.set(notusCoords.x, notusCoords.y, notusCoords.z);
-    // bodies.notus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.eurus.position.set(eurusCoords.x, eurusCoords.y, eurusCoords.z);
-    // bodies.eurus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-    // bodies.zephyrus.position.set(zephyrusCoords.x, zephyrusCoords.y, zephyrusCoords.z);
-    // bodies.zephyrus.rotation.set(-rotation.x, -rotation.y, -rotation.z, 'YXZ');
-
-    // console.log(boreasCoords);
-    // bodies.userPoint.position.set(userCoords.x, userCoords.y, userCoords.z);
+  // Move ISS to its correct location in world coords, rotate so its facing is correct
+  if (ISSMoved) {
+    bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
+    bodies.ISSWithLights.lookAt(0, 0, 0);
   }
 
-  // Skip ISS repositioning if no new location
-  if ((lastUpdate.ISS.longitude !== ISS.longitude) && bodies.ISSWithLights) {
-    const coords = latLongToCartesian(ISS);
-    bodies.ISSWithLights.position.set(coords.x, coords.y, coords.z);
-    const ISSPos = new THREE.Vector3();
-    ISSPos.setFromMatrixPosition(bodies.ISSWithLights.matrixWorld);
-    lastUpdate.ISS = {
-      ...lastUpdate.ISS,
-      latitude: ISS.latitude, longitude: ISS.longitude,
-      position: ISSPos,
-    };
+  // Move the user to his correct location in world coords
+  if (userMoved) {
+    bodies.user.position.set(userCoords.x, userCoords.y, userCoords.z);
+    bodies.user.lookAt(0, 0, 0);
+  }
 
-    const ray = new THREE.Raycaster(new THREE.Vector3(), lastUpdate.ISS.position);
-    let state = 'OBSCURED';
-    if (ray.intersectObject(bodies.horizon).length === 0) {
-      state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
-    }
-    lastUpdate.ISS.state = state;
+  // Rotate the camera based on compass heading and device tilt
+  if (userTurned) {
+    bodies.cameraRotationAxis.rotation.z = user.yaw * Math.PI / 180.0;
+    bodies.cameraTiltAxis.rotation.x = -user.pitch * Math.PI / 180.0;
+  }
+
+  // Rotate cone so it points at ISS
+  scene.updateMatrixWorld();
+  worldPosition.setFromMatrixPosition(bodies.conePosition.matrixWorld);
+  if (ISSMoved || userMoved || userTurned) {
+    bodies.coneGimball.position.set(worldPosition.x, worldPosition.y, worldPosition.z);
+    bodies.coneGimball.lookAt(coords.x, coords.y, coords.z);
+  }
+
+  // Determine ISS visibility
+  var state = 'OBSCURED';
+  bodies.coneGimball.getWorldDirection(worldDirection);
+  const ray = new THREE.Raycaster(worldPosition, worldDirection);
+  if (ray.intersectObject(bodies.earth).length === 0) {
+    state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+  }
+  if (state !== lastUpdate.ISS.state) {
+    console.log(state);
     ISSGeometries.forEach((part) => {
-      bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+      if (bodies.ISSParts[part.part]) {
+        bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
+      }
     });
   }
 
-  if (bodies.coneContainer && bodies.ISSWithLights) {
-    bodies.coneContainer.rotation.set(
-      -camera.rotation.x,
-      -camera.rotation.y,
-      -camera.rotation.z,
-    );
-  }
-
   renderer.render(scene, camera);
-};
 
-// console.log(latLongToCartesian({ latitude: 28.54364, longitude: -81.3768944 }), radiansToNorthPole({ latitude: 28.54364, longitude: -81.3768944 })); // Orlando
-// console.log(latLongToCartesian({ latitude: 39.739236, longitude: -104.990251 }), radiansToNorthPole({ latitude: 39.739236, longitude: -104.990251 })); // Denver
-// console.log(latLongToCartesian({ latitude: 48.856614, longitude: 2.35222 }), radiansToNorthPole({ latitude: 48.856614, longitude: 2.35222 })); // Paris
-// console.log(latLongToCartesian({ latitude: 54.597285, longitude: -5.930120 }), radiansToNorthPole({ latitude: 54.597285, longitude: -5.930120 })); // Belfast
-// console.log(latLongToCartesian({ latitude: -33.924869, longitude: 18.424055 }), radiansToNorthPole({ latitude: -33.924869, longitude: 18.424055 })); // Cape Town
-// console.log(latLongToCartesian({ latitude: -36.848460, longitude: 174.763332 }), radiansToNorthPole({ latitude: -36.848460, longitude: 174.763332 })); // Auckland
+  lastUpdate.user.latitude = user.latitude;
+  lastUpdate.user.longitude = user.longitude;
+  lastUpdate.user.pitch = user.pitch;
+  lastUpdate.user.yaw = user.yaw;
+  lastUpdate.ISS.latitude = ISS.latitude;
+  lastUpdate.ISS.longitude = ISS.longitude;
+  lastUpdate.ISS.state = state;
+};
 
 export default { init, update };
