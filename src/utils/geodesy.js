@@ -50,7 +50,7 @@ const latLongToCartesian = ({ latitude, longitude, altitude = 0 }) => {
   var y = (rad * C + h) * cosLat * sinLon;
   var z = (rad * S + h) * sinLat;
 
-  return {x, y, z};
+  return {x: -x, y: z, z: y};
 };
 
 const latToRadius = (latitude) => {
