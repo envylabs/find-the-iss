@@ -11,23 +11,23 @@ const Tracker = ({ dispatch, ...props }) => (
     <div className="tracker">
       <div className="tracker-toggle">
         {!props.isTrackerOpen && (
-          <button className="tracker-button" onClick={() => dispatch(openTracker())}>
+          <button className="tracker-button tracker-button--globe" onClick={() => dispatch(openTracker())}>
             <Globe small />
           </button>
         )}
         {props.isTrackerOpen && (
-          <button className="tracker-button" onClick={() => dispatch(closeTracker())}>
-            <Close width="32" />
+          <button className="tracker-button tracker-button--close" onClick={() => dispatch(closeTracker())}>
+            <Close />
           </button>
         )}
       </div>
       <div className="tracker-location">
-        <h2 className="tracker-heading">
+        <h2>
           <span>Current Location</span>
         </h2>
         <div className="tracker-readout">
-          <span className="tracker-region">{props.ISSOver}</span>&nbsp;
-          <span className="tracker-distance">// {`${props.ISSDistance} km`}</span>
+          <span>{props.ISSOver}</span>
+          <span className="tracker-readout-distance">{`${props.ISSDistance} km`}</span>
         </div>
       </div>
     </div>

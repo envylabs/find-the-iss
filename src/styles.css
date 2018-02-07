@@ -493,27 +493,32 @@ svg {
  */
 
 .tracker {
-  bottom: var(--grid);
+  bottom: calc(0.5 * var(--grid));
   box-shadow: inset 1px -1px var(--white);
   display: flex;
-  left: var(--grid);
-  padding-right: var(--grid);
+  left: calc(0.5 * var(--grid));
   position: fixed;
-  right: var(--grid);
+  right: calc(0.5 * var(--grid));
   z-index: 81;
+  & h2 {
+    margin-bottom: calc(0.1 * var(--grid));
+  }
 }
 
 /* Submodules */
 
 .tracker-button {
-  height: calc(2 * var(--grid));
-  outline: none;
-  padding: calc(0.25 * var(--grid));
-  width: calc(2 * var(--grid));
+  border-radius: 50%;
+  height: calc(1.5 * var(--grid));
+  width: calc(1.5 * var(--grid));
 }
 
-.tracker-distance {
-  display: inline-block;
+.tracker-button--close {
+  background-color: var(--yellow);
+  & svg {
+    fill: var(--black);
+    width: 14px;
+  }
 }
 
 .tracker-fullscreen {
@@ -533,24 +538,24 @@ svg {
   z-index: 80;
 }
 
-.tracker-heading {
-  margin-bottom: calc(0.2 * var(--grid));
-}
-
 .tracker-location {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 1.35;
+  flex-grow: 1;
+  overflow: hidden;
   padding-left: calc(0.5 * var(--grid));
 }
 
 .tracker-readout {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+  & span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
-.tracker-region {
-  display: inline-block;
+.tracker-readout-distance {
+  font-size: var(--down2);
 }
 
 .tracker-toggle {
@@ -558,6 +563,7 @@ svg {
   box-shadow: inset -1px 1px var(--white);
   display: flex;
   justify-content: center;
+  padding: calc(0.25 * var(--grid));
 }
 
 
