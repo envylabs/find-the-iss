@@ -39,11 +39,11 @@ const Start = ({ dispatch, ...props }) => (
       <div className="start-body">
         <h1>Find the ISS</h1>
         <p>
-          A WebAR experiment that relies on the open source{' '}
+          Find the ISS is a WebAR experiment that utilizes the{' '}
           <a href="http://wheretheiss.at/" target="_blank" rel="noopener noreferrer">
             Where The ISS At?
           </a>{' '}
-          API to track the ISS.
+          API to track the International Space Station’s position.
         </p>
         <p>
           Made by{' '}
@@ -53,23 +53,18 @@ const Start = ({ dispatch, ...props }) => (
         </p>
         <p>Browsers supported:</p>
         <ul>
-          <li>iOS 11</li>
+          <li>iOS (11+)</li>
           <li>Chrome Android</li>
         </ul>
+        <div>
+          <button
+            className="start-button"
+            onClick={() => dispatch(closeStart())}
+          >
+            Launch App
+          </button>
+        </div>
       </div>
-    </div>
-    <div>
-      <button
-        className="start-button"
-        onClick={() => dispatch(closeStart())}
-        style={{
-          opacity: props.isStartOpen ? '1' : '0',
-          transition: 'opacity 250ms linear, transform 500ms linear',
-          transform: props.isStartOpen ? '' : 'translateY(50%)'
-        }}
-      >
-        Launch App
-      </button>
     </div>
   </div>
 );
