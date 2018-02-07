@@ -183,13 +183,9 @@ svg {
   background: black;
   border-radius: 50%;
   box-shadow: inset 0 0 0 4px var(--yellow);
-  height: calc(100vmin - 72px);
+  height: calc(80vmin - 72px);
   position: relative;
-  width: calc(100vmin - 72px);
-  @media (min-width: 40em) {
-    height: calc(100vmin - 144px);
-    width: calc(100vmin - 144px);
-  }
+  width: calc(80vmin - 72px);
 }
 
 /* Modifiers */
@@ -274,9 +270,6 @@ svg {
 }
 
 .globe-trace {
-  animation-name: draw;
-  animation-duration: 5s;
-  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
   background-image: radial-gradient(
     circle at 1px 1px,
     white 2px,
@@ -284,12 +277,10 @@ svg {
   );
   background-repeat: repeat-y;
   background-size: 4px 8px;
-  height: calc(50% + 96px);
   left: 50%;
   margin-left: -1px;
   position: absolute;
-  top: -96px;
-  transform-origin: 50% 0;
+  top: calc(-0.25 * var(--grid));
   transition: height 5s;
   width: 2px;
   z-index: 10;
@@ -316,8 +307,8 @@ svg {
   left: 50%;
   position: absolute;
   top: 0;
-  transform: translate(-50%, -128px);
-  width: 25vw;
+  transform: translate(-50%, calc(-1.5 * var(--grid)));
+  width: calc(2 * var(--grid));
   z-index: 10;
 }
 

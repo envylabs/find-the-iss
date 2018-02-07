@@ -14,7 +14,7 @@ const Globe = ({ small, x = -50, y }) => (
       />
       <div
         className="globe-trace"
-        style={{ height: `calc(${y + 50}% + 96px)` }}
+        style={{ height: `calc(${y + 50}% - 9px)` }}
       />
       </div>
     }
