@@ -69,8 +69,8 @@ export default class Stars extends React.Component {
       s.x += s.vx / 60;
       s.y += s.vy / 60;
 
-      if (s.x < 0 || s.x > this.canvas.width) s.x = -s.x;
-      if (s.y < 0 || s.y > this.canvas.height) s.y = -s.y;
+      if (s.x < 0 || s.x > this.canvas.width) s.x = -s.x + this.canvas.width;
+      if (s.y < 0 || s.y > this.canvas.height) s.y = -s.y + this.canvas.height;
     }
   }
 
