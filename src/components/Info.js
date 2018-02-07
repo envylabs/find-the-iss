@@ -9,14 +9,14 @@ import ISS from '../assets/ISS.png';
 
 const Info = ({ dispatch, ...props }) => (
   <div className="info">
-    <button className="info-button info-open" onClick={() => dispatch(openInfo())}>
+    <button className="info-button info-button--open" onClick={() => dispatch(openInfo())}>
       <Question />
     </button>
     {props.isInfoOpen && (
       <div>
         <div className="info-fullscreen">
           <Stars />
-          <button className="info-button" onClick={() => dispatch(closeInfo())}>
+          <button className="info-button info-button--close" onClick={() => dispatch(closeInfo())}>
             <Close />
           </button>
           <div className="info-content">
