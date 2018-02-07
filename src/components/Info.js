@@ -25,15 +25,15 @@ const Info = ({ dispatch, ...props }) => (
               <span>About This Project</span>
             </h2>
             <p>
-              Find the ISS is a WebAR experiment that relies on the open-source{' '}
+              Find the ISS is a WebAR experiment that utilizes the{' '}
               <a href="http://wheretheiss.at/" target="_blank" rel="noopener noreferrer">
                 Where The ISS At?
               </a>{' '}
-              API to track the ISS. The WebAR concepts are custom-built using{' '}
+              API to track the International Space Station’s position.{' '}
               <a href="https://github.com/mrdoob/three.js/" target="_blank" rel="noopener noreferrer">
                 Three.js
               </a>{' '}
-              and WebRTC, but concepts were pulled from{' '}
+              and WebRTC are included, with inspiration drawn from{' '}
               <a href="https://github.com/jeromeetienne/ar.js" target="_blank" rel="noopener noreferrer">
                 AR.js
               </a>.
@@ -44,9 +44,9 @@ const Info = ({ dispatch, ...props }) => (
                 Envy Labs
               </a>.
             </p>
-            <p>Browsers supported:</p>
+            <p>Browser support:</p>
             <ul>
-              <li>iOS 11</li>
+              <li>iOS (11+)</li>
               <li>Chrome Android</li>
             </ul>
           </div>
