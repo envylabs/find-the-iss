@@ -6,16 +6,16 @@ import ISS from 'assets/ISS.png';
 const Globe = ({ small, x = -50, y }) => (
   <div className={`globe${small ? ' globe--small' : ''}`}>
     {small ||
-      <div>
-      <img
-        alt="International Space Station"
-        className="globe-iss"
-        src={ISS}
-      />
-      <div
-        className="globe-trace"
-        style={{ height: `calc(${y + 50}% - 9px)` }}
-      />
+      <div className="globe-tracecontainer">
+        <img
+          alt="International Space Station"
+          className="globe-iss"
+          src={ISS}
+        />
+        <div
+          className="globe-trace"
+          style={{ bottom: `${50 - y}%` }}
+        />
       </div>
     }
     <div className="globe-crop">

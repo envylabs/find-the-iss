@@ -269,21 +269,26 @@ svg {
   width: 619.60074%;
 }
 
-.globe-trace {
-  background-image: radial-gradient(
-    circle at 1px 1px,
-    white 2px,
-    transparent 2px
-  );
-  background-repeat: repeat-y;
-  background-size: 4px 8px;
+.globe-iss {
+  height: auto;
   left: 50%;
-  margin-left: -1px;
   position: absolute;
-  top: calc(-0.25 * var(--grid));
-  transition: height 5s;
-  width: 2px;
+  top: 0;
+  transform: translate(-50%, calc(-6vmin - var(--grid)));
+  width: calc(2 * var(--grid));
   z-index: 10;
+}
+
+.globe-markercontainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 5s;
+  width: 100%;
 }
 
 .globe-marker {
@@ -302,26 +307,29 @@ svg {
   }
 }
 
-.globe-iss {
-  height: auto;
-  left: 50%;
+.globe-tracecontainer {
+  bottom: 5vmin;
+  left: 5vmin;
   position: absolute;
-  top: 0;
-  transform: translate(-50%, calc(-1.5 * var(--grid)));
-  width: calc(2 * var(--grid));
-  z-index: 10;
+  right: 5vmin;
+  top: 5vmin;
 }
 
-.globe-markercontainer {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  left: 0;
+.globe-trace {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    white 2px,
+    transparent 2px
+  );
+  background-repeat: repeat-y;
+  background-size: 4px 8px;
+  left: 50%;
+  margin-left: -1px;
   position: absolute;
-  top: 0;
-  transition: transform 5s;
-  width: 100%;
+  top: calc(-6vmin + 4px);
+  transition: bottom 5s;
+  width: 2px;
+  z-index: 10;
 }
 
 
