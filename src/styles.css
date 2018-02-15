@@ -313,6 +313,7 @@ svg {
   position: absolute;
   right: 5vmin;
   top: 5vmin;
+  z-index: 20;
 }
 
 .globe-trace {
@@ -329,7 +330,6 @@ svg {
   top: calc(-6vmin + 4px);
   transition: bottom 5s;
   width: 2px;
-  z-index: 10;
 }
 
 
