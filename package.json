@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "rm -rf dist && webpack --config config/webpack.prod.js",
+    "deploy": "aws s3 sync dist s3://findtheiss.envylabs.com/ --acl public-read",
     "ngrok": "ngrok http --host-header=rewrite 8080",
     "test": "jest",
     "start": "webpack-dev-server --port 8080 --hot --host 0.0.0.0 --config config/webpack.dev.js"
