@@ -308,11 +308,11 @@ svg {
 }
 
 .globe-tracecontainer {
-  bottom: 5vmin;
-  left: 5vmin;
+  bottom: 3vmin;
+  left: 3vmin;
   position: absolute;
-  right: 5vmin;
-  top: 5vmin;
+  right: 3vmin;
+  top: 3vmin;
   z-index: 20;
 }
 
