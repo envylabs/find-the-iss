@@ -44,14 +44,25 @@ usual `localhost`.
 
 # Deployment
 
-To build the site:
+Deployment uses AWS. To deploy to production, first install
+[aws-cli](https://github.com/aws/aws-cli):
+
+```
+brew install awscli
+```
+
+Then configure with the **MadeWithEnvySiteUploader** credentials from 1Password
+
+```
+aws configure
+AWS Access Key ID: [your access key]
+AWS Secret Access Key: [your secret access key]
+```
 
 ```
 yarn build
+yarn deploy
 ```
-
-All files will be exported to `/dist`. From there, this site uses the
-`gh-pages` branch…
 
 …
 
