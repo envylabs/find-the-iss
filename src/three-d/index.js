@@ -36,7 +36,8 @@ import nz from 'textures/nz.jpg';
 
 /* Settings */
 
-const ISSScale = 100;
+const ISSScaleMin = 100;
+const ISSScaleMax = 200;
 const ballScale = 1;
 const coneScale = 0.1;
 
@@ -205,7 +206,7 @@ const createBodies = () => {
   ISSGeometries.forEach((part) => {
     new THREE.STLLoader().load(part.geometry, (geometry) => {
       const ISSPart = new THREE.Mesh(geometry, getISSMaterial(part.part));
-      ISSPart.scale.set(ISSScale, ISSScale, ISSScale);
+      // ISSPart.scale.set(ISSScale, ISSScale, ISSScale);
       bodies.ISS.add(ISSPart);
       bodies.ISSParts[part.part] = ISSPart;
     });
@@ -227,7 +228,8 @@ const createBodies = () => {
   lights.forEach(({ light, position = null }) => {
     bodies.ISSWithLights.add(light);
     if (position && light.isPointLight) {
-      light.position.set(position.x * ISSScale, position.y * ISSScale, position.z * ISSScale);
+      // light.position.set(position.x * ISSScale, position.y * ISSScale, position.z * ISSScale);
+      light.position.set(position.x, position.y, position.z);
     }
   });
 
@@ -347,15 +349,21 @@ const update = (
     bodies.coneGimball.lookAt(coords.x, coords.y, coords.z);
   }
 
-  // Determine ISS visibility
-  var state = 'OBSCURED';
-  bodies.coneGimball.getWorldDirection(worldDirection);
-  const ray = new THREE.Raycaster(worldPosition, worldDirection);
-  if (ray.intersectObject(bodies.earth).length === 0) {
-    state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+  // Scale the ISS model so that it's not so small when it's very far away
+  if (ISSMoved || userMoved) {
+    var distance = bodies.user.position.distanceTo(bodies.ISSWithLights.position);
+    var scale = (distance / meanRadiusOfEarth) * (ISSScaleMax - ISSScaleMin) + ISSScaleMin;
+    bodies.ISSWithLights.scale.set(scale, scale, scale);
   }
+
+  // Determine ISS visibility. For now, always use the daytime ISS model.
+  var state = 'DAY';
+  // bodies.coneGimball.getWorldDirection(worldDirection);
+  // const ray = new THREE.Raycaster(worldPosition, worldDirection);
+  // if (ray.intersectObject(bodies.earth).length === 0) {
+  //   state = ISS.visibility === 'daylight' ? 'DAY' : 'NIGHT';
+  // }
   if (state !== lastUpdate.ISS.state) {
-    console.log(state);
     ISSGeometries.forEach((part) => {
       if (bodies.ISSParts[part.part]) {
         bodies.ISSParts[part.part].material = getISSMaterial(part.part, state);
